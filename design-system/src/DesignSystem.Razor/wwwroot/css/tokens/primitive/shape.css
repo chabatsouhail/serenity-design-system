@@ -1,0 +1,12 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-shape-radius-6: 6px;
+        --design-system-primitive-shape-radius-8: 8px;
+        --design-system-primitive-shape-radius-10: 10px;
+        --design-system-primitive-shape-radius-12: 12px;
+        --design-system-primitive-shape-radius-999: 999px;
+        --design-system-primitive-shape-border-width-0-5: .5px;
+        --design-system-primitive-shape-border-width-1: 1px;
+        --design-system-primitive-shape-border-width-2: 2px;
+    }
+}

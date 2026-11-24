@@ -1,0 +1,98 @@
+@{
+    var requestPath = Context.Request.Path.Value?.TrimEnd('/') ?? string.Empty;
+    if (string.IsNullOrEmpty(requestPath))
+    {
+        requestPath = "/";
+    }
+
+    bool IsCurrent(string path) => string.Equals(requestPath, path, StringComparison.OrdinalIgnoreCase);
+    var isDiscover = IsCurrent("/") || requestPath.StartsWith("/discover/", StringComparison.OrdinalIgnoreCase);
+    var isFoundations = requestPath.StartsWith("/foundations/", StringComparison.OrdinalIgnoreCase);
+    var isComponents = requestPath.StartsWith("/components/", StringComparison.OrdinalIgnoreCase);
+}
+
+<nav class="design-system-navigation-tree"
+     id="documentation-navigation-tree"
+     data-design-system-persist-key="design-system-documentation-navigation"
+     aria-label="Documentation sections">
+    <ul class="design-system-navigation-list">
+        <li>
+            <details class="design-system-navigation-branch" open="@isDiscover">
+                <summary class="design-system-navigation-summary" data-design-system-level="top">
+                    <design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    <span>Discover</span>
+                </summary>
+                <ul class="design-system-navigation-list">
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/" aria-current="@(IsCurrent("/") ? "page" : null)">Overview</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/discover/tokens" aria-current="@(IsCurrent("/discover/tokens") ? "page" : null)">Tokens</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/discover/getting-started" aria-current="@(IsCurrent("/discover/getting-started") ? "page" : null)">Getting Started</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/discover/version-control" aria-current="@(IsCurrent("/discover/version-control") ? "page" : null)">Version Control</a></li>
+                </ul>
+            </details>
+        </li>
+
+        <li>
+            <details class="design-system-navigation-branch" open="@isFoundations">
+                <summary class="design-system-navigation-summary" data-design-system-level="top">
+                    <design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    <span>Foundations</span>
+                </summary>
+                <ul class="design-system-navigation-list">
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/color" aria-current="@(IsCurrent("/foundations/color") ? "page" : null)">Color</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/typography" aria-current="@(IsCurrent("/foundations/typography") ? "page" : null)">Typography</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/spacing" aria-current="@(IsCurrent("/foundations/spacing") ? "page" : null)">Spacing</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/sizing" aria-current="@(IsCurrent("/foundations/sizing") ? "page" : null)">Sizing</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/layout" aria-current="@(IsCurrent("/foundations/layout") ? "page" : null)">Layout</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/shape" aria-current="@(IsCurrent("/foundations/shape") ? "page" : null)">Shape</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/elevation" aria-current="@(IsCurrent("/foundations/elevation") ? "page" : null)">Elevation</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/icons" aria-current="@(IsCurrent("/foundations/icons") ? "page" : null)">Icons</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/motion" aria-current="@(IsCurrent("/foundations/motion") ? "page" : null)">Motion</a></li>
+                    <li><a class="design-system-navigation-link" data-design-system-depth="1" href="/foundations/timing" aria-current="@(IsCurrent("/foundations/timing") ? "page" : null)">Timing</a></li>
+                </ul>
+            </details>
+        </li>
+
+        <li>
+            <details class="design-system-navigation-branch" open="@isComponents">
+                <summary class="design-system-navigation-summary" data-design-system-level="top">
+                    <design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    <span>Components</span>
+                </summary>
+                <ul class="design-system-navigation-list">
+                    @foreach (var group in ComponentCatalog.Groups)
+                    {
+                        var groupPath = $"/components/{group.Slug}/";
+                        var isCurrentGroup = requestPath.StartsWith(groupPath, StringComparison.OrdinalIgnoreCase);
+                        <li>
+                            <details class="design-system-navigation-branch" open="@isCurrentGroup">
+                                <summary class="design-system-navigation-summary" data-design-system-level="subgroup">
+                                    <design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                                    <span>@group.Name</span>
+                                </summary>
+                                <ul class="design-system-navigation-list">
+                                    @foreach (var component in group.Components)
+                                    {
+                                        var componentPath = $"/components/{group.Slug}/{component.Slug}";
+                                        <li><a class="design-system-navigation-link" data-design-system-depth="2" href="@componentPath" aria-current="@(IsCurrent(componentPath) ? "page" : null)">@component.Name</a></li>
+                                    }
+                                </ul>
+                            </details>
+                        </li>
+                    }
+                </ul>
+            </details>
+        </li>
+
+        <li>
+            <details class="design-system-navigation-branch">
+                <summary class="design-system-navigation-summary" data-design-system-level="top">
+                    <design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    <span>Patterns</span>
+                </summary>
+                <ul class="design-system-navigation-list">
+                    <li><span class="design-system-navigation-link" data-design-system-depth="1" role="link" aria-disabled="true">Overview</span></li>
+                </ul>
+            </details>
+        </li>
+    </ul>
+</nav>

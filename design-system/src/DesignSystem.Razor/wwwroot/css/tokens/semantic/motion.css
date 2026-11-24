@@ -1,0 +1,8 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-motion-interaction-scale-press: var(--design-system-primitive-motion-scale-0-97);
+        --design-system-semantic-motion-interaction-scale-press-compact: var(--design-system-primitive-motion-scale-0-95);
+        --design-system-semantic-motion-indicator-scale-hidden: var(--design-system-primitive-motion-scale-0-5);
+    }
+}
+

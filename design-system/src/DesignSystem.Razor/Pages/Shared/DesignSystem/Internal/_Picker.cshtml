@@ -1,0 +1,143 @@
+@model DesignSystem.Razor.Models.PickerModel
+@using DesignSystem.Razor.Contracts
+@{
+    if (Model is null)
+    {
+        throw new InvalidOperationException("The picker requires a model.");
+    }
+
+    if (string.IsNullOrWhiteSpace(Model.Id) || string.IsNullOrWhiteSpace(Model.Name) || string.IsNullOrWhiteSpace(Model.Label))
+    {
+        throw new InvalidOperationException("Picker id, name, and label are required.");
+    }
+
+    if (Model.Options is null || Model.Options.Any(option => string.IsNullOrWhiteSpace(option.Label)))
+    {
+        throw new InvalidOperationException("Every picker option requires a label.");
+    }
+
+    if (Model.Options.Any(option => string.IsNullOrWhiteSpace(option.Value)))
+    {
+        throw new InvalidOperationException("Every picker option requires a non-empty value; the empty value belongs to the placeholder.");
+    }
+
+    if (string.IsNullOrWhiteSpace(Model.Placeholder) || string.IsNullOrWhiteSpace(Model.NoResultsLabel) ||
+        (Model.Searchable && string.IsNullOrWhiteSpace(Model.SearchLabel)) ||
+        (Model.Required && string.IsNullOrWhiteSpace(Model.RequiredLabel)))
+    {
+        throw new InvalidOperationException("Picker placeholder and no-results labels are required.");
+    }
+
+    if (Model.Options.GroupBy(option => option.Value, StringComparer.Ordinal).Any(group => group.Count() > 1))
+    {
+        throw new InvalidOperationException("Picker option values must be unique.");
+    }
+
+    var selectedOption = Model.Options.FirstOrDefault(option => string.Equals(option.Value, Model.Value, StringComparison.Ordinal));
+    if (Model.Value is not null && selectedOption is null)
+    {
+        throw new InvalidOperationException("The picker value must match one of its options.");
+    }
+
+    var hintId = string.IsNullOrWhiteSpace(Model.Hint) ? null : $"{Model.Id}-hint";
+    var errorId = string.IsNullOrWhiteSpace(Model.Error) ? null : $"{Model.Id}-error";
+    var describedBy = string.Join(' ', new[] { hintId, errorId }.Where(value => value is not null));
+    var listboxId = $"{Model.Id}-listbox";
+    var triggerText = selectedOption?.Label ?? Model.Placeholder;
+    var presentation = Model.Presentation.ToContractValue();
+    var triggerVariant = (Model.Presentation == PickerPresentation.Inline ? ButtonVariant.Text : ButtonVariant.Tonal).ToContractValue();
+}
+<div class="design-system-field-group design-system-picker"
+     data-design-system-picker
+     data-design-system-no-results-label="@Model.NoResultsLabel"
+     data-design-system-presentation="@presentation"
+     data-design-system-searchable="@(Model.Searchable ? "true" : "false")">
+    <label class="design-system-field-label" for="@Model.Id">
+        @Model.Label
+        @if (Model.Required)
+        {
+            <span class="design-system-field-required">@Model.RequiredLabel</span>
+        }
+    </label>
+    <div class="design-system-picker-anchor">
+        <select class="design-system-picker-native"
+                id="@Model.Id"
+                name="@Model.Name"
+                disabled="@Model.Disabled"
+                required="@Model.Required"
+                aria-describedby="@describedBy"
+                aria-invalid="@(errorId is null ? null : "true")"
+                data-design-system-picker-control>
+            <option value="" selected="@(selectedOption is null)" disabled="@Model.Required">@Model.Placeholder</option>
+            @foreach (var option in Model.Options)
+            {
+                <option value="@option.Value"
+                        selected="@(string.Equals(option.Value, Model.Value, StringComparison.Ordinal))"
+                        disabled="@option.Disabled">@option.Label</option>
+            }
+        </select>
+        <button class="design-system-button design-system-picker-trigger"
+                type="button"
+                hidden
+                disabled="@Model.Disabled"
+                data-design-system-button
+                data-design-system-variant="@triggerVariant"
+                data-design-system-tone="neutral"
+                data-design-system-size="medium"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-controls="@listboxId"
+                data-design-system-picker-trigger>
+            @if (Model.Presentation == PickerPresentation.Inline)
+            {
+                <span class="design-system-picker-trigger-label" aria-hidden="true">@Model.Label</span>
+            }
+            <span class="design-system-picker-value" data-design-system-picker-value>@triggerText</span>
+            <design-system-icon name="@IconName.ChevronDown" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+        </button>
+    </div>
+    <div class="design-system-picker-popover" hidden data-design-system-picker-popover>
+        @if (Model.Searchable)
+        {
+            <label class="design-system-visually-hidden" for="@(Model.Id)-search">@Model.SearchLabel</label>
+            <input class="design-system-field design-system-picker-search"
+                   id="@(Model.Id)-search"
+                   type="search"
+                   autocomplete="off"
+                   data-design-system-picker-search />
+        }
+        <div class="design-system-listbox" id="@listboxId" role="listbox" aria-label="@Model.Label">
+            @foreach (var option in Model.Options)
+            {
+                var selected = string.Equals(option.Value, Model.Value, StringComparison.Ordinal);
+                <button class="design-system-option"
+                        type="button"
+                        role="option"
+                        disabled="@option.Disabled"
+                        aria-disabled="@(option.Disabled ? "true" : null)"
+                        aria-selected="@(selected ? "true" : "false")"
+                        data-design-system-picker-option
+                        data-design-system-value="@option.Value">
+                    <span class="design-system-option-copy">
+                        <span class="design-system-option-title">@option.Label</span>
+                        @if (!string.IsNullOrWhiteSpace(option.Description))
+                        {
+                            <small>@option.Description</small>
+                        }
+                    </span>
+                    <span class="design-system-option-check" aria-hidden="true">
+                        <design-system-icon name="@IconName.Check" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    </span>
+                </button>
+            }
+        </div>
+    </div>
+    @if (hintId is not null)
+    {
+        <div class="design-system-field-hint" id="@hintId">@Model.Hint</div>
+    }
+    @if (errorId is not null)
+    {
+        <div class="design-system-field-error" id="@errorId" role="alert">@Model.Error</div>
+    }
+</div>

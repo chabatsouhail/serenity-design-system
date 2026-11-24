@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] · Design System</title>
+    <design-system-assets />
+    <link rel="stylesheet" href="~/css/documentation.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="documentation-body">
+    <design-system-button class="documentation-skip-link"
+                     variant="@ButtonVariant.Filled"
+                     tone="@SemanticTone.Accent"
+                     href="#main-content">
+        Skip to content
+    </design-system-button>
+
+    <div class="documentation-shell design-system-sidebar-layout"
+         data-design-system-shell
+         data-design-system-compact-navigation="panel">
+        <header class="documentation-topbar" data-design-system-shell-compact-header>
+            <design-system-button class="documentation-navigation-trigger design-system-shell-trigger"
+                             variant="@ButtonVariant.Text"
+                             tone="@SemanticTone.Neutral"
+                             icon-only="true"
+                             accessible-label="Open navigation"
+                             data-design-system-shell-trigger
+                             aria-controls="documentation-navigation"
+                             aria-expanded="false">
+                <design-system-icon name="@IconName.Menu" decorative="true"></design-system-icon>
+            </design-system-button>
+
+            <a class="documentation-brand" href="/">Design System</a>
+            <span class="documentation-topbar-divider" aria-hidden="true"></span>
+            <design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Outline" size="@ComponentSize.Small">
+                Preview · @DesignSystemInfo.Version
+            </design-system-badge>
+        </header>
+
+        <aside class="documentation-navigation design-system-side-navigation"
+               id="documentation-navigation"
+               data-design-system-shell-navigation
+               aria-label="Documentation navigation"
+               tabindex="-1">
+            <div class="design-system-shell-navigation-header">
+                <span>Navigation</span>
+                <design-system-button variant="@ButtonVariant.Text"
+                                 tone="@SemanticTone.Neutral"
+                                 icon-only="true"
+                                 accessible-label="Close navigation"
+                                 data-design-system-shell-close>
+                    <design-system-icon name="@IconName.Close" decorative="true"></design-system-icon>
+                </design-system-button>
+            </div>
+
+            <div class="design-system-side-navigation-body">
+                <partial name="_Navigation" />
+            </div>
+
+            <footer class="design-system-side-navigation-footer">
+                <design-system-theme-toggle model="@(new ThemeToggleModel {
+                    Label = "Use dark theme",
+                    ShowLabel = true,
+                    Block = true,
+                    Alignment = ButtonAlignment.Start
+                })" />
+            </footer>
+        </aside>
+
+        <div class="design-system-shell-scrim" data-design-system-shell-scrim hidden></div>
+
+        <main class="documentation-main design-system-page-region" id="main-content" data-design-system-shell-main tabindex="-1">
+            @RenderBody()
+        </main>
+    </div>
+    <script type="module" src="~/js/documentation.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

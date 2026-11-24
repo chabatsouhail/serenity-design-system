@@ -1,0 +1,50 @@
+@layer design-system.foundation {
+    .design-system-icon {
+        display: inline-block;
+        flex: none;
+        width: var(--_design-system-icon-size, var(--design-system-semantic-icons-control-size-medium));
+        height: var(--_design-system-icon-size, var(--design-system-semantic-icons-control-size-medium));
+        background-color: currentColor;
+        mask: var(--_design-system-icon-source) center / contain no-repeat;
+        vertical-align: -.125em;
+    }
+
+    .design-system-icon--small {
+        --_design-system-icon-size: var(--design-system-semantic-icons-control-size-small);
+    }
+
+    .design-system-icon--medium {
+        --_design-system-icon-size: var(--design-system-semantic-icons-control-size-medium);
+    }
+
+    .design-system-icon--large {
+        --_design-system-icon-size: var(--design-system-semantic-icons-control-size-large);
+    }
+
+    .design-system-icon[data-design-system-icon="adjustments-horizontal"] { --_design-system-icon-source: url("../../icons/adjustments-horizontal.svg"); }
+    .design-system-icon[data-design-system-icon="api"] { --_design-system-icon-source: url("../../icons/api.svg"); }
+    .design-system-icon[data-design-system-icon="arrow-left"] { --_design-system-icon-source: url("../../icons/arrow-left.svg"); }
+    .design-system-icon[data-design-system-icon="arrow-right"] { --_design-system-icon-source: url("../../icons/arrow-right.svg"); }
+    .design-system-icon[data-design-system-icon="arrows-sort"] { --_design-system-icon-source: url("../../icons/arrows-sort.svg"); }
+    .design-system-icon[data-design-system-icon="bookmark"] { --_design-system-icon-source: url("../../icons/bookmark.svg"); }
+    .design-system-icon[data-design-system-icon="calendar"] { --_design-system-icon-source: url("../../icons/calendar.svg"); }
+    .design-system-icon[data-design-system-icon="check"] { --_design-system-icon-source: url("../../icons/check.svg"); }
+    .design-system-icon[data-design-system-icon="chevron-down"] { --_design-system-icon-source: url("../../icons/chevron-down.svg"); }
+    .design-system-icon[data-design-system-icon="chevron-left"] { --_design-system-icon-source: url("../../icons/chevron-left.svg"); }
+    .design-system-icon[data-design-system-icon="chevron-right"] { --_design-system-icon-source: url("../../icons/chevron-right.svg"); }
+    .design-system-icon[data-design-system-icon="external-link"] { --_design-system-icon-source: url("../../icons/external-link.svg"); }
+    .design-system-icon[data-design-system-icon="file"] { --_design-system-icon-source: url("../../icons/file.svg"); }
+    .design-system-icon[data-design-system-icon="inbox"] { --_design-system-icon-source: url("../../icons/inbox.svg"); }
+    .design-system-icon[data-design-system-icon="info-circle"] { --_design-system-icon-source: url("../../icons/info-circle.svg"); }
+    .design-system-icon[data-design-system-icon="layout-sidebar-right-collapse"] { --_design-system-icon-source: url("../../icons/layout-sidebar-right-collapse.svg"); }
+    .design-system-icon[data-design-system-icon="library"] { --_design-system-icon-source: url("../../icons/library.svg"); }
+    .design-system-icon[data-design-system-icon="menu-2"] { --_design-system-icon-source: url("../../icons/menu-2.svg"); }
+    .design-system-icon[data-design-system-icon="moon"] { --_design-system-icon-source: url("../../icons/moon.svg"); }
+    .design-system-icon[data-design-system-icon="plus"] { --_design-system-icon-source: url("../../icons/plus.svg"); }
+    .design-system-icon[data-design-system-icon="refresh"] { --_design-system-icon-source: url("../../icons/refresh.svg"); }
+    .design-system-icon[data-design-system-icon="search"] { --_design-system-icon-source: url("../../icons/search.svg"); }
+    .design-system-icon[data-design-system-icon="sun"] { --_design-system-icon-source: url("../../icons/sun.svg"); }
+    .design-system-icon[data-design-system-icon="upload"] { --_design-system-icon-source: url("../../icons/upload.svg"); }
+    .design-system-icon[data-design-system-icon="alert-triangle"] { --_design-system-icon-source: url("../../icons/alert-triangle.svg"); }
+    .design-system-icon[data-design-system-icon="x"] { --_design-system-icon-source: url("../../icons/x.svg"); }
+}

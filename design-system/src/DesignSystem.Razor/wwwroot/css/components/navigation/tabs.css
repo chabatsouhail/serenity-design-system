@@ -1,0 +1,80 @@
+@layer design-system.component {
+    .design-system-tabs {
+        min-width: 0;
+    }
+
+    .design-system-tab-list {
+        display: flex;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        overflow-x: auto;
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        scrollbar-width: thin;
+        overscroll-behavior-inline: contain;
+    }
+
+    .design-system-tab {
+        --_design-system-tab-press-scale: var(--design-system-semantic-motion-interaction-scale-press);
+
+        flex: 0 0 auto;
+        min-height: var(--_design-system-density-control-height);
+        padding: 0 var(--design-system-semantic-spacing-control-padding-inline);
+        border: 0;
+        border-bottom: var(--design-system-semantic-shape-focus-width) solid transparent;
+        background: transparent;
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        cursor: pointer;
+        transform-origin: center;
+        transition-property: border-color, color, box-shadow, transform;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .design-system-tab:is(:hover, [data-design-system-preview-state="hover"]):not(:disabled):not([aria-disabled="true"]) {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .design-system-tab:is(:active, [data-design-system-preview-state="active"]):not(:disabled):not([aria-disabled="true"]) {
+        transform: scale(var(--_design-system-tab-press-scale));
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-press);
+    }
+
+    .design-system-tab[aria-selected="true"] {
+        border-bottom-color: var(--design-system-semantic-color-action-background);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .design-system-tab:is(:disabled, [aria-disabled="true"]) {
+        border-bottom-color: transparent;
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .design-system-tab-panel {
+        min-width: 0;
+        padding-block: var(--design-system-primitive-spacing-32);
+    }
+
+    .design-system-tabs:not([data-design-system-enhanced="true"]) .design-system-tab-panel[hidden] {
+        display: block !important;
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-tab {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-tab[aria-selected="true"] {
+            border-bottom-color: Highlight;
+        }
+
+        .design-system-tab:is(:disabled, [aria-disabled="true"]) {
+            color: GrayText;
+        }
+    }
+}

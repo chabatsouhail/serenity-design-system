@@ -1,0 +1,261 @@
+@model FoundationPageDefinition
+@{
+    string TokenName(string token) => token.StartsWith("--", StringComparison.Ordinal) ? token[2..] : token;
+    var anatomyTitleId = $"{Model.Slug}-anatomy-model-title";
+    var primitiveTitleId = $"primitive-{Model.Slug}-tokens-title";
+    var semanticTitleId = $"semantic-{Model.Slug}-tokens-title";
+}
+
+<article class="documentation-page documentation-foundation-page documentation-tabbed-foundation-page documentation-catalog-foundation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Foundations</span>
+            <h1 id="documentation-page-title">@Model.Name</h1>
+            <p class="documentation-lead">@Model.Description</p>
+        </div>
+    </header>
+
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="@Model.Slug-page-tabs">
+        <span class="documentation-page-context-sentinel" aria-hidden="true" data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true">
+                <span class="documentation-page-compact-title-text">@Model.Name</span>
+                <span class="documentation-page-compact-section" data-documentation-page-compact-section></span>
+            </span>
+            <div class="design-system-tab-list" role="tablist" aria-label="@Model.Name documentation sections">
+                <button class="design-system-tab"
+                        id="@Model.Slug-page-tab-anatomy"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="@Model.Slug-page-panel-anatomy"
+                        data-design-system-tab
+                        data-design-system-value="anatomy">Anatomy</button>
+                <button class="design-system-tab"
+                        id="@Model.Slug-page-tab-tokens"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="@Model.Slug-page-panel-tokens"
+                        tabindex="-1"
+                        data-design-system-tab
+                        data-design-system-value="tokens">Tokens</button>
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="@Model.Slug-page-panel-anatomy"
+             role="tabpanel"
+             aria-labelledby="@Model.Slug-page-tab-anatomy"
+             data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" id="anatomy" aria-labelledby="@Model.Slug-anatomy-title">
+                <h2 class="design-system-visually-hidden" id="@Model.Slug-anatomy-title">Anatomy</h2>
+
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#@anatomyTitleId" aria-current="location">@Model.AnatomyTitle</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                @foreach (var concept in Model.Concepts)
+                                {
+                                    <li><a class="design-system-tab documentation-reference-toc-child" href="#@Model.Slug-@concept.Slug-title">@concept.Name</a></li>
+                                }
+                            </ol>
+                        </li>
+                    </ol>
+                </nav>
+
+                <section class="documentation-subsection" aria-labelledby="@anatomyTitleId">
+                    <div class="documentation-subsection-heading">
+                        <h3 id="@anatomyTitleId">@Model.AnatomyTitle</h3>
+                        <p>@Model.AnatomyPurpose</p>
+                    </div>
+
+                    <div class="documentation-foundation-anatomy-model documentation-catalog-foundation-anatomy">
+                        @foreach (var concept in Model.Concepts)
+                        {
+                            <article class="documentation-foundation-anatomy-row">
+                                <div class="documentation-card-copy">
+                                    <h4 id="@Model.Slug-@concept.Slug-title">@concept.Name</h4>
+                                    <p>@concept.Purpose</p>
+                                </div>
+                                <div class="documentation-foundation-concept-preview"
+                                     data-documentation-foundation-preview="@concept.Preview"
+                                     role="img"
+                                     aria-label="@concept.AccessibleLabel">
+                                    @switch (concept.Preview)
+                                    {
+                                        case "layout-measure":
+                                            <div class="documentation-foundation-measure-lines"><span></span><span></span><span></span></div>
+                                            break;
+                                        case "layout-grid":
+                                            <div class="documentation-foundation-grid-sample"><span>1</span><span>2</span><span>3</span></div>
+                                            break;
+                                        case "layout-state":
+                                            <div class="documentation-foundation-state-sample"><design-system-icon name="@IconName.Inbox" size="@ComponentSize.Large" decorative="true"></design-system-icon><strong>No results</strong><span>Try changing the current filters.</span></div>
+                                            break;
+                                        case "shape-control":
+                                            <div class="documentation-foundation-shape-sample"><span>Field</span><strong>Action</strong></div>
+                                            break;
+                                        case "shape-container":
+                                            <div class="documentation-foundation-container-sample"><span>Container</span><strong>Overlay</strong></div>
+                                            break;
+                                        case "shape-boundary":
+                                            <div class="documentation-foundation-boundary-sample"><span>Subtle</span><span>Boundary</span><span>Focus</span></div>
+                                            break;
+                                        case "elevation-surfaces":
+                                            <div class="documentation-foundation-surface-stack"><span>Page</span><span>Surface</span><span>Elevated</span><span>Selected</span></div>
+                                            break;
+                                        case "elevation-shadow":
+                                            <div class="documentation-foundation-shadow-sample"><span>Overlay</span><strong>Dialog</strong></div>
+                                            break;
+                                        case "elevation-layer":
+                                            <div class="documentation-foundation-layer-sample"><span>Overlay</span><span>Dialog</span><span>Toast</span></div>
+                                            break;
+                                        case "icons-form":
+                                            <div class="documentation-foundation-icon-row"><design-system-icon name="@IconName.Search" decorative="true"></design-system-icon><design-system-icon name="@IconName.Calendar" decorative="true"></design-system-icon><design-system-icon name="@IconName.Bookmark" decorative="true"></design-system-icon><design-system-icon name="@IconName.Upload" decorative="true"></design-system-icon><design-system-icon name="@IconName.Warning" decorative="true"></design-system-icon></div>
+                                            break;
+                                        case "icons-size":
+                                            <div class="documentation-foundation-icon-row"><design-system-icon name="@IconName.Info" size="@ComponentSize.Small" decorative="true"></design-system-icon><design-system-icon name="@IconName.Info" size="@ComponentSize.Medium" decorative="true"></design-system-icon><design-system-icon name="@IconName.Info" size="@ComponentSize.Large" decorative="true"></design-system-icon></div>
+                                            break;
+                                        case "icons-meaning":
+                                            <div class="documentation-foundation-icon-meaning"><span><design-system-icon name="@IconName.Search" accessible-label="Search"></design-system-icon><small>Named</small></span><span><design-system-icon name="@IconName.Check" decorative="true"></design-system-icon><small>Saved</small></span></div>
+                                            break;
+                                        case "motion-press":
+                                            <div class="documentation-foundation-motion-press"><span>Rest</span><span>Pressed</span></div>
+                                            break;
+                                        case "motion-indicator":
+                                            <div class="documentation-foundation-motion-indicator"><span></span><span></span></div>
+                                            break;
+                                        case "motion-reduced":
+                                            <div class="documentation-foundation-reduced-motion"><span>State A</span><design-system-icon name="@IconName.ArrowRight" decorative="true"></design-system-icon><span>State B</span></div>
+                                            break;
+                                        case "timing-press":
+                                            <div class="documentation-foundation-duration-sample"><span data-duration="press"></span></div>
+                                            break;
+                                        case "timing-duration":
+                                            <div class="documentation-foundation-duration-sample"><span data-duration="press"></span><span data-duration="release"></span><span data-duration="standard"></span></div>
+                                            break;
+                                        case "timing-easing":
+                                            <div class="documentation-foundation-easing-sample"><span data-easing="press"></span><span data-easing="standard"></span></div>
+                                            break;
+                                    }
+                                </div>
+                            </article>
+                        }
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="@Model.Slug-page-panel-tokens"
+             role="tabpanel"
+             aria-labelledby="@Model.Slug-page-tab-tokens"
+             data-design-system-tab-panel
+             hidden>
+            <section class="documentation-page-tab-section" id="tokens" aria-labelledby="@Model.Slug-tokens-title">
+                <h2 class="design-system-visually-hidden" id="@Model.Slug-tokens-title">Tokens</h2>
+
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#@primitiveTitleId" aria-current="location">Primitive Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                @foreach (var group in Model.PrimitiveGroups)
+                                {
+                                    <li><a class="design-system-tab documentation-reference-toc-child" href="#primitive-@Model.Slug-@group.Slug-title">@group.Name</a></li>
+                                }
+                            </ol>
+                        </li>
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#@semanticTitleId">Semantic Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                @foreach (var group in Model.SemanticGroups)
+                                {
+                                    <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-@Model.Slug-@group.Slug-title">@group.Name</a></li>
+                                }
+                            </ol>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="documentation-token-category-list">
+                    <section class="documentation-token-category" aria-labelledby="@primitiveTitleId">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="@primitiveTitleId">Primitive Tokens</h3>
+                            <p>Raw @Model.Name Values approved for direct composition.</p>
+                        </div>
+                        <div class="documentation-token-panel-content">
+                            @foreach (var group in Model.PrimitiveGroups)
+                            {
+                                <section class="documentation-subsection" aria-labelledby="primitive-@Model.Slug-@group.Slug-title">
+                                    <div class="documentation-subsection-heading">
+                                        <h4 id="primitive-@Model.Slug-@group.Slug-title">@group.Name</h4>
+                                        <p>@group.Purpose</p>
+                                    </div>
+                                    <div class="design-system-table-wrap documentation-foundation-table-wrap" role="region" aria-label="@group.Name Primitive @Model.Name Tokens" tabindex="0">
+                                        <table class="design-system-table documentation-foundation-token-table documentation-primitive-token-table documentation-three-column-primitive-token-table">
+                                            <thead><tr><th scope="col">Value</th><th scope="col">Preview</th><th scope="col">Primitive Token</th></tr></thead>
+                                            <tbody>
+                                                @foreach (var token in group.Tokens)
+                                                {
+                                                    <tr>
+                                                        <th scope="row"><code>@token.Value</code></th>
+                                                        <td>
+                                                            <span class="documentation-foundation-token-preview" data-documentation-token-preview="@token.Preview" style="--_documentation-foundation-token: var(@token.Token);" aria-hidden="true">
+                                                                <span class="documentation-foundation-token-mark"></span>
+                                                                @if (token.Preview == "icon")
+                                                                {
+                                                                    <design-system-icon name="@IconName.Info" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                                                                }
+                                                            </span>
+                                                        </td>
+                                                        <td><code class="documentation-token-name">@TokenName(token.Token)</code></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+                            }
+                        </div>
+                    </section>
+
+                    <section class="documentation-token-category" aria-labelledby="@semanticTitleId">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="@semanticTitleId">Semantic Tokens</h3>
+                            <p>Purpose-based @Model.Name roles whose Primitive sources remain explicit.</p>
+                        </div>
+                        <div class="documentation-token-panel-content">
+                            @foreach (var group in Model.SemanticGroups)
+                            {
+                                <section class="documentation-subsection" aria-labelledby="semantic-@Model.Slug-@group.Slug-title">
+                                    <div class="documentation-subsection-heading">
+                                        <h4 id="semantic-@Model.Slug-@group.Slug-title">@group.Name</h4>
+                                        <p>@group.Purpose</p>
+                                    </div>
+                                    <div class="design-system-table-wrap documentation-foundation-table-wrap" role="region" aria-label="@group.Name Semantic @Model.Name Tokens" tabindex="0">
+                                        <table class="design-system-table documentation-foundation-token-table documentation-foundation-semantic-table">
+                                            <thead><tr><th scope="col">Role</th><th scope="col">Primitive Composition</th><th scope="col">Semantic Token</th></tr></thead>
+                                            <tbody>
+                                                @foreach (var token in group.Tokens)
+                                                {
+                                                    <tr>
+                                                        <th scope="row"><span class="documentation-table-label"><span>@token.Name</span><small>@token.Purpose</small></span></th>
+                                                        <td><span class="documentation-token-source-list">@foreach (var source in token.Sources) { <code class="documentation-token-name">@TokenName(source)</code> }</span></td>
+                                                        <td><code class="documentation-token-name">@TokenName(token.Token)</code></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+                            }
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,182 @@
+@layer design-system.component {
+    [data-design-system-date-picker] {
+        position: relative;
+        min-width: 0;
+    }
+
+    .design-system-date-native {
+        width: 100%;
+        height: var(--_design-system-density-control-height);
+        padding-inline: var(--design-system-semantic-spacing-control-padding-inline);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: inherit;
+    }
+
+    [data-design-system-date-picker]:not([data-design-system-enhanced="true"]) :where(.design-system-picker-trigger, .design-system-date-popover) {
+        display: none;
+    }
+
+    [data-design-system-date-picker][data-design-system-enhanced="true"] .design-system-date-native {
+        display: none;
+    }
+
+    [data-design-system-date-picker] .design-system-picker-trigger {
+        justify-content: space-between;
+        width: 100%;
+        border-color: var(--design-system-semantic-color-boundary-border-strong);
+        background: var(--design-system-semantic-color-action-background-neutral);
+        color: var(--design-system-semantic-color-action-foreground-neutral);
+        font: var(--design-system-semantic-typography-control);
+    }
+
+    [data-design-system-date-picker] .design-system-picker-trigger:hover:not(:disabled) {
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-action-background-neutral-hover);
+    }
+
+    [data-design-system-date-picker] .design-system-picker-trigger:focus-visible {
+        border-color: var(--design-system-semantic-color-focus-ring);
+        box-shadow: inset 0 0 0 var(--design-system-semantic-shape-boundary-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-date-popover {
+        position: absolute;
+        top: calc(100% + var(--design-system-semantic-spacing-overlay-gap));
+        left: 0;
+        z-index: var(--design-system-primitive-elevation-layer-50);
+        width: min(var(--design-system-component-date-picker-calendar-width), calc(100vw - (2 * var(--design-system-primitive-spacing-14))));
+        max-height: calc(100dvh - (2 * var(--design-system-primitive-spacing-14)));
+        padding: var(--design-system-semantic-spacing-container-padding);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-semantic-shape-overlay-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        box-shadow: var(--design-system-semantic-elevation-overlay-shadow);
+    }
+
+    .design-system-date-popover[data-design-system-position="above"] {
+        top: auto;
+        bottom: calc(100% + var(--design-system-semantic-spacing-overlay-gap));
+    }
+
+    .design-system-date-header {
+        display: grid;
+        grid-template-columns: var(--_design-system-density-control-height) minmax(0, 1fr) var(--_design-system-density-control-height);
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-4);
+        margin-bottom: var(--design-system-primitive-spacing-8);
+    }
+
+    .design-system-date-heading {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        text-align: center;
+    }
+
+    .design-system-date-grid {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+    }
+
+    .design-system-date-row {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-2);
+    }
+
+    .design-system-date-weekday {
+        display: grid;
+        place-items: center;
+        min-height: var(--design-system-component-date-picker-weekday-minimum-height);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-caption);
+    }
+
+    .design-system-date-day {
+        display: grid;
+        place-items: center;
+        aspect-ratio: 1;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: transparent;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .design-system-date-day:hover:not(:disabled),
+    .design-system-date-day:focus-visible:not(:disabled) {
+        background: var(--design-system-semantic-color-surface-background-hover);
+    }
+
+    .design-system-date-day[aria-selected="true"] {
+        background: var(--design-system-semantic-color-action-background);
+        color: var(--design-system-semantic-color-text-foreground-inverse);
+    }
+
+    .design-system-date-day[data-design-system-outside="true"]:not([aria-selected="true"]):not(:disabled) {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    .design-system-date-day[data-design-system-today="true"] {
+        box-shadow: inset 0 0 0 var(--design-system-semantic-shape-boundary-width) var(--design-system-semantic-color-boundary-border-selected);
+    }
+
+    .design-system-date-day:disabled {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+    }
+
+    .design-system-date-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--design-system-primitive-spacing-8);
+        margin-top: var(--design-system-primitive-spacing-8);
+        padding-top: var(--design-system-primitive-spacing-8);
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-date-native,
+        [data-design-system-date-picker] .design-system-picker-trigger {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+
+        .design-system-date-grid {
+            overflow-x: auto;
+        }
+
+        .design-system-date-row {
+            grid-template-columns: repeat(7, var(--design-system-semantic-sizing-control-height-relaxed));
+            width: max-content;
+        }
+
+        .design-system-date-day {
+            min-width: var(--design-system-semantic-sizing-control-height-relaxed);
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (max-width: 360px) {
+        .design-system-date-popover {
+            padding-inline: var(--design-system-primitive-spacing-4);
+        }
+
+        .design-system-date-header,
+        .design-system-date-grid,
+        .design-system-date-row {
+            gap: var(--design-system-primitive-spacing-2);
+        }
+
+        .design-system-date-day {
+            font: var(--design-system-semantic-typography-body-small);
+        }
+    }
+}

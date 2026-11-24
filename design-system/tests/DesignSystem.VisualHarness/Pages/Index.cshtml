@@ -1,0 +1,395 @@
+@page
+@model DesignSystem.VisualHarness.Pages.IndexModel
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design system visual and behavioral evidence harness</title>
+    <design-system-assets />
+    <link rel="stylesheet" href="~/harness.css" />
+</head>
+<body class="harness-page">
+    <header class="harness-header">
+        <div class="harness-heading">
+            <h1>Design system evidence harness</h1>
+            <p>All 46 reusable component destinations, rendered from the public contracts.</p>
+        </div>
+        <design-system-theme-toggle model="@(new ThemeToggleModel { Label = "Toggle harness theme", ShowLabel = true })" />
+    </header>
+
+    <nav class="harness-index" aria-label="Component categories">
+        <a class="design-system-link" href="#category-actions">Actions (4)</a>
+        <a class="design-system-link" href="#category-fields">Fields (11)</a>
+        <a class="design-system-link" href="#category-navigation">Navigation (7)</a>
+        <a class="design-system-link" href="#category-data">Data (8)</a>
+        <a class="design-system-link" href="#category-feedback">Feedback (9)</a>
+        <a class="design-system-link" href="#category-overlays">Overlays (7)</a>
+    </nav>
+
+    <main class="harness-main" id="main-content">
+        <section class="harness-category" id="category-actions" data-harness-category="actions" data-harness-count="4">
+            <h2>Actions</h2>
+            <div class="harness-category-grid">
+                <article class="harness-component" id="component-button" data-harness-component="button">
+                    <header><h3>Button</h3><p>Variants, tones, sizes, loading, disabled, and toggle states.</p></header>
+                    <div class="harness-specimen" id="button-variants">
+                        <design-system-button id="button-filled" variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent">Filled</design-system-button>
+                        <design-system-button id="button-filled-danger" variant="@ButtonVariant.Filled" tone="@SemanticTone.Danger">Delete</design-system-button>
+                        <design-system-button id="button-tonal" variant="@ButtonVariant.Tonal" tone="@SemanticTone.Neutral">Tonal</design-system-button>
+                        <design-system-button id="button-text" variant="@ButtonVariant.Text" tone="@SemanticTone.Accent">Text</design-system-button>
+                        <design-system-button id="button-danger" variant="@ButtonVariant.Tonal" tone="@SemanticTone.Danger">Delete</design-system-button>
+                    </div>
+                    <div class="harness-specimen" id="button-states">
+                        <design-system-button size="@ComponentSize.Small">Small</design-system-button>
+                        <design-system-button size="@ComponentSize.Large">Large</design-system-button>
+                        <design-system-button loading="true" loading-label="Saving changes">Saving</design-system-button>
+                        <design-system-button disabled="true">Disabled</design-system-button>
+                        <design-system-button toggle="true" pressed="true">Pinned</design-system-button>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-icon-button" data-harness-component="icon-button">
+                    <header><h3>Icon Button</h3><p>Accessible compact actions in each supported variant.</p></header>
+                    <div class="harness-specimen">
+                        <design-system-button id="icon-button-filled" variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent" icon-only="true" accessible-label="Add record"><design-system-icon name="@IconName.Plus" decorative="true"></design-system-icon></design-system-button>
+                        <design-system-button id="icon-button-tonal" icon-only="true" accessible-label="Search"><design-system-icon name="@IconName.Search" decorative="true"></design-system-icon></design-system-button>
+                        <design-system-button id="icon-button-text" variant="@ButtonVariant.Text" icon-only="true" accessible-label="Close"><design-system-icon name="@IconName.Close" decorative="true"></design-system-icon></design-system-button>
+                        <design-system-button id="icon-button-disabled" icon-only="true" accessible-label="Unavailable action" disabled="true"><design-system-icon name="@IconName.Adjustments" decorative="true"></design-system-icon></design-system-button>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-button-group" data-harness-component="button-group">
+                    <header><h3>Button Group</h3><p>Related actions retain order and wrap at compact widths.</p></header>
+                    <div class="design-system-button-group" data-design-system-align="start" aria-label="Record actions">
+                        <design-system-button variant="@ButtonVariant.Text">Cancel</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Tonal">Save draft</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent">Publish</design-system-button>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-toolbar" data-harness-component="toolbar">
+                    <header><h3>Toolbar</h3><p>A title, grouped actions, and a separator.</p></header>
+                    <div class="design-system-toolbar" role="toolbar" aria-label="Record toolbar">
+                        <strong class="design-system-toolbar-title">Example record with a long title</strong>
+                        <div class="design-system-toolbar-group">
+                            <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small">Edit</design-system-button>
+                            <span class="design-system-toolbar-separator" aria-hidden="true"></span>
+                            <design-system-button variant="@ButtonVariant.Text" tone="@SemanticTone.Danger" size="@ComponentSize.Small">Archive</design-system-button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="harness-category" id="category-fields" data-harness-category="fields" data-harness-count="11">
+            <h2>Fields</h2>
+            <div class="harness-category-grid">
+                <article class="harness-component" id="component-text-field" data-harness-component="text-field">
+                    <header><h3>Text Field</h3><p>Label, hint, value, invalid, and disabled contracts.</p></header>
+                    <div class="harness-field-stack">
+                        <div class="design-system-field-group">
+                            <label class="design-system-field-label" for="text-default">Customer name <span class="design-system-field-required">Required</span></label>
+                            <input class="design-system-field" id="text-default" name="customerName" value="Ada Lovelace" required aria-describedby="text-default-hint" />
+                            <div class="design-system-field-hint" id="text-default-hint">Use the customer’s full name.</div>
+                        </div>
+                        <div class="design-system-field-group">
+                            <label class="design-system-field-label" for="text-invalid">Reference</label>
+                            <input class="design-system-field" id="text-invalid" value="!" aria-invalid="true" aria-describedby="text-invalid-error" />
+                            <div class="design-system-field-error" id="text-invalid-error" role="alert">Use letters and numbers only.</div>
+                        </div>
+                        <input class="design-system-field" aria-label="Disabled text field" value="Unavailable" disabled />
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-password-field" data-harness-component="password-field">
+                    <header><h3>Password Field</h3><p>Native password semantics with the shared field presentation.</p></header>
+                    <div class="design-system-field-group harness-field-stack">
+                        <label class="design-system-field-label" for="password-default">Password</label>
+                        <input class="design-system-field" id="password-default" name="password" type="password" value="example-password" autocomplete="current-password" />
+                        <div class="design-system-field-hint">At least 12 characters.</div>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-textarea" data-harness-component="textarea">
+                    <header><h3>Textarea</h3><p>Multi-line content with a concise supporting label.</p></header>
+                    <div class="design-system-field-group harness-field-stack">
+                        <label class="design-system-field-label" for="textarea-default">Notes</label>
+                        <textarea class="design-system-field design-system-textarea" id="textarea-default" rows="4">A concise note that can wrap naturally across multiple lines.</textarea>
+                        <div class="design-system-field-hint">Up to 500 characters.</div>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-search" data-harness-component="search">
+                    <header><h3>Search</h3><p>Enhanced clear action while the input remains native.</p></header>
+                    <label class="design-system-visually-hidden" for="search-default">Search records</label>
+                    <div class="design-system-search" data-design-system-search>
+                        <design-system-icon name="@IconName.Search" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                        <input id="search-default" type="search" value="Example" placeholder="Search records" />
+                        <button class="design-system-search-clear" type="button" aria-label="Clear search" data-design-system-search-clear><design-system-icon name="@IconName.Close" size="@ComponentSize.Small" decorative="true"></design-system-icon></button>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-number-field" data-harness-component="number-field">
+                    <header><h3>Number Field</h3><p>Native number input with explicit increment controls.</p></header>
+                    <div class="design-system-field-group" data-design-system-number>
+                        <label class="design-system-field-label" for="number-default">Quantity</label>
+                        <div class="design-system-number-control">
+                            <input id="number-default" name="quantity" type="number" value="3" min="0" max="20" step="1" />
+                            <div class="design-system-number-actions">
+                                <button class="design-system-number-action" type="button" data-design-system-number-step="down" data-design-system-direction="down" aria-label="Decrease quantity"><design-system-icon name="@IconName.ChevronDown" size="@ComponentSize.Small" decorative="true"></design-system-icon></button>
+                                <button class="design-system-number-action" type="button" data-design-system-number-step="up" data-design-system-direction="up" aria-label="Increase quantity"><design-system-icon name="@IconName.ChevronDown" size="@ComponentSize.Small" decorative="true"></design-system-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-checkbox" data-harness-component="checkbox">
+                    <header><h3>Checkbox</h3><p>Unchecked, checked, invalid, and disabled lifecycle states.</p></header>
+                    <div class="harness-stack">
+                        <label class="design-system-choice" data-design-system-type="checkbox"><input type="checkbox" name="updates" /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Receive updates</span></label>
+                        <label class="design-system-choice" data-design-system-type="checkbox"><input type="checkbox" checked /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Selected</span></label>
+                        <label class="design-system-choice" data-design-system-type="checkbox"><input type="checkbox" aria-invalid="true" /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Needs attention</span></label>
+                        <label class="design-system-choice" data-design-system-type="checkbox"><input type="checkbox" disabled /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Disabled</span></label>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-radio" data-harness-component="radio">
+                    <header><h3>Radio</h3><p>A mutually exclusive native control group.</p></header>
+                    <fieldset class="harness-stack">
+                        <legend class="design-system-field-label">Delivery method</legend>
+                        <label class="design-system-choice" data-design-system-type="radio"><input type="radio" name="delivery" checked /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Email</span></label>
+                        <label class="design-system-choice" data-design-system-type="radio"><input type="radio" name="delivery" /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Download</span></label>
+                        <label class="design-system-choice" data-design-system-type="radio"><input type="radio" name="delivery" disabled /><span class="design-system-choice-mark" aria-hidden="true"></span><span>Postal mail</span></label>
+                    </fieldset>
+                </article>
+
+                <article class="harness-component" id="component-switch" data-harness-component="switch">
+                    <header><h3>Switch</h3><p>Immediate on/off settings with native checkbox authority.</p></header>
+                    <div class="harness-stack">
+                        <label class="design-system-switch"><input type="checkbox" role="switch" /><span class="design-system-switch-track"><span class="design-system-switch-thumb"></span></span><span>Compact view</span></label>
+                        <label class="design-system-switch"><input type="checkbox" role="switch" checked /><span class="design-system-switch-track"><span class="design-system-switch-thumb"></span></span><span>Notifications on</span></label>
+                        <label class="design-system-switch"><input type="checkbox" role="switch" disabled /><span class="design-system-switch-track"><span class="design-system-switch-thumb"></span></span><span>Disabled setting</span></label>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-picker" data-harness-component="picker">
+                    <header><h3>Picker</h3><p>A progressively enhanced select with a complete native fallback.</p></header>
+                    <form method="get" data-harness-validation-form>
+                        <design-system-picker model="Model.Picker" />
+                    </form>
+                </article>
+
+                <article class="harness-component" id="component-date-picker" data-harness-component="date-picker">
+                    <header><h3>Date Picker</h3><p>A progressively enhanced native date input.</p></header>
+                    <form method="get" data-harness-validation-form>
+                        <design-system-date-picker model="Model.DatePicker" />
+                    </form>
+                </article>
+
+                <article class="harness-component" id="component-file-upload" data-harness-component="file-upload">
+                    <header><h3>File Upload</h3><p>The native chooser owns form submission; enhancement adds the visible control.</p></header>
+                    <form method="get" data-harness-validation-form>
+                        <design-system-file-upload model="Model.FileUpload" />
+                    </form>
+                </article>
+            </div>
+        </section>
+
+        <section class="harness-category" id="category-navigation" data-harness-category="navigation" data-harness-count="7">
+            <h2>Navigation</h2>
+            <div class="harness-category-grid">
+                <article class="harness-component" id="component-link" data-harness-component="link">
+                    <header><h3>Link</h3><p>Inline, external, visited-preview, and disabled navigation.</p></header>
+                    <div class="harness-specimen">
+                        <a class="design-system-link" href="#component-link">Internal link</a>
+                        <a class="design-system-link" href="https://example.com" target="_blank" rel="noopener noreferrer">External link <design-system-icon name="@IconName.ExternalLink" size="@ComponentSize.Small" decorative="true"></design-system-icon></a>
+                        <a class="design-system-link" href="#component-link" data-design-system-preview-state="visited">Visited preview</a>
+                        <span class="design-system-link" aria-disabled="true">Unavailable</span>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-breadcrumb" data-harness-component="breadcrumb">
+                    <header><h3>Breadcrumb</h3><p>Hierarchical location with the final item marked current.</p></header>
+                    <nav class="design-system-breadcrumbs" aria-label="Breadcrumb">
+                        <ol class="design-system-breadcrumb-list"><li><a class="design-system-link" href="#category-navigation">Components</a></li><li><a class="design-system-link" href="#category-navigation">Navigation</a></li><li><span aria-current="page">Breadcrumb</span></li></ol>
+                    </nav>
+                </article>
+
+                <article class="harness-component" id="component-pagination" data-harness-component="pagination">
+                    <header><h3>Pagination</h3><p>Canonical server links, current page, and ellipses.</p></header>
+                    <design-system-pagination model="Model.Pagination" />
+                </article>
+
+                <article class="harness-component" id="component-navigation-list" data-harness-component="navigation-list">
+                    <header><h3>Navigation List</h3><p>Expandable tree branches, current path, and current destination.</p></header>
+                    <nav class="design-system-navigation-tree" aria-label="Design system">
+                        <ul class="design-system-navigation-list"><li><details class="design-system-navigation-branch" open data-design-system-current-path><summary class="design-system-navigation-summary" data-design-system-level="top"><design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon><span>Components</span></summary><ul class="design-system-navigation-list"><li><details class="design-system-navigation-branch" open data-design-system-current-path><summary class="design-system-navigation-summary" data-design-system-level="subgroup"><design-system-icon class="design-system-navigation-disclosure-icon" name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon><span>Navigation</span></summary><ul class="design-system-navigation-list"><li><a class="design-system-navigation-link" data-design-system-depth="2" href="#component-link">Link</a></li><li><a class="design-system-navigation-link" data-design-system-depth="2" href="#component-navigation-list" aria-current="page">Navigation List</a></li></ul></details></li></ul></details></li></ul>
+                    </nav>
+                </article>
+
+                <article class="harness-component" id="component-tabs" data-harness-component="tabs">
+                    <header><h3>Tabs</h3><p>Keyboard-operable tabs with progressively available panels.</p></header>
+                    <div class="design-system-tabs" data-design-system-tabs id="harness-tabs">
+                        <div class="design-system-tab-list" role="tablist" aria-label="Record details"><button class="design-system-tab" id="tab-overview" type="button" role="tab" aria-selected="true" aria-controls="panel-overview" data-design-system-tab>Overview</button><button class="design-system-tab" id="tab-history" type="button" role="tab" aria-selected="false" aria-controls="panel-history" tabindex="-1" data-design-system-tab>History</button><button class="design-system-tab" id="tab-disabled" type="button" role="tab" aria-selected="false" aria-controls="panel-disabled" tabindex="-1" disabled data-design-system-tab>Unavailable</button></div>
+                        <div class="design-system-tab-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" data-design-system-tab-panel>Overview content is visible.</div><div class="design-system-tab-panel" id="panel-history" role="tabpanel" aria-labelledby="tab-history" data-design-system-tab-panel>History content is visible after activation.</div><div class="design-system-tab-panel" id="panel-disabled" role="tabpanel" aria-labelledby="tab-disabled" data-design-system-tab-panel>Unavailable content.</div>
+                    </div>
+                </article>
+
+                <article class="harness-component" id="component-segmented" data-harness-component="segmented">
+                    <header><h3>Segmented</h3><p>A compact single-selection view control.</p></header>
+                    <div class="design-system-segmented" role="group" aria-label="View density" data-design-system-segmented><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true">List</design-system-button><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false">Grid</design-system-button><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" disabled="true">Map</design-system-button></div>
+                </article>
+
+                <article class="harness-component" id="component-side-navigation" data-harness-component="side-navigation">
+                    <header><h3>Side Navigation</h3><p>Reusable shell navigation with a scrollable tree body.</p></header>
+                    <aside class="design-system-side-navigation" aria-label="Example navigation"><div class="design-system-side-navigation-header"><span class="design-system-side-navigation-title">Design System</span></div><div class="design-system-side-navigation-body"><nav class="design-system-navigation-tree" aria-label="Example destinations"><ul class="design-system-navigation-list"><li><a class="design-system-navigation-link" data-design-system-depth="1" href="#category-actions">Actions</a></li><li><a class="design-system-navigation-link" data-design-system-depth="1" href="#category-fields">Fields</a></li><li><a class="design-system-navigation-link" data-design-system-depth="1" href="#component-side-navigation" aria-current="page">Side Navigation</a></li></ul></nav></div><div class="design-system-side-navigation-footer"><span class="harness-caption">Portable shell primitive</span></div></aside>
+                </article>
+            </div>
+        </section>
+
+        <section class="harness-category" id="category-data" data-harness-category="data" data-harness-count="8">
+            <h2>Data</h2>
+            <div class="harness-category-grid">
+                <article class="harness-component" id="component-badge" data-harness-component="badge">
+                    <header><h3>Badge</h3><p>Subtle, solid, and outline appearances across semantic tones.</p></header>
+                    <div class="harness-specimen"><design-system-badge>Draft</design-system-badge><design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Solid">Info</design-system-badge><design-system-badge tone="@SemanticTone.Success">Published</design-system-badge><design-system-badge tone="@SemanticTone.Warning" appearance="@BadgeAppearance.Outline">Review</design-system-badge><design-system-badge tone="@SemanticTone.Danger">Blocked</design-system-badge></div>
+                </article>
+
+                <article class="harness-component" id="component-status" data-harness-component="status">
+                    <header><h3>Status</h3><p>A text label paired with a non-color-only indicator.</p></header>
+                    <div class="harness-specimen"><span class="design-system-status" data-design-system-tone="success"><span class="design-system-status__label">Available</span></span><span class="design-system-status" data-design-system-tone="warning"><span class="design-system-status__label">Needs review</span></span><span class="design-system-status" data-design-system-tone="danger"><span class="design-system-status__label">Unavailable</span></span></div>
+                </article>
+
+                <article class="harness-component" id="component-card" data-harness-component="card">
+                    <header><h3>Card</h3><p>Structured content with optional media, metadata, and actions.</p></header>
+                    <div class="harness-card-grid"><article class="design-system-card"><div class="design-system-card__media" data-design-system-ratio="wide"><div class="design-system-card__media-placeholder"><design-system-icon name="@IconName.File" size="@ComponentSize.Large" decorative="true"></design-system-icon></div></div><div class="design-system-card__body"><h4 class="design-system-card__title">Example record</h4><p class="design-system-card__description">Neutral content owned by the consuming application.</p><div class="design-system-card__meta"><span>Updated today</span><design-system-badge tone="@SemanticTone.Success">Ready</design-system-badge></div></div><div class="design-system-card__actions"><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small">Open</design-system-button></div></article></div>
+                </article>
+
+                <article class="harness-component" id="component-chip" data-harness-component="chip">
+                    <header><h3>Chip</h3><p>Compact filters and removable values.</p></header>
+                    <div class="harness-specimen"><button class="design-system-chip" type="button" aria-pressed="false">All records</button><button class="design-system-chip" type="button" aria-pressed="true">Active</button><span class="design-system-chip">Customer<button class="design-system-chip-remove" type="button" aria-label="Remove Customer" data-design-system-chip-remove><design-system-icon name="@IconName.Close" size="@ComponentSize.Small" decorative="true"></design-system-icon></button></span></div>
+                </article>
+
+                <article class="harness-component" id="component-list" data-harness-component="list">
+                    <header><h3>List</h3><p>Single items carry their own selected, disabled, and action states.</p></header>
+                    <ul class="design-system-list"><li><button class="design-system-list__item" type="button" aria-pressed="false"><span class="design-system-list__item-main"><span class="design-system-list__item-title">Example record</span><span class="design-system-list__item-description">Updated today</span></span><span class="design-system-list__item-action"><design-system-icon name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon></span></button></li><li><button class="design-system-list__item" type="button" aria-pressed="true"><span class="design-system-list__item-main"><span class="design-system-list__item-title">Selected record</span><span class="design-system-list__item-description">Current selection</span></span></button></li><li><button class="design-system-list__item" type="button" disabled aria-disabled="true"><span class="design-system-list__item-main"><span class="design-system-list__item-title">Unavailable record</span></span></button></li></ul>
+                </article>
+
+                <article class="harness-component" id="component-table" data-harness-component="table">
+                    <header><h3>Table</h3><p>The wrapper owns horizontal scroll semantics and the table owns data structure.</p></header>
+                    <div class="design-system-table-wrap" role="region" aria-label="Customer records" tabindex="0"><table class="design-system-table" data-design-system-banding="rows"><thead><tr><th scope="col">Customer</th><th scope="col">Status</th><th scope="col" class="design-system-table__number">Records</th></tr></thead><tbody><tr><th scope="row">Ada Lovelace</th><td><span class="design-system-status" data-design-system-tone="success"><span class="design-system-status__label">Active</span></span></td><td class="design-system-table__number">12</td></tr><tr aria-selected="true"><th scope="row">Grace Hopper</th><td><span class="design-system-status" data-design-system-tone="warning"><span class="design-system-status__label">Review</span></span></td><td class="design-system-table__number">8</td></tr></tbody></table></div>
+                </article>
+
+                <article class="harness-component" id="component-row" data-harness-component="row">
+                    <header><h3>Row</h3><p>Row lifecycle evidence belongs inside a real table.</p></header>
+                    <div class="design-system-table-wrap" role="region" aria-label="Row state examples" tabindex="0"><table class="design-system-table"><thead><tr><th scope="col">State</th><th scope="col">Example</th></tr></thead><tbody><tr><th scope="row">Default</th><td>Example record</td></tr><tr data-design-system-preview-state="hover"><th scope="row">Hovered</th><td>Pointer preview</td></tr><tr aria-selected="true"><th scope="row">Selected</th><td>Current selection</td></tr><tr aria-disabled="true"><th scope="row">Disabled</th><td>Unavailable row</td></tr></tbody></table></div>
+                </article>
+
+                <article class="harness-component" id="component-column" data-harness-component="column">
+                    <header><h3>Column</h3><p>Sorting and in-header filtering belong to the column contract.</p></header>
+                    <div class="design-system-table-wrap" role="region" aria-label="Column behavior examples" tabindex="0"><table class="design-system-table"><thead><tr><th scope="col" aria-sort="ascending"><div class="design-system-table__column-header"><button class="design-system-table__sort" type="button">Customer <design-system-icon name="@IconName.ChevronDown" size="@ComponentSize.Small" decorative="true"></design-system-icon></button><input class="design-system-table__filter" type="search" placeholder="Filter" aria-label="Filter Customer" data-design-system-table-filter data-design-system-column="customer" /></div></th><th scope="col">Updated</th></tr></thead><tbody><tr><td>Ada Lovelace</td><td>Today</td></tr><tr><td>Grace Hopper</td><td>Yesterday</td></tr></tbody></table></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="harness-category" id="category-feedback" data-harness-category="feedback" data-harness-count="9">
+            <h2>Feedback</h2>
+            <div class="harness-category-grid">
+                <article class="harness-component" id="component-alert" data-harness-component="alert">
+                    <header><h3>Alert</h3><p>Persistent contextual feedback with tone and live-region semantics.</p></header>
+                    <div class="harness-stack"><design-system-alert title="Changes saved" tone="@SemanticTone.Success">The record is up to date.</design-system-alert><design-system-alert title="Review required" tone="@SemanticTone.Warning" dismissible="true">Confirm the highlighted values.</design-system-alert><design-system-alert title="Could not save" tone="@SemanticTone.Danger" live-mode="@LiveRegionMode.Assertive">Try again after checking the connection.</design-system-alert></div>
+                </article>
+
+                <article class="harness-component" id="component-inline-message" data-harness-component="inline-message">
+                    <header><h3>Inline Message</h3><p>Compact feedback placed next to the content it describes.</p></header>
+                    <div class="harness-stack"><div class="design-system-inline-message" data-design-system-tone="info"><span class="design-system-inline-message__icon"><design-system-icon name="@IconName.Info" size="@ComponentSize.Small" decorative="true"></design-system-icon></span><span class="design-system-inline-message__content"><strong class="design-system-inline-message__title">Helpful information</strong><span>This value can be changed later.</span></span></div><div class="design-system-inline-message" data-design-system-tone="danger"><span class="design-system-inline-message__icon"><design-system-icon name="@IconName.Warning" size="@ComponentSize.Small" decorative="true"></design-system-icon></span><span class="design-system-inline-message__content"><strong class="design-system-inline-message__title">Invalid value</strong><span>Use a unique reference.</span></span></div></div>
+                </article>
+
+                <article class="harness-component" id="component-toast" data-harness-component="toast">
+                    <header><h3>Toast</h3><p>Transient feedback specimen; the public host remains available for runtime messages.</p></header>
+                    <div class="design-system-toast" data-design-system-tone="success" data-design-system-duration="0" role="status"><span class="design-system-toast__icon"><design-system-icon name="@IconName.Check" size="@ComponentSize.Small" decorative="true"></design-system-icon></span><span class="design-system-toast__content"><strong class="design-system-toast__title">Record saved</strong><span class="design-system-toast__message">Your changes are available.</span></span><button class="design-system-toast__dismiss" type="button" aria-label="Dismiss notification" data-design-system-toast-dismiss><design-system-icon name="@IconName.Close" size="@ComponentSize.Small" decorative="true"></design-system-icon></button></div>
+                </article>
+
+                <article class="harness-component" id="component-progress" data-harness-component="progress">
+                    <header><h3>Progress</h3><p>Determinate and indeterminate work with text equivalents.</p></header>
+                    <div class="harness-stack"><div class="design-system-progress" role="progressbar" aria-label="Upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><div class="design-system-progress__header"><span class="design-system-progress__label">Uploading</span><span class="design-system-progress__value-label">64%</span></div><div class="design-system-progress__track"><div class="design-system-progress__value" style="width:64%"></div></div></div><div class="design-system-progress" data-design-system-indeterminate role="progressbar" aria-label="Loading records" aria-valuetext="Loading"><div class="design-system-progress__header"><span class="design-system-progress__label">Loading records</span></div><div class="design-system-progress__track"><div class="design-system-progress__value"></div></div></div></div>
+                </article>
+
+                <article class="harness-component" id="component-spinner" data-harness-component="spinner">
+                    <header><h3>Spinner</h3><p>Small, medium, large, and decorative indicators.</p></header>
+                    <div class="harness-specimen"><design-system-spinner size="@ComponentSize.Small" accessible-label="Loading small example"></design-system-spinner><design-system-spinner accessible-label="Loading example"></design-system-spinner><design-system-spinner size="@ComponentSize.Large" accessible-label="Loading large example"></design-system-spinner><design-system-spinner decorative="true"></design-system-spinner></div>
+                </article>
+
+                <article class="harness-component" id="component-skeleton" data-harness-component="skeleton">
+                    <header><h3>Skeleton</h3><p>Text, block, and circular placeholder shapes.</p></header>
+                    <div class="harness-skeleton-stack" aria-label="Loading content" role="status"><span class="design-system-skeleton design-system-skeleton--circle" aria-hidden="true"></span><span class="harness-skeleton-lines"><span class="design-system-skeleton" aria-hidden="true"></span><span class="design-system-skeleton" aria-hidden="true"></span></span><span class="design-system-skeleton design-system-skeleton--block" aria-hidden="true"></span></div>
+                </article>
+
+                <article class="harness-component" id="component-empty-state" data-harness-component="empty-state">
+                    <header><h3>Empty State</h3><p>First-use or no-result state with one clear next action.</p></header>
+                    <design-system-empty-state model="Model.EmptyState" />
+                </article>
+
+                <article class="harness-component" id="component-error-state" data-harness-component="error-state">
+                    <header><h3>Error State</h3><p>A recoverable failure state with an explicit action.</p></header>
+                    <section class="design-system-error-state" role="alert"><span class="design-system-error-state__icon"><design-system-icon name="@IconName.Warning" size="@ComponentSize.Large" decorative="true"></design-system-icon></span><div class="design-system-error-state__content"><h4 class="design-system-error-state__title">Could not load records</h4><p class="design-system-error-state__description">Check the connection and try again.</p></div><div class="design-system-error-state__actions"><design-system-button variant="@ButtonVariant.Tonal" tone="@SemanticTone.Danger">Try again</design-system-button></div></section>
+                </article>
+
+                <article class="harness-component" id="component-busy-region" data-harness-component="busy-region">
+                    <header><h3>Busy Region</h3><p>A labeled overlay that prevents interaction with pending content.</p></header>
+                    <div class="design-system-busy-region" aria-busy="true" data-design-system-busy-region><div class="harness-busy-content" inert data-design-system-busy-content><strong>Customer records</strong><p>Pending content is temporarily unavailable while status remains announced.</p></div><div class="design-system-busy-state" data-design-system-overlay><design-system-spinner decorative="true"></design-system-spinner><span class="design-system-busy-state__label" role="status">Updating records</span></div></div>
+                </article>
+            </div>
+        </section>
+
+        <section class="harness-category" id="category-overlays" data-harness-category="overlays" data-harness-count="7">
+            <h2>Overlays</h2>
+            <div class="harness-category-grid">
+                <article class="harness-component" id="component-menu" data-harness-component="menu">
+                    <header><h3>Menu</h3><p>Single-item variants remain inside the menu component.</p></header>
+                    <div class="harness-overlay-stage harness-menu-stage"><div class="design-system-menu-wrap"><design-system-button id="menu-trigger" aria-expanded="true" data-design-system-menu-trigger>Actions <design-system-icon name="@IconName.ChevronDown" size="@ComponentSize.Small" decorative="true"></design-system-icon></design-system-button><div class="design-system-menu" role="menu" aria-labelledby="menu-trigger"><div class="design-system-menu-label">Record actions</div><button class="design-system-menu-item" type="button" role="menuitem"><span class="design-system-menu-item-leading"><design-system-icon name="@IconName.File" size="@ComponentSize.Small" decorative="true"></design-system-icon><span class="design-system-menu-item-copy"><span>Open record</span><small class="design-system-menu-item-description">View full details</small></span></span><kbd class="design-system-menu-item-meta">Enter</kbd></button><button class="design-system-menu-item" type="button" role="menuitem" disabled>Duplicate</button><hr class="design-system-menu-separator" /><button class="design-system-menu-item" type="button" role="menuitem" data-design-system-tone="danger">Archive</button></div></div></div>
+                </article>
+
+                <article class="harness-component" id="component-context-menu" data-harness-component="context-menu">
+                    <header><h3>Context Menu</h3><p>Pointer invocation opens a menu near the invocation point.</p></header>
+                    <div class="harness-overlay-stage harness-menu-stage"><design-system-button id="context-menu-trigger" variant="@ButtonVariant.Text" data-design-system-context-menu="context-menu-surface">Open context menu</design-system-button><div class="design-system-menu" id="context-menu-surface" role="menu" aria-labelledby="context-menu-trigger"><button class="design-system-menu-item" type="button" role="menuitem">Inspect <kbd class="design-system-menu-item-meta">I</kbd></button><button class="design-system-menu-item" type="button" role="menuitem">Duplicate <kbd class="design-system-menu-item-meta">Ctrl+D</kbd></button><button class="design-system-menu-item" type="button" role="menuitem" data-design-system-tone="danger">Archive</button></div></div>
+                </article>
+
+                <article class="harness-component" id="component-popover" data-harness-component="popover">
+                    <header><h3>Popover</h3><p>Anchored supplemental content with header, body, and footer.</p></header>
+                    <div class="harness-overlay-stage"><div class="design-system-popover-wrap"><design-system-button id="popover-trigger" data-design-system-popover-trigger="popover-example">Record details</design-system-button><section class="design-system-popover" id="popover-example" role="dialog" aria-labelledby="popover-title"><header class="design-system-popover__header" id="popover-title">Record details</header><div class="design-system-popover__body"><p>Supplemental information remains close to its trigger.</p></div><footer class="design-system-popover__footer"><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" data-design-system-popover-close>Close</design-system-button></footer></section></div></div>
+                </article>
+
+                <article class="harness-component" id="component-tooltip" data-harness-component="tooltip">
+                    <header><h3>Tooltip</h3><p>A concise accessible name or description on hover and focus.</p></header>
+                    <div class="harness-specimen"><design-system-button id="tooltip-trigger" icon-only="true" accessible-label="More information" data-design-system-tooltip-trigger="tooltip-example"><design-system-icon name="@IconName.Info" decorative="true"></design-system-icon></design-system-button><div class="design-system-tooltip" id="tooltip-example" role="tooltip">More information about this action.</div></div>
+                </article>
+
+                <article class="harness-component" id="component-dialog" data-harness-component="dialog">
+                    <header><h3>Dialog</h3><p>A modal task with title, scrollable body, and ordered actions.</p></header>
+                    <design-system-button id="dialog-open" data-design-system-dialog-trigger="dialog-example">Open dialog</design-system-button>
+                    <dialog class="design-system-dialog" id="dialog-example" aria-labelledby="dialog-title" data-design-system-dialog><header class="design-system-dialog__header"><h4 class="design-system-dialog__title" id="dialog-title">Edit record</h4><design-system-button variant="@ButtonVariant.Text" icon-only="true" accessible-label="Close dialog" data-design-system-dialog-close><design-system-icon name="@IconName.Close" decorative="true"></design-system-icon></design-system-button></header><div class="design-system-dialog__body"><div class="design-system-field-group"><label class="design-system-field-label" for="dialog-name">Name</label><input class="design-system-field" id="dialog-name" value="Example record" /></div></div><footer class="design-system-dialog__footer"><design-system-button variant="@ButtonVariant.Text" data-design-system-cancel>Cancel</design-system-button><design-system-button variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent" data-design-system-dialog-close>Save</design-system-button></footer></dialog>
+                </article>
+
+                <article class="harness-component" id="component-drawer" data-harness-component="drawer">
+                    <header><h3>Drawer</h3><p>A side-anchored modal for secondary tasks and details.</p></header>
+                    <design-system-button id="drawer-open" data-design-system-drawer-trigger="drawer-example">Open drawer</design-system-button>
+                    <dialog class="design-system-drawer" id="drawer-example" aria-labelledby="drawer-title" data-design-system-drawer data-design-system-side="end"><header class="design-system-drawer__header"><h4 class="design-system-drawer__title" id="drawer-title">Record details</h4><design-system-button variant="@ButtonVariant.Text" icon-only="true" accessible-label="Close drawer" data-design-system-drawer-close><design-system-icon name="@IconName.Close" decorative="true"></design-system-icon></design-system-button></header><div class="design-system-drawer__body"><p>Secondary content uses the real drawer surface.</p></div><footer class="design-system-drawer__footer"><design-system-button variant="@ButtonVariant.Text" data-design-system-drawer-close>Close</design-system-button></footer></dialog>
+                </article>
+
+                <article class="harness-component" id="component-confirmation-dialog" data-harness-component="confirmation-dialog">
+                    <header><h3>Confirmation Dialog</h3><p>A focused destructive decision with explicit consequences.</p></header>
+                    <design-system-button id="confirmation-open" tone="@SemanticTone.Danger" data-design-system-confirmation-trigger="confirmation-example">Archive record</design-system-button>
+                    <dialog class="design-system-dialog design-system-dialog--small" id="confirmation-example" aria-labelledby="confirmation-title" data-design-system-confirmation-dialog><header class="design-system-dialog__header"><h4 class="design-system-dialog__title" id="confirmation-title">Archive record?</h4></header><div class="design-system-dialog__body"><p>The record will leave active results. This action can be reversed later.</p></div><footer class="design-system-dialog__footer"><design-system-button variant="@ButtonVariant.Text" data-design-system-cancel>Cancel</design-system-button><design-system-button variant="@ButtonVariant.Tonal" tone="@SemanticTone.Danger" data-design-system-confirm data-design-system-value="archive">Archive</design-system-button></footer></dialog>
+                </article>
+            </div>
+        </section>
+
+        <span class="harness-ready" data-harness-ready data-harness-component-total="46">All 46 component destinations rendered.</span>
+    </main>
+
+    <design-system-toast-host model="@(new ToastHostModel { Label = "Harness notifications" })" />
+    <script type="module" src="~/harness.js"></script>
+</body>
+</html>

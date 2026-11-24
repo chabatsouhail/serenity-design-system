@@ -1,0 +1,11 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-spacing-control-padding-inline: var(--design-system-primitive-spacing-14);
+        --design-system-semantic-spacing-item-padding-block: var(--design-system-primitive-spacing-8);
+        --design-system-semantic-spacing-item-padding-inline: var(--design-system-primitive-spacing-10);
+        --design-system-semantic-spacing-container-padding: var(--design-system-primitive-spacing-16);
+        --design-system-semantic-spacing-content-gap: var(--design-system-primitive-spacing-16);
+        --design-system-semantic-spacing-section-gap: var(--design-system-primitive-spacing-24);
+        --design-system-semantic-spacing-overlay-gap: var(--design-system-primitive-spacing-6);
+    }
+}

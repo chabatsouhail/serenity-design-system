@@ -1,0 +1,7 @@
+@layer design-system.foundation {
+    :where(button, a, input, select, textarea, [tabindex], [role="option"]):focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+}
+

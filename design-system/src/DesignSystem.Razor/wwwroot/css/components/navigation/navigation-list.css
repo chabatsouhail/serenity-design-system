@@ -1,0 +1,183 @@
+@layer design-system.component {
+    .design-system-navigation-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .design-system-navigation-link {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        min-height: var(--_design-system-density-control-height);
+        padding: var(--design-system-semantic-spacing-item-padding-block) var(--design-system-semantic-spacing-item-padding-inline);
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        text-decoration: none;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-navigation-link:is(:hover, [data-design-system-preview-state="hover"]):not([aria-disabled="true"]) {
+        background: var(--design-system-component-navigation-list-background-hover);
+    }
+
+    .design-system-navigation-link:is(:active, [data-design-system-preview-state="active"]):not([aria-disabled="true"]) {
+        background: var(--design-system-component-navigation-list-background-pressed);
+    }
+
+    .design-system-navigation-link:is(:focus-visible, [data-design-system-preview-state="focus"]) {
+        outline: none;
+        background: var(--design-system-component-navigation-list-background-focus);
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-navigation-link[aria-disabled="true"] {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    .design-system-navigation-tree,
+    .design-system-navigation-tree .design-system-navigation-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .design-system-navigation-branch {
+        min-width: 0;
+    }
+
+    .design-system-navigation-summary {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-6);
+        min-width: 0;
+        min-height: var(--_design-system-density-control-height);
+        padding-block: var(--design-system-semantic-spacing-item-padding-block);
+        padding-inline-end: var(--design-system-semantic-spacing-item-padding-inline);
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body-large);
+        cursor: pointer;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-navigation-summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .design-system-navigation-summary::marker {
+        content: "";
+    }
+
+    .design-system-navigation-summary:is(:hover, [data-design-system-preview-state="hover"]) {
+        background: var(--design-system-component-navigation-list-background-hover);
+    }
+
+    .design-system-navigation-summary:is(:active, [data-design-system-preview-state="active"]) {
+        background: var(--design-system-component-navigation-list-background-pressed);
+    }
+
+    .design-system-navigation-summary:is(:focus-visible, [data-design-system-preview-state="focus"]) {
+        outline: none;
+        background: var(--design-system-component-navigation-list-background-focus);
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-navigation-summary > :is(.design-system-navigation-disclosure-icon, .design-system-icon):first-child {
+        flex: 0 0 auto;
+        transition: transform var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .design-system-navigation-branch[open] > .design-system-navigation-summary > :is(.design-system-navigation-disclosure-icon, .design-system-icon):first-child {
+        transform: rotate(90deg);
+    }
+
+    :is(.design-system-navigation-branch[data-design-system-current-path], .design-system-navigation-branch:has([aria-current="page"])) > .design-system-navigation-summary {
+        background: var(--design-system-component-navigation-list-background-path);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    :is(.design-system-navigation-branch[data-design-system-current-path], .design-system-navigation-branch:has([aria-current="page"])) > .design-system-navigation-summary:is(:hover, :active, [data-design-system-preview-state="active"]) {
+        background: var(--design-system-component-navigation-list-background-pressed);
+    }
+
+    .design-system-navigation-summary[data-design-system-level="top"] {
+        padding-inline-start: var(--design-system-semantic-spacing-item-padding-inline);
+        font: var(--design-system-semantic-typography-body-large);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .design-system-navigation-summary[data-design-system-level="subgroup"] {
+        padding-inline-start: calc(var(--design-system-semantic-spacing-item-padding-inline) + var(--design-system-primitive-spacing-12));
+        font: var(--design-system-semantic-typography-body-large);
+    }
+
+    .design-system-navigation-summary[data-design-system-level="component"] {
+        padding-inline-start: calc(var(--design-system-semantic-spacing-item-padding-inline) + var(--design-system-primitive-spacing-24));
+    }
+
+    .design-system-navigation-branch > .design-system-navigation-list {
+        margin-top: var(--design-system-primitive-spacing-6);
+    }
+
+    .design-system-navigation-tree .design-system-navigation-link {
+        min-height: var(--_design-system-density-control-height);
+        padding-block: var(--design-system-semantic-spacing-item-padding-block);
+        padding-inline-end: var(--design-system-semantic-spacing-item-padding-inline);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body-large);
+    }
+
+    .design-system-navigation-tree .design-system-navigation-link[data-design-system-depth="1"] {
+        padding-inline-start: calc(var(--design-system-semantic-spacing-item-padding-inline) + var(--design-system-semantic-icons-control-size-small) + var(--design-system-primitive-spacing-6));
+    }
+
+    .design-system-navigation-tree .design-system-navigation-link[data-design-system-depth="2"] {
+        padding-inline-start: calc(var(--design-system-semantic-spacing-item-padding-inline) + var(--design-system-primitive-spacing-12) + var(--design-system-semantic-icons-control-size-small) + var(--design-system-primitive-spacing-6));
+    }
+
+    .design-system-navigation-tree .design-system-navigation-link[data-design-system-depth="3"] {
+        padding-inline-start: calc(var(--design-system-semantic-spacing-item-padding-inline) + var(--design-system-primitive-spacing-24) + var(--design-system-semantic-icons-control-size-small) + var(--design-system-primitive-spacing-6));
+    }
+
+    .design-system-navigation-tree .design-system-navigation-link[aria-disabled="true"] {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+    }
+
+    .design-system-navigation-link[aria-current="page"],
+    .design-system-navigation-link[aria-current="page"]:is(:hover, :active, [data-design-system-preview-state="hover"], [data-design-system-preview-state="active"]) {
+        background: var(--design-system-component-navigation-list-background-current);
+        color: var(--design-system-semantic-color-text-foreground-accent);
+        font: var(--design-system-semantic-typography-body-large);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-navigation-link,
+        .design-system-navigation-summary {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-navigation-summary:focus-visible,
+        .design-system-navigation-summary[data-design-system-preview-state="focus"] {
+            outline: var(--design-system-semantic-shape-focus-width) solid CanvasText;
+            outline-offset: var(--design-system-primitive-spacing-2);
+            box-shadow: none;
+        }
+
+        .design-system-navigation-link[aria-current="page"] {
+            color: LinkText;
+        }
+    }
+}

@@ -1,0 +1,172 @@
+@page "/discover/getting-started"
+@{
+    ViewData["Title"] = "Getting Started";
+}
+
+<article class="documentation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Discover</span>
+            <h1 id="documentation-page-title">Getting Started</h1>
+            <p class="documentation-lead">
+                The design system is a portable ASP.NET Core Razor Class Library. Install one package, load one asset contract, then choose the appropriate rendering contract for each interface.
+            </p>
+        </div>
+    </header>
+
+    <section class="documentation-section" aria-labelledby="getting-started-architecture">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="getting-started-architecture">Implementation architecture</h2>
+                <p>The portable folder contains the complete product. It does not depend on this documentation website.</p>
+            </div>
+        </div>
+
+        <pre class="documentation-code documentation-code-block"><code>design-system/
+├── src/DesignSystem.Razor
+├── tests/
+└── scripts/</code></pre>
+
+        <div class="design-system-grid documentation-card-grid">
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">Server-rendered first</h3>
+                    <p class="design-system-card__description">Razor creates the authoritative HTML. Forms, links, and native controls continue to work when JavaScript is unavailable.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">One CSS entry</h3>
+                    <p class="design-system-card__description"><code>css/design-system.css</code> fixes the order of Tokens, Themes, Foundations, Layouts, Components, and Utilities.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">One JavaScript entry</h3>
+                    <p class="design-system-card__description"><code>js/design-system.js</code> initializes behavior safely and can initialize newly inserted content again.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="getting-started-install">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="getting-started-install">Install the library</h2>
+                <p>Add the package to an ASP.NET Core .NET 10 Razor Pages application.</p>
+            </div>
+        </div>
+
+        <section class="documentation-subsection" aria-labelledby="getting-started-package-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="getting-started-package-title">Add the Package</h3>
+                <p>Reference <code>DesignSystem.Razor</code> from the application project.</p>
+            </div>
+            <pre class="documentation-code documentation-code-block"><code>&lt;PackageReference Include="DesignSystem.Razor" Version="@DesignSystemInfo.Version" /&gt;</code></pre>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="getting-started-tag-helpers-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="getting-started-tag-helpers-title">Enable the Tag Helpers</h3>
+                <p>Add the library to the application's <code>Pages/_ViewImports.cshtml</code>.</p>
+            </div>
+            <pre class="documentation-code"><code>@@addTagHelper *, DesignSystem.Razor</code></pre>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="getting-started-public-assets-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="getting-started-public-assets-title">Load the public assets</h3>
+                <p>Place the canonical asset Tag Helper inside the application's <code>&lt;head&gt;</code>.</p>
+            </div>
+            <pre class="documentation-code"><code>&lt;design-system-assets /&gt;</code></pre>
+            <p>
+                It emits the pre-paint Theme bootstrap, versioned stylesheet, and deferred JavaScript module in the required order.
+                Applications with a Content Security Policy can supply a nonce through the same Tag Helper.
+            </p>
+        </section>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="getting-started-rendering">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="getting-started-rendering">Choose the rendering contract</h2>
+                <p>Not every component should be forced through the same ASP.NET abstraction.</p>
+            </div>
+        </div>
+
+        <div class="documentation-contract-list">
+            <article class="design-system-panel documentation-contract">
+                <div class="documentation-contract-heading">
+                    <design-system-badge tone="@SemanticTone.Accent" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Public</design-system-badge>
+                    <h3>Tag Helper</h3>
+                </div>
+                <p>Use a <code>&lt;design-system-*&gt;</code> Tag Helper when the design system must generate or validate controlled markup.</p>
+                <pre class="documentation-code"><code>&lt;design-system-picker model="Model.CustomerPicker" /&gt;
+&lt;design-system-date-picker model="Model.StartDate" /&gt;
+&lt;design-system-file-upload model="Model.Attachment" /&gt;</code></pre>
+            </article>
+
+            <article class="design-system-panel documentation-contract">
+                <div class="documentation-contract-heading">
+                    <design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Public</design-system-badge>
+                    <h3>Native HTML composition</h3>
+                </div>
+                <p>Use native HTML when the application owns the content and structure. The design system supplies classes and behavior hooks.</p>
+                <pre class="documentation-code"><code>&lt;div class="design-system-table-wrap" role="region" aria-label="Customers"&gt;
+    &lt;table class="design-system-table"&gt;
+        &lt;!-- Application-owned headings and rows --&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+            </article>
+
+            <article class="design-system-panel documentation-contract">
+                <div class="documentation-contract-heading">
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Private</design-system-badge>
+                    <h3>Internal Razor renderer</h3>
+                </div>
+                <p>Files under <code>Pages/Shared/DesignSystem/Internal</code> support Tag Helpers. Applications never invoke them directly.</p>
+            </article>
+
+            <article class="design-system-panel documentation-contract">
+                <div class="documentation-contract-heading">
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Outline" size="@ComponentSize.Small">Application</design-system-badge>
+                    <h3>View Component</h3>
+                </div>
+                <p>Use an application-owned View Component only when a feature needs server-side data, fetching, permissions, or feature-specific rendering logic.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="getting-started-enhancement">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="getting-started-enhancement">Progressive enhancement</h2>
+                <p>The design system does not hide a native fallback until its custom behavior is successfully connected.</p>
+            </div>
+        </div>
+
+        <div class="documentation-state-list">
+            <div class="documentation-state-row">
+                <code>data-design-system-runtime="loading"</code>
+                <span>The assets were emitted and initialization is in progress.</span>
+            </div>
+            <div class="documentation-state-row">
+                <code>data-design-system-runtime="ready"</code>
+                <span>All registered behavior modules initialized.</span>
+            </div>
+            <div class="documentation-state-row">
+                <code>data-design-system-runtime="failed"</code>
+                <span>The entry module failed to load or a behavior module threw an error.</span>
+            </div>
+            <div class="documentation-state-row">
+                <code>data-design-system-enhanced="true"</code>
+                <span>The individual component successfully connected its behavior.</span>
+            </div>
+        </div>
+
+        <design-system-alert title="If enhancement fails" tone="@SemanticTone.Warning" live-mode="@LiveRegionMode.Off">
+            Incomplete component anatomy is reported through <code>data-design-system-enhancement-error</code>, a console warning, and a
+            <code>design-system:enhancementerror</code> event. The native control remains available instead of silently showing a broken imitation.
+        </design-system-alert>
+    </section>
+</article>

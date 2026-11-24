@@ -1,0 +1,146 @@
+@layer design-system.component {
+    .design-system-toast-host {
+        position: fixed;
+        inset-block-end: var(--design-system-primitive-spacing-20);
+        inset-inline-start: 50%;
+        z-index: var(--design-system-semantic-elevation-toast-layer);
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+        width: min(var(--design-system-component-toast-width), calc(100vw - (2 * var(--design-system-primitive-spacing-14))));
+        max-height: calc(100dvh - (2 * var(--design-system-primitive-spacing-14)));
+        overflow-y: auto;
+        transform: translateX(-50%);
+        pointer-events: none;
+        overscroll-behavior: contain;
+    }
+
+    .design-system-toast-host[data-design-system-position="top"] {
+        inset-block: var(--design-system-primitive-spacing-20) auto;
+    }
+
+    .design-system-toast {
+        --_design-system-toast-foreground: var(--design-system-semantic-color-text-foreground-secondary);
+        --_design-system-toast-background: var(--design-system-semantic-color-surface-background-elevated);
+        --_design-system-toast-boundary: var(--design-system-semantic-color-boundary-border);
+
+        display: flex;
+        align-items: flex-start;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        padding: var(--design-system-semantic-spacing-container-padding);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--_design-system-toast-boundary);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--_design-system-toast-background);
+        color: var(--_design-system-toast-foreground);
+        box-shadow: var(--design-system-semantic-elevation-overlay-shadow);
+        pointer-events: auto;
+    }
+
+    .design-system-toast:is([data-design-system-tone="accent"], [data-design-system-tone="info"]) {
+        --_design-system-toast-foreground: var(--design-system-semantic-color-status-foreground-info);
+        --_design-system-toast-background: var(--design-system-semantic-color-status-background-info);
+        --_design-system-toast-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-info), transparent 48%);
+    }
+
+    .design-system-toast[data-design-system-tone="success"] {
+        --_design-system-toast-foreground: var(--design-system-semantic-color-status-foreground-success);
+        --_design-system-toast-background: var(--design-system-semantic-color-status-background-success);
+        --_design-system-toast-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-success), transparent 48%);
+    }
+
+    .design-system-toast[data-design-system-tone="warning"] {
+        --_design-system-toast-foreground: var(--design-system-semantic-color-status-foreground-warning);
+        --_design-system-toast-background: var(--design-system-semantic-color-status-background-warning);
+        --_design-system-toast-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-warning), transparent 48%);
+    }
+
+    .design-system-toast[data-design-system-tone="danger"] {
+        --_design-system-toast-foreground: var(--design-system-semantic-color-status-foreground-danger);
+        --_design-system-toast-background: var(--design-system-semantic-color-status-background-danger);
+        --_design-system-toast-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-danger), transparent 48%);
+    }
+
+    .design-system-toast__icon {
+        flex: 0 0 auto;
+        margin-block-start: var(--design-system-primitive-spacing-2);
+    }
+
+    .design-system-toast__content,
+    .design-system-toast__message {
+        flex: 1 1 0;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-toast__content {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+    }
+
+    .design-system-toast__title {
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .design-system-toast__dismiss {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        width: var(--design-system-semantic-sizing-control-height-compact);
+        height: var(--design-system-semantic-sizing-control-height-compact);
+        margin-block: calc((var(--design-system-semantic-sizing-control-height-compact) - var(--design-system-semantic-icons-control-size-medium)) / -2);
+        padding: 0;
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        transform-origin: center;
+        transition-property: background-color, box-shadow, transform;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .design-system-toast__dismiss:is(:hover, [data-design-system-preview-state="hover"]) {
+        background: color-mix(in srgb, currentColor, transparent 88%);
+    }
+
+    .design-system-toast__dismiss:is(:active, [data-design-system-preview-state="active"]) {
+        transform: scale(var(--design-system-semantic-motion-interaction-scale-press-compact));
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-press);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-toast__dismiss {
+            width: var(--design-system-semantic-sizing-control-height-relaxed);
+            height: var(--design-system-semantic-sizing-control-height-relaxed);
+            margin-block: calc((var(--design-system-semantic-sizing-control-height-relaxed) - var(--design-system-semantic-icons-control-size-medium)) / -2);
+        }
+    }
+
+    @media (max-width: 560px) {
+        .design-system-toast-host {
+            inset-block-end: var(--design-system-primitive-spacing-8);
+        }
+
+        .design-system-toast-host[data-design-system-position="top"] {
+            inset-block: var(--design-system-primitive-spacing-8) auto;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-toast {
+            border-color: CanvasText;
+            background: Canvas;
+            color: CanvasText;
+            box-shadow: none;
+            forced-color-adjust: none;
+        }
+
+        .design-system-toast__dismiss {
+            border: var(--design-system-semantic-shape-boundary-width) solid ButtonText;
+            color: ButtonText;
+        }
+    }
+}

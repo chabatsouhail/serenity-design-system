@@ -1,0 +1,6 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-tooltip-background: var(--design-system-semantic-color-surface-background-inverse);
+        --design-system-component-tooltip-foreground: var(--design-system-semantic-color-text-foreground-inverse);
+    }
+}

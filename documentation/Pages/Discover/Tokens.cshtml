@@ -1,0 +1,393 @@
+@page "/discover/tokens"
+@{
+    ViewData["Title"] = "Tokens";
+}
+
+<article class="documentation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Discover</span>
+            <h1 id="documentation-page-title">Tokens</h1>
+            <p class="documentation-lead">
+                Tokens are named design decisions. They let the design system change a Value once and apply that decision consistently across Themes and Components.
+            </p>
+        </div>
+    </header>
+
+    <section class="documentation-section" id="intro" aria-labelledby="tokens-intro-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="tokens-intro-title">Intro</h2>
+                <p>A Token turns an isolated Value into a decision the whole system can recognize and reuse.</p>
+            </div>
+        </div>
+
+        <div class="documentation-token-concept" aria-label="Comparison between an isolated Value and a named Token">
+            <article class="documentation-concept-card">
+                <div class="documentation-concept-heading">
+                    <span class="documentation-concept-index">Before</span>
+                    <h3>An isolated Value</h3>
+                </div>
+                <div class="documentation-value-sample">
+                    <span class="documentation-color-swatch documentation-color-swatch-blue" aria-hidden="true"></span>
+                    <span class="design-system-code">#2563eb</span>
+                </div>
+                <dl class="documentation-concept-facts">
+                    <div><dt>Name</dt><dd>None</dd></div>
+                    <div><dt>Meaning</dt><dd>Unknown</dd></div>
+                    <div><dt>Change impact</dt><dd>Must be found manually</dd></div>
+                </dl>
+            </article>
+
+            <span class="documentation-concept-arrow" aria-hidden="true">→</span>
+
+            <article class="documentation-concept-card documentation-concept-card-named">
+                <div class="documentation-concept-heading">
+                    <span class="documentation-concept-index">After</span>
+                    <h3>A named decision</h3>
+                </div>
+                <div class="documentation-value-sample documentation-value-sample-token">
+                    <span class="documentation-color-swatch documentation-color-swatch-blue" aria-hidden="true"></span>
+                    <span class="design-system-code documentation-token-name">design-system-semantic-color-action-background</span>
+                </div>
+                <dl class="documentation-concept-facts">
+                    <div><dt>Name</dt><dd>Action background</dd></div>
+                    <div><dt>Meaning</dt><dd>Shared interactive action</dd></div>
+                    <div><dt>Change impact</dt><dd>Updates every consumer</dd></div>
+                </dl>
+            </article>
+        </div>
+
+        <design-system-alert title="The practical rule" tone="@SemanticTone.Info" live-mode="@LiveRegionMode.Off">
+            Use a Semantic Token when a Value has shared meaning. Add a Component Token only when that Component needs an independent public override.
+        </design-system-alert>
+    </section>
+
+    <section class="documentation-section" id="hierarchy" aria-labelledby="tokens-hierarchy-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="tokens-hierarchy-title">Token Hierarchy</h2>
+                <p>The Token Hierarchy shows how a raw Value becomes a shared decision and reaches a real Component.</p>
+            </div>
+        </div>
+
+        <section class="documentation-subsection" aria-labelledby="token-levels-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="token-levels-title">Token Levels</h3>
+                <p>Follow the path from a raw Value to the Interface, then compare the responsibility of each Token level.</p>
+            </div>
+
+            <figure class="documentation-token-journey">
+            <figcaption>One Button background, from Value to Interface</figcaption>
+            <ol>
+                <li>
+                    <span class="documentation-journey-marker">1</span>
+                    <div class="documentation-journey-label">
+                        <strong>Primitive</strong>
+                        <span>Stores the raw Value</span>
+                    </div>
+                    <div class="documentation-token-capsule">
+                        <span class="documentation-color-swatch documentation-color-swatch-blue" aria-hidden="true"></span>
+                        <div>
+                            <span>Blue 600</span>
+                            <span class="design-system-code documentation-token-name">design-system-primitive-color-blue-600</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <span class="documentation-journey-marker">2</span>
+                    <div class="documentation-journey-label">
+                        <strong>Semantic</strong>
+                        <span>Gives the Value a shared purpose</span>
+                    </div>
+                    <div class="documentation-token-capsule">
+                        <span class="documentation-color-swatch documentation-color-swatch-blue" aria-hidden="true"></span>
+                        <div>
+                            <span>Action background</span>
+                            <span class="design-system-code documentation-token-name">design-system-semantic-color-action-background</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="documentation-journey-optional">
+                    <span class="documentation-journey-marker">3</span>
+                    <div class="documentation-journey-label">
+                        <strong>Component <small>Optional</small></strong>
+                        <span>Allows Button to change independently</span>
+                    </div>
+                    <div class="documentation-token-capsule">
+                        <span class="documentation-color-swatch documentation-color-swatch-blue" aria-hidden="true"></span>
+                        <div>
+                            <span>Filled Button background</span>
+                            <span class="design-system-code documentation-token-name">design-system-component-button-background-filled</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <span class="documentation-journey-marker">4</span>
+                    <div class="documentation-journey-label">
+                        <strong>Interface</strong>
+                        <span>The Component applies the decision</span>
+                    </div>
+                    <div class="documentation-token-result">
+                        <design-system-button variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent">Continue</design-system-button>
+                    </div>
+                </li>
+            </ol>
+        </figure>
+
+        <div class="design-system-grid documentation-card-grid">
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Value</design-system-badge>
+                    <h4 class="design-system-card__title">Primitive Tokens</h4>
+                    <p class="design-system-card__description">Answer “what is the Value?” They hold reusable scales such as colors, spacing steps, type sizes, radii, and durations.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Meaning</design-system-badge>
+                    <h4 class="design-system-card__title">Semantic Tokens</h4>
+                    <p class="design-system-card__description">Answer “what is this used for?” They express Roles shared by Themes and multiple Components.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <design-system-badge tone="@SemanticTone.Accent" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Override</design-system-badge>
+                    <h4 class="design-system-card__title">Component Tokens</h4>
+                    <p class="design-system-card__description">Answer “should this Component change independently?” They exist only when that public override is useful.</p>
+                </div>
+            </article>
+            </div>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="foundation-groups-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="foundation-groups-title">Foundation Groups</h3>
+                <p>Foundation Groups organize shared Primitive and Semantic decisions. A Group describes ownership, not another step in the Token Hierarchy.</p>
+            </div>
+            <div class="design-system-table-wrap documentation-token-group-wrap" role="region" aria-label="Foundation Token Groups" tabindex="0">
+                <table class="design-system-table documentation-token-group-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Foundation Group</th>
+                            <th scope="col">What It Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">Color</th><td>Surfaces, text, actions, boundaries, focus, Status, and Theme Roles</td></tr>
+                        <tr><th scope="row">Typography</th><td>Font families, sizes, weights, line heights, and readable text roles</td></tr>
+                        <tr><th scope="row">Spacing</th><td>The reusable distance scale and shared content gaps</td></tr>
+                        <tr><th scope="row">Sizing</th><td>Control heights, target sizes, and shared dimensions</td></tr>
+                        <tr><th scope="row">Layout</th><td>Content measures, columns, grids, and State dimensions</td></tr>
+                        <tr><th scope="row">Shape</th><td>Radii, boundaries, and focus-ring widths</td></tr>
+                        <tr><th scope="row">Elevation</th><td>Shadows, Scrims, and interface layer order</td></tr>
+                        <tr><th scope="row">Icons</th><td>Icon sizes used inside controls and compositions</td></tr>
+                        <tr><th scope="row">Motion</th><td>Movement and interaction scale decisions</td></tr>
+                        <tr><th scope="row">Timing</th><td>Durations and easing curves</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="supporting-primitive-groups-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="supporting-primitive-groups-title">Supporting Primitive Groups</h3>
+                <p>Supporting Primitive Groups hold raw Values needed to compose Foundation decisions without pretending to be a complete Foundation themselves.</p>
+            </div>
+            <div class="design-system-table-wrap documentation-token-group-wrap" role="region" aria-label="Supporting Primitive Token Groups" tabindex="0">
+                <table class="design-system-table documentation-token-group-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Primitive Group</th>
+                            <th scope="col">What It Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">Opacity</th><td>Raw transparency Values used to compose Elevation Shadows and Scrims</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="component-groups-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="component-groups-title">Component Groups</h3>
+                <p>Component Groups are Optional. A Group exists only when consumers need to customize that Component independently.</p>
+            </div>
+            <div class="design-system-table-wrap documentation-token-group-wrap" role="region" aria-label="Component Token Groups" tabindex="0">
+                <table class="design-system-table documentation-token-group-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Component Group</th>
+                            <th scope="col">What It Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">Badge</th><td>Badge height</td></tr>
+                        <tr><th scope="row">Button</th><td>Variant backgrounds, foregrounds, interaction States, and radius</td></tr>
+                        <tr><th scope="row">Card</th><td>Media placeholder height</td></tr>
+                        <tr><th scope="row">Choice</th><td>Checkbox and radio mark geometry</td></tr>
+                        <tr><th scope="row">Date Picker</th><td>Calendar width and weekday row height</td></tr>
+                        <tr><th scope="row">Empty State</th><td>Content measure and minimum height</td></tr>
+                        <tr><th scope="row">Navigation List</th><td>Current, focus, hover, path, and pressed backgrounds</td></tr>
+                        <tr><th scope="row">Number Field</th><td>Stepper icon size</td></tr>
+                        <tr><th scope="row">Picker</th><td>Popover dimensions, list height, item radius, and panel padding</td></tr>
+                        <tr><th scope="row">Progress</th><td>Track height and indeterminate animation duration</td></tr>
+                        <tr><th scope="row">Shell</th><td>Surfaces, boundaries, navigation width, header height, popover width, and scrollbar</td></tr>
+                        <tr><th scope="row">Skeleton</th><td>Line and block heights and animation duration</td></tr>
+                        <tr><th scope="row">Spinner</th><td>Stroke widths and animation duration</td></tr>
+                        <tr><th scope="row">Status</th><td>Status indicator size</td></tr>
+                        <tr><th scope="row">Switch</th><td>Track, thumb, padding, and travel geometry</td></tr>
+                        <tr><th scope="row">Table</th><td>Surfaces, header and row States, foreground, and minimum width</td></tr>
+                        <tr><th scope="row">Textarea</th><td>Minimum height</td></tr>
+                        <tr><th scope="row">Toast</th><td>Toast width</td></tr>
+                        <tr><th scope="row">Tooltip</th><td>Tooltip background and foreground</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </section>
+
+    <section class="documentation-section" id="naming" aria-labelledby="tokens-naming-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="tokens-naming-title">Token Naming</h2>
+                <p>Names are read from broad ownership on the left to specific and optional details on the far right.</p>
+            </div>
+        </div>
+
+        <div class="documentation-anatomy-list">
+            <figure class="documentation-anatomy-card">
+                <figcaption>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Outline" size="@ComponentSize.Small">Primitive Pattern</design-system-badge>
+                    <span>Describes a raw Value. Numeric dimensions use the number itself; decimals replace the decimal point with a hyphen; non-pixel units remain visible. Color keeps its established palette Steps.</span>
+                </figcaption>
+                <div class="documentation-anatomy-scroll" role="img" aria-label="Primitive Naming Structure: Namespace, Level, Primitive Group, Property or Family, Value">
+                    <div class="documentation-anatomy-token">
+                        <div class="documentation-anatomy-part" data-part="namespace"><span>Namespace</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="level"><span>Level</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="group"><span>Primitive Group</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="property"><span>Property or Family</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="detail"><span>Value</span></div>
+                    </div>
+                </div>
+                <div class="documentation-anatomy-example">
+                    <span>Example</span>
+                    <code class="documentation-token-name">design-system-primitive-shape-radius-8</code>
+                </div>
+            </figure>
+
+            <figure class="documentation-anatomy-card">
+                <figcaption>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Outline" size="@ComponentSize.Small">Semantic Pattern</design-system-badge>
+                    <span>Describes a shared purpose. Optional Variant, Tone, and State stay at the right. Typography Type Styles use the shorter pattern shown below.</span>
+                </figcaption>
+                <div class="documentation-anatomy-scroll" role="img" aria-label="Semantic Naming Structure: Namespace, Level, Foundation Group, Role, Property, Optional Variant, Optional Tone, Optional State">
+                    <div class="documentation-anatomy-token">
+                        <div class="documentation-anatomy-part" data-part="namespace"><span>Namespace</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="level"><span>Level</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="group"><span>Foundation Group</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="role"><span>Role</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="property"><span>Property</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="variant" data-optional="true"><span>Variant · Optional</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="tone" data-optional="true"><span>Tone · Optional</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="state" data-optional="true"><span>State · Optional</span></div>
+                    </div>
+                </div>
+                <div class="documentation-anatomy-example">
+                    <span>Example</span>
+                    <code class="documentation-token-name">design-system-semantic-color-action-background-neutral-hover</code>
+                </div>
+                <div class="documentation-anatomy-example">
+                    <span>Typography Type Style</span>
+                    <code class="documentation-token-name">design-system-semantic-typography-heading-1</code>
+                </div>
+            </figure>
+
+            <figure class="documentation-anatomy-card">
+                <figcaption>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Outline" size="@ComponentSize.Small">Component Pattern</design-system-badge>
+                    <span>Begins with the Component that owns the independent override.</span>
+                </figcaption>
+                <div class="documentation-anatomy-scroll" role="img" aria-label="Component Naming Structure: Namespace, Level, Component Group, Property, Optional Variant, Optional Tone, Optional State">
+                    <div class="documentation-anatomy-token">
+                        <div class="documentation-anatomy-part" data-part="namespace"><span>Namespace</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="level"><span>Level</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="group"><span>Component Group</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="property"><span>Property</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="variant" data-optional="true"><span>Variant · Optional</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="tone" data-optional="true"><span>Tone · Optional</span></div>
+                        <span class="documentation-anatomy-separator" aria-hidden="true">-</span>
+                        <div class="documentation-anatomy-part" data-part="state" data-optional="true"><span>State · Optional</span></div>
+                    </div>
+                </div>
+                <div class="documentation-anatomy-example">
+                    <span>Example</span>
+                    <code class="documentation-token-name">design-system-component-button-background-tonal-neutral-hover</code>
+                </div>
+            </figure>
+        </div>
+    </section>
+
+    <section class="documentation-section" id="theme" aria-labelledby="tokens-theme-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="tokens-theme-title">Theme</h2>
+                <p>Switching Themes changes the colors, while the purpose of each part of the interface stays the same.</p>
+            </div>
+        </div>
+
+        <figure class="documentation-theme-visual">
+            <figcaption class="design-system-visually-hidden">The same customer-details surface shown in Light and Dark Themes.</figcaption>
+            <div class="documentation-theme-pane" data-preview-theme="light">
+                <span class="documentation-theme-mode">Light</span>
+                <div class="documentation-theme-specimen">
+                    <span class="documentation-theme-specimen-label">Surface</span>
+                    <strong>Customer details</strong>
+                    <span>Shared content remains readable on the light surface.</span>
+                    <span class="documentation-theme-action">Continue</span>
+                </div>
+                <div class="documentation-theme-value">
+                    <span class="documentation-color-swatch" aria-hidden="true"></span>
+                    <div><span>White</span><small>Light Theme surface</small></div>
+                </div>
+            </div>
+            <div class="documentation-theme-pane" data-preview-theme="dark">
+                <span class="documentation-theme-mode">Dark</span>
+                <div class="documentation-theme-specimen">
+                    <span class="documentation-theme-specimen-label">Surface</span>
+                    <strong>Customer details</strong>
+                    <span>Shared content remains readable on the dark surface.</span>
+                    <span class="documentation-theme-action">Continue</span>
+                </div>
+                <div class="documentation-theme-value">
+                    <span class="documentation-color-swatch" aria-hidden="true"></span>
+                    <div><span>Gray 900</span><small>Dark Theme surface</small></div>
+                </div>
+            </div>
+        </figure>
+
+        <div class="documentation-theme-summary">
+            <div><strong>The Component asks for a surface</strong><span>It does not need to know which exact color the current Theme uses.</span></div>
+            <span aria-hidden="true">→</span>
+            <div><strong>The Theme supplies the color</strong><span>Light supplies white; dark supplies Gray 900.</span></div>
+        </div>
+    </section>
+</article>

@@ -1,0 +1,71 @@
+@model DesignSystem.Razor.Models.FileUploadModel
+@using DesignSystem.Razor.Contracts
+@{
+    if (Model is null || string.IsNullOrWhiteSpace(Model.Id) || string.IsNullOrWhiteSpace(Model.Name) || string.IsNullOrWhiteSpace(Model.Label))
+    {
+        throw new InvalidOperationException("File-upload id, name, and label are required.");
+    }
+
+    if (string.IsNullOrWhiteSpace(Model.BrowseLabel) || string.IsNullOrWhiteSpace(Model.EmptyLabel) ||
+        (Model.Required && string.IsNullOrWhiteSpace(Model.RequiredLabel)))
+    {
+        throw new InvalidOperationException("File-upload browse and empty labels are required.");
+    }
+
+    var hintId = string.IsNullOrWhiteSpace(Model.Hint) ? null : $"{Model.Id}-hint";
+    var errorId = string.IsNullOrWhiteSpace(Model.Error) ? null : $"{Model.Id}-error";
+    var labelId = $"{Model.Id}-label";
+    var browseLabelId = $"{Model.Id}-browse-label";
+    var selectionId = $"{Model.Id}-selection";
+    var describedBy = string.Join(' ', new[] { hintId, errorId }.Where(value => value is not null));
+    var triggerDescribedBy = string.Join(' ', new[] { hintId, errorId, selectionId }.Where(value => value is not null));
+}
+<div class="design-system-field-group design-system-file-upload" data-design-system-file-upload>
+    <label class="design-system-field-label" id="@labelId" for="@Model.Id">
+        @Model.Label
+        @if (Model.Required)
+        {
+            <span class="design-system-field-required">@Model.RequiredLabel</span>
+        }
+    </label>
+    <input class="design-system-file-upload__native"
+           id="@Model.Id"
+           name="@Model.Name"
+           type="file"
+           accept="@Model.Accept"
+           multiple="@Model.Multiple"
+           disabled="@Model.Disabled"
+           required="@Model.Required"
+           aria-describedby="@describedBy"
+           aria-invalid="@(errorId is null ? null : "true")"
+           data-design-system-file-upload-control />
+    <div class="design-system-file-control" hidden data-design-system-file-upload-enhancement>
+        <button class="design-system-button design-system-file-button"
+                type="button"
+                disabled="@Model.Disabled"
+                data-design-system-button
+                data-design-system-variant="tonal"
+                data-design-system-tone="neutral"
+                data-design-system-size="medium"
+                aria-labelledby="@labelId @browseLabelId"
+                aria-describedby="@triggerDescribedBy"
+                aria-invalid="@(errorId is null ? null : "true")"
+                data-design-system-file-upload-trigger>
+            <design-system-icon name="@IconName.Upload" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+            <span id="@browseLabelId">@Model.BrowseLabel</span>
+        </button>
+        <span class="design-system-file-name"
+              id="@selectionId"
+              aria-live="polite"
+              aria-atomic="true"
+              data-design-system-file-upload-selection>@Model.EmptyLabel</span>
+    </div>
+    @if (hintId is not null)
+    {
+        <div class="design-system-field-hint" id="@hintId">@Model.Hint</div>
+    }
+    @if (errorId is not null)
+    {
+        <div class="design-system-field-error" id="@errorId" role="alert">@Model.Error</div>
+    }
+</div>

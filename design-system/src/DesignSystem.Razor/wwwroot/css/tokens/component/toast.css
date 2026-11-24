@@ -1,0 +1,5 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-toast-width: 380px;
+    }
+}

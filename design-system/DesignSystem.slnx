@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DesignSystem.Razor/DesignSystem.Razor.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DesignSystem.ContractTests/DesignSystem.ContractTests.csproj" />
+    <Project Path="tests/DesignSystem.VisualHarness/DesignSystem.VisualHarness.csproj" />
+  </Folder>
+</Solution>

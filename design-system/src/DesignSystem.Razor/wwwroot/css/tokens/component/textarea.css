@@ -1,0 +1,5 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-textarea-minimum-height: 96px;
+    }
+}

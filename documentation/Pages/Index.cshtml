@@ -1,0 +1,109 @@
+@page
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<section class="documentation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Discover</span>
+            <h1 id="documentation-page-title">Design System</h1>
+            <p class="documentation-lead">
+                A reusable interface library for ASP.NET Core Razor Pages applications. The design system provides the shared visual rules,
+                accessible components, and browser behavior so every product does not have to rebuild them.
+            </p>
+        </div>
+        <div class="design-system-cluster">
+            <design-system-button href="/discover/getting-started" variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent">
+                Get started
+            </design-system-button>
+            <design-system-button href="/discover/tokens" variant="@ButtonVariant.Tonal" tone="@SemanticTone.Neutral">
+                Understand tokens
+            </design-system-button>
+        </div>
+    </header>
+
+    <section class="documentation-section" aria-labelledby="overview-what-it-is">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="overview-what-it-is">What the design system is</h2>
+                <p>The design system is one portable library and one separate documentation website.</p>
+            </div>
+        </div>
+
+        <div class="design-system-grid documentation-card-grid">
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <design-system-badge tone="@SemanticTone.Accent" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Product</design-system-badge>
+                    <h3 class="design-system-card__title">Design-system library</h3>
+                    <p class="design-system-card__description">
+                        The installable Razor Class Library containing tokens, styles, components, Tag Helpers, JavaScript, fonts, and icons.
+                    </p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Guide</design-system-badge>
+                    <h3 class="design-system-card__title">Documentation website</h3>
+                    <p class="design-system-card__description">
+                        The website you are reading. It explains and demonstrates the real library without maintaining a second implementation.
+                    </p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="overview-what-it-provides">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="overview-what-it-provides">What the library provides</h2>
+                <p>Applications receive one consistent foundation instead of a collection of disconnected examples.</p>
+            </div>
+        </div>
+
+        <div class="design-system-grid documentation-card-grid">
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">A shared visual language</h3>
+                    <p class="design-system-card__description">Color, typography, spacing, sizing, shape, elevation, icons, motion, and timing come from one token system.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">Reusable components</h3>
+                    <p class="design-system-card__description">Controls and compositions include accessible markup, responsive styling, and explicit behavior contracts.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">Progressive enhancement</h3>
+                    <p class="design-system-card__description">Native form and navigation behavior remains the fallback. JavaScript replaces it only after enhancement succeeds.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="overview-how-it-is-used">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="overview-how-it-is-used">How applications use it</h2>
+                <p>The design system chooses the smallest implementation contract that adds real value.</p>
+            </div>
+        </div>
+
+        <div class="documentation-decision-list">
+            <div class="documentation-decision">
+                <strong>Controlled component</strong>
+                <span>Use a public <code>&lt;design-system-*&gt;</code> Tag Helper when the design system must generate or validate the markup.</span>
+            </div>
+            <div class="documentation-decision">
+                <strong>Open composition</strong>
+                <span>Use native HTML with <code>design-system-*</code> classes and <code>data-design-system-*</code> behavior hooks.</span>
+            </div>
+            <div class="documentation-decision">
+                <strong>Application feature</strong>
+                <span>Use an application-owned View Component when the feature needs its own data access or server-side logic.</span>
+            </div>
+        </div>
+    </section>
+</section>

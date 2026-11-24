@@ -1,0 +1,6 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-progress-track-height: 8px;
+        --design-system-component-progress-duration-indeterminate: 800ms;
+    }
+}

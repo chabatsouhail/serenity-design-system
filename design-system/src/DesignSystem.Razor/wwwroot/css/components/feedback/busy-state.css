@@ -1,0 +1,41 @@
+@layer design-system.component {
+    .design-system-busy-region {
+        position: relative;
+        min-width: 0;
+    }
+
+    .design-system-busy-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        min-height: var(--design-system-semantic-layout-state-minimum-height);
+        padding: var(--design-system-primitive-spacing-24);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        text-align: center;
+        cursor: wait;
+    }
+
+    .design-system-busy-state[data-design-system-overlay] {
+        position: absolute;
+        inset: 0;
+        z-index: var(--design-system-semantic-elevation-overlay-layer);
+        min-height: 0;
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .design-system-busy-state__label {
+        max-width: var(--design-system-semantic-layout-state-content-measure);
+        overflow-wrap: anywhere;
+    }
+
+    @media (forced-colors: active) {
+        .design-system-busy-state {
+            background: Canvas;
+            color: CanvasText;
+            forced-color-adjust: none;
+        }
+    }
+}

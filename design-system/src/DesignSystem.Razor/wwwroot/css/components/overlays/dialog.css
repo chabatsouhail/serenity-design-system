@@ -1,0 +1,116 @@
+@layer design-system.component {
+    .design-system-dialog {
+        --_design-system-dialog-width-small: 360px;
+        --_design-system-dialog-width-medium: 520px;
+        --_design-system-dialog-width-large: 760px;
+        --_design-system-dialog-body-maximum-height: 520px;
+        --_design-system-dialog-body-viewport-maximum-height: 62dvh;
+
+        width: min(var(--_design-system-dialog-width-medium), calc(100vw - (2 * var(--design-system-primitive-spacing-14))));
+        max-width: calc(100vw - (2 * var(--design-system-primitive-spacing-14)));
+        max-height: calc(100dvh - (2 * var(--design-system-primitive-spacing-14)));
+        padding: 0;
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-primitive-shape-radius-12);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        box-shadow: var(--design-system-semantic-elevation-dialog-shadow);
+    }
+
+    .design-system-dialog:is([data-design-system-size="small"], .design-system-dialog--small) {
+        width: min(var(--_design-system-dialog-width-small), calc(100vw - (2 * var(--design-system-primitive-spacing-14))));
+    }
+
+    .design-system-dialog:is([data-design-system-size="large"], .design-system-dialog--large) {
+        width: min(var(--_design-system-dialog-width-large), calc(100vw - (2 * var(--design-system-primitive-spacing-14))));
+    }
+
+    .design-system-dialog::backdrop {
+        background: var(--design-system-semantic-elevation-scrim-background);
+    }
+
+    .design-system-dialog[open] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .design-system-dialog__header,
+    .design-system-dialog__footer {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        padding: var(--design-system-semantic-spacing-container-padding);
+    }
+
+    .design-system-dialog__header {
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .design-system-dialog__title {
+        flex: 1 1 0;
+        min-width: 0;
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-heading-3);
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-dialog__body {
+        min-height: 0;
+        max-height: min(var(--_design-system-dialog-body-viewport-maximum-height), var(--_design-system-dialog-body-maximum-height));
+        padding: var(--design-system-semantic-spacing-container-padding);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+    }
+
+    .design-system-dialog__footer {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    @media (max-width: 560px) {
+        .design-system-dialog,
+        .design-system-dialog:is([data-design-system-size], .design-system-dialog--small, .design-system-dialog--large) {
+            width: calc(100vw - (2 * var(--design-system-primitive-spacing-8)));
+            max-width: none;
+            max-height: calc(100dvh - (2 * var(--design-system-primitive-spacing-8)));
+        }
+
+        .design-system-dialog__body {
+            padding: var(--design-system-semantic-spacing-container-padding);
+        }
+
+        .design-system-dialog__footer {
+            align-items: stretch;
+            flex-direction: column-reverse;
+        }
+
+        .design-system-dialog__footer .design-system-button {
+            width: 100%;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-dialog {
+            border-color: CanvasText;
+            background: Canvas;
+            color: CanvasText;
+            box-shadow: none;
+            forced-color-adjust: none;
+        }
+
+        .design-system-dialog::backdrop {
+            background: Canvas;
+            opacity: 50%;
+        }
+
+        .design-system-dialog__header,
+        .design-system-dialog__footer {
+            border-color: CanvasText;
+        }
+    }
+}

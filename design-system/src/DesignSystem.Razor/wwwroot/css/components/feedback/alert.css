@@ -1,0 +1,125 @@
+@layer design-system.component {
+    .design-system-alert {
+        --_design-system-alert-foreground: var(--design-system-semantic-color-text-foreground-secondary);
+        --_design-system-alert-background: var(--design-system-semantic-color-surface-background-subtle);
+        --_design-system-alert-boundary: var(--design-system-semantic-color-boundary-border);
+
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        padding: var(--design-system-semantic-spacing-container-padding);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--_design-system-alert-boundary);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--_design-system-alert-background);
+        color: var(--_design-system-alert-foreground);
+    }
+
+    .design-system-alert:is([data-design-system-tone="accent"], [data-design-system-tone="info"], .design-system-alert--accent, .design-system-alert--info) {
+        --_design-system-alert-foreground: var(--design-system-semantic-color-status-foreground-info);
+        --_design-system-alert-background: var(--design-system-semantic-color-status-background-info);
+        --_design-system-alert-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-info), transparent 48%);
+    }
+
+    .design-system-alert:is([data-design-system-tone="success"], .design-system-alert--success) {
+        --_design-system-alert-foreground: var(--design-system-semantic-color-status-foreground-success);
+        --_design-system-alert-background: var(--design-system-semantic-color-status-background-success);
+        --_design-system-alert-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-success), transparent 48%);
+    }
+
+    .design-system-alert:is([data-design-system-tone="warning"], .design-system-alert--warning) {
+        --_design-system-alert-foreground: var(--design-system-semantic-color-status-foreground-warning);
+        --_design-system-alert-background: var(--design-system-semantic-color-status-background-warning);
+        --_design-system-alert-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-warning), transparent 48%);
+    }
+
+    .design-system-alert:is([data-design-system-tone="danger"], .design-system-alert--danger) {
+        --_design-system-alert-foreground: var(--design-system-semantic-color-status-foreground-danger);
+        --_design-system-alert-background: var(--design-system-semantic-color-status-background-danger);
+        --_design-system-alert-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-danger), transparent 48%);
+    }
+
+    .design-system-alert__content {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+    }
+
+    .design-system-alert__title {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-alert[data-design-system-tone] .design-system-alert__title {
+        color: inherit;
+    }
+
+    .design-system-alert__message {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-alert__message > :last-child {
+        margin-bottom: 0;
+    }
+
+    .design-system-alert__dismiss {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: center;
+        width: var(--design-system-semantic-sizing-control-height-compact);
+        height: var(--design-system-semantic-sizing-control-height-compact);
+        margin-block: calc((var(--design-system-semantic-sizing-control-height-compact) - var(--design-system-semantic-icons-control-size-medium)) / -2);
+        margin-inline-end: calc(var(--design-system-primitive-spacing-4) * -1);
+        padding: 0;
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        transform-origin: center;
+        transition-property: background-color, box-shadow, transform;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .design-system-alert__dismiss .design-system-icon {
+        width: var(--design-system-semantic-icons-control-size-small);
+        height: var(--design-system-semantic-icons-control-size-small);
+    }
+
+    .design-system-alert__dismiss:is(:hover, [data-design-system-preview-state="hover"]) {
+        background: color-mix(in srgb, currentColor, transparent 88%);
+    }
+
+    .design-system-alert__dismiss:is(:active, [data-design-system-preview-state="active"]) {
+        transform: scale(var(--design-system-semantic-motion-interaction-scale-press-compact));
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-press);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-alert__dismiss {
+            width: var(--design-system-semantic-sizing-control-height-relaxed);
+            height: var(--design-system-semantic-sizing-control-height-relaxed);
+            margin-block: calc((var(--design-system-semantic-sizing-control-height-relaxed) - var(--design-system-semantic-icons-control-size-medium)) / -2);
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-alert {
+            border-color: CanvasText;
+            background: Canvas;
+            color: CanvasText;
+            forced-color-adjust: none;
+        }
+
+        .design-system-alert__dismiss {
+            border: var(--design-system-semantic-shape-boundary-width) solid ButtonText;
+            color: ButtonText;
+        }
+    }
+}

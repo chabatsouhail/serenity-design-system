@@ -1,0 +1,8 @@
+@model ButtonReferenceControl
+<div class="design-system-segmented" role="group" aria-label="@Model.Label" data-design-system-segmented data-button-reference-control="@Model.Property">
+    @foreach (var option in Model.Options)
+    {
+        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true"
+                              pressed="@(option.Value == Model.Selected)" value="@option.Value">@option.Label</design-system-button>
+    }
+</div>

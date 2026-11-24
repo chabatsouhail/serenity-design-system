@@ -1,0 +1,19 @@
+@model ButtonSpecimen
+<design-system-button variant="@Model.Variant" tone="@Model.Tone" size="@Model.Size"
+                      icon-only="@Model.IconOnly" accessible-label="@(Model.IconOnly ? Model.Label : null)"
+                      disabled="@(Model.State == "disabled")" loading="@(Model.State == "loading")" loading-label="Saving changes"
+                      block="@Model.Block" data-design-system-wrap="@(Model.Wrap ? "" : null)"
+                      data-design-system-preview-state="@Model.PreviewState">
+    @if (Model.Leading)
+    {
+        <design-system-icon name="@IconName.Plus" size="@ComponentSize.Medium" decorative="true" data-button-part="leading"></design-system-icon>
+    }
+    @if (!Model.IconOnly)
+    {
+        <span data-button-part="label">@Model.Label</span>
+    }
+    @if (Model.Trailing)
+    {
+        <design-system-icon name="@IconName.ArrowRight" size="@ComponentSize.Medium" decorative="true" data-button-part="trailing"></design-system-icon>
+    }
+</design-system-button>

@@ -1,0 +1,35 @@
+@layer design-system.component {
+    .design-system-pagination {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .design-system-pagination > li {
+        min-width: 0;
+    }
+
+    .design-system-pagination-ellipsis {
+        display: grid;
+        place-items: center;
+        min-width: var(--design-system-semantic-sizing-control-height-compact);
+        min-height: var(--design-system-semantic-sizing-control-height-compact);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-variant-numeric: tabular-nums;
+    }
+
+    .design-system-pagination :is(.design-system-button, .design-system-icon-button) {
+        font-variant-numeric: tabular-nums;
+    }
+
+    @media (forced-colors: active) {
+        .design-system-pagination-ellipsis {
+            color: GrayText;
+        }
+    }
+}

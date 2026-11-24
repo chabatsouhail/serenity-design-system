@@ -1,0 +1,10 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-timing-interaction-duration-press: var(--design-system-primitive-timing-duration-80ms);
+        --design-system-semantic-timing-interaction-duration-release: var(--design-system-primitive-timing-duration-120ms);
+        --design-system-semantic-timing-interaction-duration-standard: var(--design-system-primitive-timing-duration-200ms);
+        --design-system-semantic-timing-interaction-easing-press: var(--design-system-primitive-timing-easing-cubic-bezier-0-0-0-2-1);
+        --design-system-semantic-timing-interaction-easing-standard: var(--design-system-primitive-timing-easing-cubic-bezier-0-2-0-0-1);
+    }
+}
+

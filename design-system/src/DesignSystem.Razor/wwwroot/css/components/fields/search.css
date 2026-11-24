@@ -1,0 +1,107 @@
+@layer design-system.component {
+    .design-system-search {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        width: 100%;
+        min-width: 0;
+        height: var(--_design-system-density-control-height);
+        padding-inline: var(--design-system-semantic-spacing-control-padding-inline);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .design-system-search:hover:not(:has(input:disabled, input:read-only)) {
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+    }
+
+    .design-system-search:focus-within {
+        border-color: var(--design-system-semantic-color-focus-ring);
+        box-shadow: inset 0 0 0 var(--design-system-semantic-shape-boundary-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-search input {
+        flex: 1 1 0;
+        min-width: 0;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: inherit;
+    }
+
+    .design-system-search input::placeholder {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        opacity: 1;
+    }
+
+    .design-system-search[data-design-system-enhanced="true"] input {
+        appearance: none;
+    }
+
+    .design-system-search[data-design-system-enhanced="true"] input::-webkit-search-cancel-button {
+        display: none;
+    }
+
+    .design-system-search > .design-system-icon {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    .design-system-search-clear {
+        display: none;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        width: var(--design-system-semantic-sizing-action-size-compact);
+        height: var(--design-system-semantic-sizing-action-size-compact);
+        padding: 0;
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: transparent;
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        cursor: pointer;
+        transition-property: background-color, color, opacity, transform;
+    }
+
+    .design-system-search[data-design-system-enhanced="true"][data-design-system-has-value="true"] .design-system-search-clear {
+        display: inline-flex;
+    }
+
+    .design-system-search-clear:hover:not(:disabled),
+    .design-system-search-clear:focus-visible:not(:disabled) {
+        background: var(--design-system-semantic-color-surface-background-hover);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .design-system-search-clear:active:not(:disabled) {
+        transform: scale(var(--design-system-semantic-motion-interaction-scale-press-compact));
+    }
+
+    .design-system-search:has(input:disabled) {
+        background: var(--design-system-semantic-color-surface-background-disabled);
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+    }
+
+    .design-system-search:has(input:read-only:not(:disabled)) {
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    .design-system-search:has(input[aria-invalid="true"]) {
+        border-color: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-search {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+
+        .design-system-search-clear {
+            width: var(--design-system-semantic-sizing-control-height-relaxed);
+            height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+}

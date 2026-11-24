@@ -1,0 +1,12 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-table-background-content: var(--design-system-semantic-color-surface-background);
+        --design-system-component-table-background-header: var(--design-system-semantic-color-surface-background-subtle);
+        --design-system-component-table-background-header-secondary: var(--design-system-component-table-background-content);
+        --design-system-component-table-foreground-header: var(--design-system-semantic-color-text-foreground-secondary);
+        --design-system-component-table-background-band: color-mix(in srgb, var(--design-system-component-table-background-content), var(--design-system-semantic-color-surface-background-control) 35%);
+        --design-system-component-table-background-row-hover: var(--design-system-semantic-color-surface-background-hover);
+        --design-system-component-table-background-row-selected: var(--design-system-semantic-color-surface-background-selected);
+        --design-system-component-table-minimum-width: 620px;
+    }
+}

@@ -1,0 +1,50 @@
+@model DesignSystem.Razor.Models.EmptyStateModel
+@using DesignSystem.Razor.Contracts
+@{
+    if (Model is null || string.IsNullOrWhiteSpace(Model.Title) || string.IsNullOrWhiteSpace(Model.Description))
+    {
+        throw new InvalidOperationException("Empty-state title and description are required.");
+    }
+
+    if (string.IsNullOrWhiteSpace(Model.ActionLabel) != string.IsNullOrWhiteSpace(Model.ActionHref))
+    {
+        throw new InvalidOperationException("Empty-state action label and href must be supplied together.");
+    }
+
+    if (Model.HeadingLevel is < 2 or > 6)
+    {
+        throw new InvalidOperationException("Empty-state heading level must be between 2 and 6.");
+    }
+
+    var hasAction = !string.IsNullOrWhiteSpace(Model.ActionLabel) && !string.IsNullOrWhiteSpace(Model.ActionHref);
+}
+<section class="design-system-empty-state" data-design-system-empty-state>
+    <div class="design-system-empty-state__icon" aria-hidden="true">
+        <design-system-icon name="@Model.Icon" size="@ComponentSize.Large" decorative="true"></design-system-icon>
+    </div>
+    <div class="design-system-empty-state__content">
+        @switch (Model.HeadingLevel)
+        {
+            case 2:
+                <h2 class="design-system-empty-state__title">@Model.Title</h2>
+                break;
+            case 3:
+                <h3 class="design-system-empty-state__title">@Model.Title</h3>
+                break;
+            case 4:
+                <h4 class="design-system-empty-state__title">@Model.Title</h4>
+                break;
+            case 5:
+                <h5 class="design-system-empty-state__title">@Model.Title</h5>
+                break;
+            default:
+                <h6 class="design-system-empty-state__title">@Model.Title</h6>
+                break;
+        }
+        <p class="design-system-empty-state__description">@Model.Description</p>
+    </div>
+    @if (hasAction)
+    {
+        <design-system-button href="@Model.ActionHref" variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent">@Model.ActionLabel</design-system-button>
+    }
+</section>

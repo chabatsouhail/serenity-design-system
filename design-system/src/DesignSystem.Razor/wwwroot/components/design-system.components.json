@@ -1,0 +1,81 @@
+{
+  "version": "18.1.0",
+  "groups": [
+    {
+      "name": "Actions",
+      "components": [
+        { "name": "Button", "slug": "button", "selector": ".design-system-button" },
+        { "name": "Icon Button", "slug": "icon-button", "selector": ".design-system-icon-button" },
+        { "name": "Button Group", "slug": "button-group", "selector": ".design-system-button-group" },
+        { "name": "Toolbar", "slug": "toolbar", "selector": ".design-system-toolbar" }
+      ]
+    },
+    {
+      "name": "Fields",
+      "components": [
+        { "name": "Text Field", "slug": "text-field", "selector": ".design-system-field" },
+        { "name": "Password Field", "slug": "password-field", "selector": ".design-system-field[type=\"password\"]" },
+        { "name": "Textarea", "slug": "textarea", "selector": ".design-system-textarea" },
+        { "name": "Search", "slug": "search", "selector": ".design-system-search" },
+        { "name": "Number Field", "slug": "number-field", "selector": ".design-system-number-control" },
+        { "name": "Checkbox", "slug": "checkbox", "selector": ".design-system-choice[data-design-system-type=\"checkbox\"]" },
+        { "name": "Radio", "slug": "radio", "selector": ".design-system-choice[data-design-system-type=\"radio\"]" },
+        { "name": "Switch", "slug": "switch", "selector": ".design-system-switch" },
+        { "name": "Picker", "slug": "picker", "selector": ".design-system-picker" },
+        { "name": "Date Picker", "slug": "date-picker", "selector": ".design-system-date-picker" },
+        { "name": "File Upload", "slug": "file-upload", "selector": ".design-system-file-upload" }
+      ]
+    },
+    {
+      "name": "Navigation",
+      "components": [
+        { "name": "Link", "slug": "link", "selector": ".design-system-link" },
+        { "name": "Breadcrumb", "slug": "breadcrumb", "selector": ".design-system-breadcrumbs" },
+        { "name": "Pagination", "slug": "pagination", "selector": ".design-system-pagination" },
+        { "name": "Navigation List", "slug": "navigation-list", "selector": ".design-system-navigation-list" },
+        { "name": "Tabs", "slug": "tabs", "selector": ".design-system-tabs" },
+        { "name": "Segmented Control", "slug": "segmented", "selector": ".design-system-segmented" },
+        { "name": "Side Navigation", "slug": "side-navigation", "selector": ".design-system-side-navigation" }
+      ]
+    },
+    {
+      "name": "Data",
+      "components": [
+        { "name": "Badge", "slug": "badge", "selector": ".design-system-badge" },
+        { "name": "Status", "slug": "status", "selector": ".design-system-status" },
+        { "name": "Card", "slug": "card", "selector": ".design-system-card" },
+        { "name": "Chip", "slug": "chip", "selector": ".design-system-chip" },
+        { "name": "List", "slug": "list", "selector": ".design-system-list" },
+        { "name": "Table", "slug": "table", "selector": ".design-system-table" },
+        { "name": "Row", "slug": "row", "selector": ".design-system-table tbody tr" },
+        { "name": "Column", "slug": "column", "selector": ".design-system-table__column-header" }
+      ]
+    },
+    {
+      "name": "Feedback",
+      "components": [
+        { "name": "Alert", "slug": "alert", "selector": ".design-system-alert" },
+        { "name": "Inline Message", "slug": "inline-message", "selector": ".design-system-inline-message" },
+        { "name": "Toast", "slug": "toast", "selector": ".design-system-toast" },
+        { "name": "Progress", "slug": "progress", "selector": ".design-system-progress" },
+        { "name": "Spinner", "slug": "spinner", "selector": ".design-system-spinner" },
+        { "name": "Skeleton", "slug": "skeleton", "selector": ".design-system-skeleton" },
+        { "name": "Empty State", "slug": "empty-state", "selector": ".design-system-empty-state" },
+        { "name": "Error State", "slug": "error-state", "selector": ".design-system-error-state" },
+        { "name": "Busy Region", "slug": "busy-region", "selector": ".design-system-busy-region" }
+      ]
+    },
+    {
+      "name": "Overlays",
+      "components": [
+        { "name": "Menu", "slug": "menu", "selector": ".design-system-menu" },
+        { "name": "Context Menu", "slug": "context-menu", "selector": "[data-design-system-context-menu]" },
+        { "name": "Popover", "slug": "popover", "selector": ".design-system-popover" },
+        { "name": "Tooltip", "slug": "tooltip", "selector": ".design-system-tooltip" },
+        { "name": "Dialog", "slug": "dialog", "selector": ".design-system-dialog" },
+        { "name": "Drawer", "slug": "drawer", "selector": ".design-system-drawer" },
+        { "name": "Confirmation Dialog", "slug": "confirmation-dialog", "selector": ".design-system-dialog[data-design-system-confirmation-dialog]" }
+      ]
+    }
+  ]
+}

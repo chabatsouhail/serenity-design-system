@@ -1,0 +1,7 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-spinner-border-width: var(--design-system-primitive-shape-border-width-2);
+        --design-system-component-spinner-border-width-large: calc(var(--design-system-primitive-shape-border-width-2) + var(--design-system-primitive-shape-border-width-1));
+        --design-system-component-spinner-duration: 800ms;
+    }
+}

@@ -1,0 +1,7 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-icons-size-14: 14px;
+        --design-system-primitive-icons-size-16: 16px;
+        --design-system-primitive-icons-size-20: 20px;
+    }
+}

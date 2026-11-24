@@ -1,0 +1,51 @@
+@layer design-system.component {
+    .design-system-inline-message {
+        --_design-system-inline-message-foreground: var(--design-system-semantic-color-text-foreground-secondary);
+
+        display: flex;
+        align-items: flex-start;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        color: var(--_design-system-inline-message-foreground);
+    }
+
+    .design-system-inline-message:is([data-design-system-tone="accent"], [data-design-system-tone="info"]) {
+        --_design-system-inline-message-foreground: var(--design-system-semantic-color-status-foreground-info);
+    }
+
+    .design-system-inline-message[data-design-system-tone="success"] {
+        --_design-system-inline-message-foreground: var(--design-system-semantic-color-status-foreground-success);
+    }
+
+    .design-system-inline-message[data-design-system-tone="warning"] {
+        --_design-system-inline-message-foreground: var(--design-system-semantic-color-status-foreground-warning);
+    }
+
+    .design-system-inline-message[data-design-system-tone="danger"] {
+        --_design-system-inline-message-foreground: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    .design-system-inline-message__icon {
+        flex: 0 0 auto;
+        margin-block-start: var(--design-system-primitive-spacing-2);
+    }
+
+    .design-system-inline-message__content {
+        display: grid;
+        flex: 1 1 0;
+        gap: var(--design-system-primitive-spacing-2);
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-inline-message__title {
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    @media (forced-colors: active) {
+        .design-system-inline-message {
+            color: CanvasText;
+        }
+    }
+}

@@ -1,0 +1,7 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-choice-mark-size: 18px;
+        --design-system-component-choice-check-width: 8px;
+        --design-system-component-choice-check-height: 5px;
+    }
+}

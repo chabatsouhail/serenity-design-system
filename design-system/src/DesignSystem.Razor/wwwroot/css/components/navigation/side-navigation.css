@@ -1,0 +1,243 @@
+@layer design-system.component {
+    .design-system-side-navigation {
+        display: flex;
+        flex-direction: column;
+        width: var(--design-system-component-shell-sidebar-width);
+        max-width: 100%;
+        min-width: 0;
+        min-height: 100%;
+        padding: var(--design-system-primitive-spacing-16);
+        overflow: hidden;
+        border-inline-end: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-component-shell-boundary);
+        background: var(--design-system-component-shell-background-navigation);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .design-system-side-navigation-header,
+    .design-system-side-navigation-footer {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+        min-width: 0;
+    }
+
+    .design-system-side-navigation-header {
+        min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        margin-bottom: var(--design-system-primitive-spacing-12);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .design-system-side-navigation-title {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .design-system-side-navigation-body {
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-color: var(--design-system-component-shell-scrollbar-thumb) var(--design-system-component-shell-background-navigation);
+        scrollbar-width: thin;
+    }
+
+    .design-system-side-navigation-body::-webkit-scrollbar {
+        width: var(--design-system-primitive-spacing-6);
+    }
+
+    .design-system-side-navigation-body::-webkit-scrollbar-button {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    .design-system-side-navigation-body::-webkit-scrollbar-track,
+    .design-system-side-navigation-body::-webkit-scrollbar-corner {
+        background: var(--design-system-component-shell-background-navigation);
+    }
+
+    .design-system-side-navigation-body::-webkit-scrollbar-thumb {
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-component-shell-scrollbar-thumb);
+    }
+
+    .design-system-side-navigation-body::-webkit-scrollbar-thumb:hover {
+        background: var(--design-system-component-shell-scrollbar-thumb-hover);
+    }
+
+    .design-system-side-navigation-footer {
+        margin-top: var(--design-system-primitive-spacing-12);
+        padding-top: var(--design-system-primitive-spacing-12);
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-component-shell-boundary);
+    }
+
+    [data-design-system-shell] > [data-design-system-shell-navigation] {
+        grid-column: 1;
+    }
+
+    [data-design-system-shell] > [data-design-system-shell-main] {
+        grid-column: 2;
+        min-width: 0;
+        background: var(--design-system-component-shell-background-content);
+    }
+
+    .design-system-shell-compact-header,
+    .design-system-shell-navigation-header,
+    [data-design-system-shell-compact-header] {
+        display: none;
+    }
+
+    .design-system-shell-scrim,
+    [data-design-system-shell-scrim] {
+        display: none;
+    }
+
+    .design-system-button.design-system-shell-trigger {
+        gap: var(--design-system-primitive-spacing-6);
+        padding-inline: var(--design-system-primitive-spacing-8);
+    }
+
+    .design-system-button.design-system-shell-trigger[data-design-system-icon-only] {
+        gap: 0;
+        padding: 0;
+    }
+
+    @media (max-width: 760px) {
+        .design-system-side-navigation {
+            width: 100%;
+            min-height: auto;
+            border-inline-end: 0;
+            border-bottom: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-component-shell-boundary);
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready] {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: auto minmax(0, 1fr);
+            min-height: 100dvh;
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready] > [data-design-system-shell-compact-header] {
+            position: sticky;
+            top: 0;
+            z-index: var(--design-system-primitive-elevation-layer-20);
+            display: flex;
+            grid-row: 1;
+            align-items: center;
+            gap: var(--design-system-primitive-spacing-12);
+            min-width: 0;
+            min-height: var(--design-system-component-shell-header-height-compact);
+            padding: var(--design-system-primitive-spacing-6) var(--design-system-primitive-spacing-12);
+            border-bottom: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-component-shell-boundary);
+            background: var(--design-system-component-shell-background-content);
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready] > [data-design-system-shell-main] {
+            grid-column: 1;
+            grid-row: 2;
+            min-height: calc(100dvh - var(--design-system-component-shell-header-height-compact));
+        }
+
+        .design-system-shell-compact-title {
+            display: flex;
+            min-width: 0;
+            align-items: baseline;
+            gap: var(--design-system-primitive-spacing-10);
+            overflow: hidden;
+            color: var(--design-system-semantic-color-text-foreground-primary);
+            font: var(--design-system-semantic-typography-body);
+            font-weight: var(--design-system-primitive-typography-weight-500);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .design-system-shell-compact-title small {
+            color: var(--design-system-semantic-color-text-foreground-muted);
+            font: var(--design-system-semantic-typography-caption);
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready] > [data-design-system-shell-navigation] {
+            grid-column: 1;
+            margin: 0;
+            overflow-y: auto;
+            border-bottom: 0;
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready][data-design-system-compact-navigation="panel"] > [data-design-system-shell-navigation] {
+            position: fixed;
+            inset: 0 auto 0 0;
+            z-index: var(--design-system-semantic-elevation-dialog-layer);
+            width: min(var(--design-system-component-shell-sidebar-width), calc(100vw - var(--design-system-primitive-spacing-48)));
+            max-width: none;
+            height: 100dvh;
+            border-inline-end: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-component-shell-boundary);
+            background: var(--design-system-component-shell-background-navigation);
+            box-shadow: var(--design-system-semantic-elevation-dialog-shadow);
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready][data-design-system-compact-navigation="panel"] .design-system-shell-navigation-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--design-system-primitive-spacing-12);
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+            margin-bottom: var(--design-system-primitive-spacing-12);
+            color: var(--design-system-semantic-color-text-foreground-primary);
+            font: var(--design-system-semantic-typography-body);
+            font-weight: var(--design-system-primitive-typography-weight-500);
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready][data-design-system-compact-navigation="popover"] > [data-design-system-shell-navigation] {
+            position: absolute;
+            top: calc(var(--design-system-component-shell-header-height-compact) + var(--design-system-primitive-spacing-6));
+            left: var(--design-system-primitive-spacing-12);
+            z-index: var(--design-system-semantic-elevation-overlay-layer);
+            width: min(var(--design-system-component-shell-popover-width), calc(100% - (2 * var(--design-system-primitive-spacing-12))));
+            max-height: calc(100dvh - var(--design-system-component-shell-header-height-compact) - (2 * var(--design-system-primitive-spacing-12)));
+            border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+            border-radius: var(--design-system-semantic-shape-overlay-radius);
+            background: var(--design-system-semantic-color-surface-background-elevated);
+            box-shadow: var(--design-system-semantic-elevation-overlay-shadow);
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready] > :is(.design-system-shell-scrim, [data-design-system-shell-scrim]):not([hidden]) {
+            position: fixed;
+            inset: 0;
+            z-index: calc(var(--design-system-semantic-elevation-overlay-layer) + 10);
+            display: block;
+            background: var(--design-system-semantic-elevation-scrim-background);
+        }
+
+        html[data-design-system-shell-panel-open] {
+            overflow: hidden;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-side-navigation {
+            border-color: CanvasText;
+        }
+
+        .design-system-side-navigation-body {
+            scrollbar-color: auto;
+        }
+
+        .design-system-side-navigation-footer {
+            border-color: CanvasText;
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready][data-design-system-compact-navigation="panel"] > [data-design-system-shell-navigation],
+        [data-design-system-shell][data-design-system-shell-ready][data-design-system-compact-navigation="popover"] > [data-design-system-shell-navigation] {
+            border-color: CanvasText;
+            box-shadow: none;
+        }
+    }
+}

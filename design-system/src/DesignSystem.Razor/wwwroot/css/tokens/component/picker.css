@@ -1,0 +1,10 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-picker-minimum-width: 240px;
+        --design-system-component-picker-minimum-width-compact: 280px;
+        --design-system-component-picker-maximum-width: 360px;
+        --design-system-component-picker-list-maximum-height: 244px;
+        --design-system-component-picker-panel-padding: var(--design-system-primitive-spacing-8);
+        --design-system-component-picker-item-radius: var(--design-system-primitive-shape-radius-6);
+    }
+}

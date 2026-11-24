@@ -1,0 +1,8 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-sizing-control-height-compact: var(--design-system-primitive-sizing-30);
+        --design-system-semantic-sizing-control-height-normal: var(--design-system-primitive-sizing-34);
+        --design-system-semantic-sizing-control-height-relaxed: var(--design-system-primitive-sizing-44);
+        --design-system-semantic-sizing-action-size-compact: var(--design-system-primitive-sizing-24);
+    }
+}

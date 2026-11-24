@@ -1,0 +1,63 @@
+@layer design-system.component {
+    .design-system-status {
+        --_design-system-status-color: var(--design-system-semantic-color-text-foreground-muted);
+
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-6);
+        min-width: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .design-system-status::before,
+    .design-system-status__indicator {
+        flex: 0 0 auto;
+        width: var(--design-system-component-status-indicator-size);
+        height: var(--design-system-component-status-indicator-size);
+        border: var(--design-system-semantic-shape-boundary-width) solid currentColor;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--_design-system-status-color);
+        color: var(--_design-system-status-color);
+    }
+
+    .design-system-status::before {
+        content: "";
+    }
+
+    .design-system-status:has(> .design-system-status__indicator)::before {
+        display: none;
+    }
+
+    .design-system-status:is([data-design-system-tone="accent"], [data-design-system-tone="info"]) {
+        --_design-system-status-color: var(--design-system-semantic-color-status-foreground-info);
+    }
+
+    .design-system-status[data-design-system-tone="success"] {
+        --_design-system-status-color: var(--design-system-semantic-color-status-foreground-success);
+    }
+
+    .design-system-status[data-design-system-tone="warning"] {
+        --_design-system-status-color: var(--design-system-semantic-color-status-foreground-warning);
+    }
+
+    .design-system-status[data-design-system-tone="danger"] {
+        --_design-system-status-color: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    .design-system-status__label {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    @media (forced-colors: active) {
+        .design-system-status {
+            --_design-system-status-color: CanvasText;
+        }
+
+        .design-system-status::before,
+        .design-system-status__indicator {
+            background: CanvasText;
+            forced-color-adjust: none;
+        }
+    }
+}

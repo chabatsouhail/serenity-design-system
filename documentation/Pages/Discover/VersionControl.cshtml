@@ -1,0 +1,342 @@
+@page "/discover/version-control"
+@{
+    ViewData["Title"] = "Version Control";
+}
+
+<article class="documentation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Discover</span>
+            <div class="documentation-title-row">
+                <h1 id="documentation-page-title">Version Control</h1>
+                <design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Outline" size="@ComponentSize.Medium">
+                    Current · @DesignSystemInfo.Version
+                </design-system-badge>
+            </div>
+            <p class="documentation-lead">
+                The design system uses semantic versioning so an application can understand the impact of an upgrade before adopting it.
+            </p>
+        </div>
+    </header>
+
+    <section class="documentation-section" aria-labelledby="version-number-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="version-number-title">Reading a version number</h2>
+                <p>A design system release is written as <code>major.minor.patch</code>.</p>
+            </div>
+        </div>
+
+        <div class="documentation-version-number" aria-label="Version number major 8, minor 0, patch 0">
+            <div>
+                <strong>8</strong>
+                <span>Major</span>
+            </div>
+            <span aria-hidden="true">.</span>
+            <div>
+                <strong>0</strong>
+                <span>Minor</span>
+            </div>
+            <span aria-hidden="true">.</span>
+            <div>
+                <strong>0</strong>
+                <span>Patch</span>
+            </div>
+        </div>
+
+        <div class="design-system-table-wrap" role="region" aria-label="the design system versioning rules" tabindex="0">
+            <table class="design-system-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Release</th>
+                        <th scope="col">When it changes</th>
+                        <th scope="col">Expected impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Patch</th>
+                        <td>An implementation defect is fixed without changing a public contract.</td>
+                        <td>Safe corrective update.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Minor</th>
+                        <td>A backward-compatible Token, Component, Variant, State, or behavior is added.</td>
+                        <td>Existing implementations continue to work.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Major</th>
+                        <td>A public name, meaning, markup requirement, behavior contract, or supported feature is removed or changed.</td>
+                        <td>Migration work may be required.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="version-public-contract-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="version-public-contract-title">What counts as a public contract</h2>
+                <p>A version covers more than the NuGet assembly.</p>
+            </div>
+        </div>
+
+        <div class="design-system-grid documentation-card-grid">
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">Server API</h3>
+                    <p class="design-system-card__description">Public Tag Helpers, models, enums, validation behavior, and emitted markup.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">Browser API</h3>
+                    <p class="design-system-card__description"><code>design-system-*</code> classes, <code>data-design-system-*</code> hooks, events, and <code>window.DesignSystem</code>.</p>
+                </div>
+            </article>
+            <article class="design-system-card">
+                <div class="design-system-card__body">
+                    <h3 class="design-system-card__title">Design API</h3>
+                    <p class="design-system-card__description">Public Primitive, Semantic, and Optional Component Tokens.</p>
+                </div>
+            </article>
+        </div>
+
+        <design-system-alert title="No hidden compatibility layer" tone="@SemanticTone.Info" live-mode="@LiveRegionMode.Off">
+            The design system does not silently preserve renamed selectors or tokens. A breaking removal requires a major release and an explicit migration path.
+        </design-system-alert>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="version-upgrade-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="version-upgrade-title">Upgrading an application</h2>
+                <p>Keep the package and every asset served to the browser on the same release.</p>
+            </div>
+        </div>
+
+        <ol class="documentation-step-list">
+            <li>
+                <span class="documentation-step-marker" aria-hidden="true">1</span>
+                <div>
+                    <strong>Read the release notes</strong>
+                    <p>Check the changelog for new contracts, corrections, and any migration instructions.</p>
+                </div>
+            </li>
+            <li>
+                <span class="documentation-step-marker" aria-hidden="true">2</span>
+                <div>
+                    <strong>Update the package reference</strong>
+                    <pre class="documentation-code"><code>&lt;PackageReference Include="DesignSystem.Razor" Version="@DesignSystemInfo.Version" /&gt;</code></pre>
+                </div>
+            </li>
+            <li>
+                <span class="documentation-step-marker" aria-hidden="true">3</span>
+                <div>
+                    <strong>Build and exercise the application</strong>
+                    <p>Verify server rendering, native fallbacks, enhanced behavior, Themes, keyboard use, and responsive layouts affected by the release.</p>
+                </div>
+            </li>
+        </ol>
+
+        <p>
+            The canonical <code>&lt;design-system-assets /&gt;</code> integration fingerprints public entries and every internal CSS and JavaScript dependency with the package version,
+            preventing a browser or CDN from silently combining files from different releases.
+        </p>
+    </section>
+
+    <section class="documentation-section" aria-labelledby="version-history-title">
+        <div class="documentation-section-heading">
+            <div>
+                <h2 id="version-history-title">Release history</h2>
+                <p>The greenfield system begins at 1.0.0. It contains no legacy compatibility implementation.</p>
+            </div>
+        </div>
+
+        <div class="documentation-release-list">
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>18.1.0</h3>
+                    <design-system-badge tone="@SemanticTone.Info" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Current</design-system-badge>
+                </div>
+                <p>Added Filled Negative Buttons as a supported public combination with dedicated solid danger colors, interaction states, contrast verification, and complete Anatomy documentation.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>18.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Removed the former product name and moved every public contract to the generic DesignSystem and design-system technical identity.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>17.1.2</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Patch</design-system-badge>
+                </div>
+                <p>Standardized every Segmented Button on the Navigation visual language so its container and selected segment now match the Navigation List consistently.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>17.1.1</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Patch</design-system-badge>
+                </div>
+                <p>Restored visible hover and press feedback for Segmented Buttons and refreshed the public asset fingerprint so browsers cannot retain the stale interaction styling.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>17.1.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Minor</design-system-badge>
+                </div>
+                <p>Added IBM Plex Serif and explicit Normal and Italic Primitive Font Style Tokens. Every complete Semantic Type Style now includes its Font Style and all public asset URLs use the 17.1.0 fingerprint.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>17.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Removed the standalone Emphasis Weight Token. Components now select the next Primitive Font Weight directly from the surrounding Type Style.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>16.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Renamed the complete Primitive Spacing scale so every Token suffix is its actual pixel Value. A 2px distance is now Spacing 2, while 16px is Spacing 16.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>15.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Separated complete Semantic Type Styles from Text Emphasis. Emphasis now exposes an explicit Weight treatment, while Link underline offset is a direct Primitive implementation detail instead of a misleading Semantic role.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>14.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Shipped genuine IBM Plex Sans and IBM Plex Mono 400, 500, 600, and 700 normal and italic webfonts. Technical text now uses IBM Plex Mono through the renamed Primitive Font Family Token.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>13.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Separated Opacity and Elevation effects from Color. Opacity is now an independent Supporting Primitive Group, while Shadows and Scrims belong to Elevation; their resolved Light and Dark appearance is unchanged.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>12.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Renamed the Primitive Color families from Neutral to Gray and Yellow to Orange across their public Token names, Theme mappings, and documentation. Primitive palette headings are now Green, Orange, and Red; Semantic Status roles retain their purpose-based names.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>11.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Renamed purpose-labelled Primitive Tokens so Typography, Sizing, Shape, Icons, Layout, Elevation, Motion, and Timing encode their raw Values. Color Palette Steps remained unchanged.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>10.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Replaced Compact, Normal, and Relaxed Semantic Spacing variants with one stable Token for each Control, Item, and Container Padding responsibility. Density now changes Control Height without changing Padding.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>9.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Replaced numeric Primitive Sizing Token names with the five-step Extra Small, Small, Medium, Large, and Extra Large scale. Existing Component dimensions remain unchanged, and the new Extra Large step gives the 56px compact Shell header a named shared Value.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>8.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Rebuilt Primitive Sizing around four raw dimensions—24, 30, 34, and 44px—while the existing Semantic Tokens retain the purposes assigned to those Values. The previous purpose-named Primitive Tokens were removed without compatibility aliases.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>6.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Rebuilt Typography around eight complete Semantic Type Styles. Each Style maps Font Family, Font Size, Line Height, and Font Weight directly to Primitive Typography Tokens, with no extra middle Token layer or old Token aliases.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>5.0.1</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Patch</design-system-badge>
+                </div>
+                <p>Completed the Typography Foundation documentation and corrected the public Heading classes so their Weight and Line Height match native Headings.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>5.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Removed the Ink Primitive Color and reassigned its primary-text and solid-Status roles to Black without retaining a compatibility alias.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>4.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Removed precomposed Alpha Effect Colors and rebuilt Scrims and Shadows from Neutral 950 plus independent Primitive opacity Tokens.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>3.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Removed the Slate Primitive Color family and moved Neutral Actions to the existing Neutral Gray Palette without retaining compatibility aliases.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>2.1.1</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Patch</design-system-badge>
+                </div>
+                <p>Corrected the Primitive Blue family so every step forms a smooth visual progression around the unchanged Blue 600 Primary Action Color.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>2.1.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Minor</design-system-badge>
+                </div>
+                <p>Added the Primitive Token for emphasized text and made native <code>&lt;strong&gt;</code> text use the exact shipped 500 font weight.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>2.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Major</design-system-badge>
+                </div>
+                <p>Moved the reusable library, documentation site, and verified package-consumer contract to .NET 10. Applications on .NET 8 must upgrade their target framework before adopting this release.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>1.1.1</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Patch</design-system-badge>
+                </div>
+                <p>Corrected Table wrapper geometry and versioned every internal CSS and JavaScript dependency to prevent stale component assets.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>1.1.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Minor</design-system-badge>
+                </div>
+                <p>Added the canonical asset contract, versioned public assets, runtime diagnostics, explicit enhancement markers, and stronger native fallbacks.</p>
+            </article>
+            <article class="design-system-panel documentation-release">
+                <div>
+                    <h3>1.0.0</h3>
+                    <design-system-badge tone="@SemanticTone.Neutral" appearance="@BadgeAppearance.Subtle" size="@ComponentSize.Small">Initial</design-system-badge>
+                </div>
+                <p>Introduced the greenfield token architecture, component contracts, progressive enhancement runtime, and portable verification workflow.</p>
+            </article>
+        </div>
+    </section>
+</article>

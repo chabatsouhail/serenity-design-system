@@ -1,0 +1,137 @@
+@layer design-system.component {
+    .design-system-progress {
+        --_design-system-progress-value-background: var(--design-system-semantic-color-action-background);
+    }
+
+    .design-system-progress:not(progress) {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+        min-width: 0;
+    }
+
+    .design-system-progress:is([data-design-system-tone="accent"], [data-design-system-tone="info"]) {
+        --_design-system-progress-value-background: var(--design-system-semantic-color-status-foreground-info);
+    }
+
+    .design-system-progress[data-design-system-tone="success"] {
+        --_design-system-progress-value-background: var(--design-system-semantic-color-status-foreground-success);
+    }
+
+    .design-system-progress[data-design-system-tone="warning"] {
+        --_design-system-progress-value-background: var(--design-system-semantic-color-status-foreground-warning);
+    }
+
+    .design-system-progress[data-design-system-tone="danger"] {
+        --_design-system-progress-value-background: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    .design-system-progress__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--design-system-primitive-spacing-8);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font: var(--design-system-semantic-typography-body-small);
+    }
+
+    .design-system-progress__label {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-progress__value-label {
+        flex: 0 0 auto;
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    .design-system-progress__track {
+        height: var(--design-system-component-progress-track-height);
+        overflow: hidden;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-surface-background-control);
+    }
+
+    .design-system-progress__value {
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--_design-system-progress-value-background);
+        transform-origin: left center;
+        transition: width var(--design-system-semantic-timing-interaction-duration-standard) var(--design-system-semantic-timing-interaction-easing-standard);
+    }
+
+    .design-system-progress[data-design-system-indeterminate] .design-system-progress__value,
+    .design-system-progress[role="progressbar"]:not([aria-valuenow]) .design-system-progress__value {
+        width: 40%;
+        animation: design-system-progress-indeterminate var(--design-system-component-progress-duration-indeterminate) linear infinite;
+    }
+
+    progress.design-system-progress {
+        display: block;
+        width: 100%;
+        height: var(--design-system-component-progress-track-height);
+        overflow: hidden;
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        appearance: none;
+        background: var(--design-system-semantic-color-surface-background-control);
+        color: var(--_design-system-progress-value-background);
+    }
+
+    progress.design-system-progress::-webkit-progress-bar {
+        border-radius: inherit;
+        background: var(--design-system-semantic-color-surface-background-control);
+    }
+
+    progress.design-system-progress::-webkit-progress-value {
+        border-radius: inherit;
+        background: var(--_design-system-progress-value-background);
+        transition: width var(--design-system-semantic-timing-interaction-duration-standard) var(--design-system-semantic-timing-interaction-easing-standard);
+    }
+
+    progress.design-system-progress::-moz-progress-bar {
+        border-radius: inherit;
+        background: var(--_design-system-progress-value-background);
+        transition: width var(--design-system-semantic-timing-interaction-duration-standard) var(--design-system-semantic-timing-interaction-easing-standard);
+    }
+
+    @keyframes design-system-progress-indeterminate {
+        from {
+            transform: translateX(-100%);
+        }
+
+        to {
+            transform: translateX(250%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .design-system-progress[data-design-system-indeterminate] .design-system-progress__value,
+        .design-system-progress[role="progressbar"]:not([aria-valuenow]) .design-system-progress__value {
+            animation: none;
+            transform: none;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-progress__track,
+        progress.design-system-progress,
+        progress.design-system-progress::-webkit-progress-bar {
+            border: var(--design-system-semantic-shape-boundary-width) solid CanvasText;
+            background: Canvas;
+            forced-color-adjust: none;
+        }
+
+        .design-system-progress__value {
+            background: Highlight;
+        }
+
+        progress.design-system-progress::-webkit-progress-value {
+            background: Highlight;
+        }
+
+        progress.design-system-progress::-moz-progress-bar {
+            background: Highlight;
+        }
+    }
+}

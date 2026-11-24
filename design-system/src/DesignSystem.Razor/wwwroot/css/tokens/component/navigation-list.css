@@ -1,0 +1,9 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-navigation-list-background-hover: color-mix(in srgb, var(--design-system-semantic-color-surface-background-subtle), var(--design-system-semantic-color-action-background) 7%);
+        --design-system-component-navigation-list-background-focus: color-mix(in srgb, var(--design-system-semantic-color-surface-background-subtle), var(--design-system-semantic-color-action-background) 9%);
+        --design-system-component-navigation-list-background-path: var(--design-system-semantic-color-surface-background-control);
+        --design-system-component-navigation-list-background-pressed: color-mix(in srgb, var(--design-system-semantic-color-surface-background-subtle), var(--design-system-semantic-color-action-background) 17%);
+        --design-system-component-navigation-list-background-current: color-mix(in srgb, var(--design-system-semantic-color-surface-background-subtle), var(--design-system-semantic-color-action-background) 13%);
+    }
+}

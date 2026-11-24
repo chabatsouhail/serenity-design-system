@@ -1,0 +1,10 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-timing-duration-80ms: 80ms;
+        --design-system-primitive-timing-duration-120ms: 120ms;
+        --design-system-primitive-timing-duration-200ms: 200ms;
+        --design-system-primitive-timing-duration-0-01ms: .01ms;
+        --design-system-primitive-timing-easing-cubic-bezier-0-2-0-0-1: cubic-bezier(.2, 0, 0, 1);
+        --design-system-primitive-timing-easing-cubic-bezier-0-0-0-2-1: cubic-bezier(0, 0, .2, 1);
+    }
+}

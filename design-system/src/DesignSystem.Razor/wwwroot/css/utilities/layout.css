@@ -1,0 +1,18 @@
+@layer design-system.utility {
+    .design-system-full-width {
+        width: 100% !important;
+    }
+
+    .design-system-align-start {
+        align-items: flex-start !important;
+    }
+
+    .design-system-justify-between {
+        justify-content: space-between !important;
+    }
+
+    .design-system-no-margin {
+        margin: 0 !important;
+    }
+}
+

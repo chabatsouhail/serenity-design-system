@@ -1,0 +1,32 @@
+@layer design-system.component {
+    .design-system-button-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+    }
+
+    .design-system-button-group[data-design-system-align="start"] {
+        justify-content: flex-start;
+    }
+
+    .design-system-button-group[data-design-system-align="center"] {
+        justify-content: center;
+    }
+
+    .design-system-button-group[data-design-system-align="spread"] {
+        justify-content: space-between;
+    }
+
+    .design-system-button-group[data-design-system-block] > :is(.design-system-button, .design-system-icon-button) {
+        flex: 1 1 auto;
+    }
+
+    @media (max-width: 560px) {
+        .design-system-button-group > :is(.design-system-button, .design-system-icon-button) {
+            flex: 1 1 auto;
+        }
+    }
+}

@@ -1,0 +1,63 @@
+@layer design-system.component {
+    .design-system-toolbar {
+        --_design-system-toolbar-min-height: calc(var(--_design-system-density-control-height) + (2 * var(--design-system-semantic-spacing-item-padding-block)));
+        --_design-system-toolbar-title-min-width: calc(2 * var(--design-system-primitive-spacing-32));
+
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        min-height: var(--_design-system-toolbar-min-height);
+        padding: var(--design-system-semantic-spacing-item-padding-block) var(--design-system-semantic-spacing-item-padding-inline);
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .design-system-toolbar-title {
+        flex: 1 1 0;
+        min-width: var(--_design-system-toolbar-title-min-width);
+        overflow: hidden;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .design-system-toolbar-group {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+    }
+
+    .design-system-toolbar-separator {
+        align-self: stretch;
+        width: var(--design-system-semantic-shape-boundary-width-subtle);
+        margin-block: var(--design-system-primitive-spacing-4);
+        border: 0;
+        background: var(--design-system-semantic-color-boundary-border);
+    }
+
+    @media (max-width: 560px) {
+        .design-system-toolbar {
+            flex-wrap: wrap;
+        }
+
+        .design-system-toolbar-title {
+            flex-basis: calc(100% - (2 * var(--_design-system-density-control-height)));
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-toolbar,
+        .design-system-toolbar-separator {
+            border-color: CanvasText;
+        }
+
+        .design-system-toolbar-separator {
+            background: CanvasText;
+        }
+    }
+}

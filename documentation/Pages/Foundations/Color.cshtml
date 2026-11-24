@@ -1,0 +1,451 @@
+@page "/foundations/color"
+@{
+    ViewData["Title"] = "Color";
+    var colorPalettes = new[]
+    {
+        (Name: "Gray", Purpose: "The dominant Palette for Surfaces, text, and boundaries, including the Black and White endpoints.", Colors: new[]
+        {
+            (Name: "Black", Slug: "black", Value: "#070809"),
+            (Name: "Gray 950", Slug: "gray-950", Value: "#0b0d10"),
+            (Name: "Gray 925", Slug: "gray-925", Value: "#0d0f12"),
+            (Name: "Gray 900", Slug: "gray-900", Value: "#101216"),
+            (Name: "Gray 850", Slug: "gray-850", Value: "#191c21"),
+            (Name: "Gray 800", Slug: "gray-800", Value: "#20242a"),
+            (Name: "Gray 750", Slug: "gray-750", Value: "#2a2e35"),
+            (Name: "Gray 700", Slug: "gray-700", Value: "#374151"),
+            (Name: "Gray 550", Slug: "gray-550", Value: "#5b6470"),
+            (Name: "Gray 500", Slug: "gray-500", Value: "#5d6673"),
+            (Name: "Gray 450", Slug: "gray-450", Value: "#8f96a3"),
+            (Name: "Gray 400", Slug: "gray-400", Value: "#8b95a3"),
+            (Name: "Gray 250", Slug: "gray-250", Value: "#d1d5dc"),
+            (Name: "Gray 200", Slug: "gray-200", Value: "#d9dee6"),
+            (Name: "Gray 150", Slug: "gray-150", Value: "#e1e6ec"),
+            (Name: "Gray 100", Slug: "gray-100", Value: "#e9edf2"),
+            (Name: "Gray 50", Slug: "gray-50", Value: "#f3f5f7"),
+            (Name: "Gray 25", Slug: "gray-25", Value: "#f8fafc"),
+            (Name: "Gray 10", Slug: "gray-10", Value: "#f7f7f8"),
+            (Name: "White", Slug: "white", Value: "#ffffff")
+        }),
+        (Name: "Blue", Purpose: "Primary Actions, focus, selection, and information.", Colors: new[]
+        {
+            (Name: "Blue 900", Slug: "blue-900", Value: "#1e3a8a"),
+            (Name: "Blue 700", Slug: "blue-700", Value: "#1d4ed8"),
+            (Name: "Blue 650", Slug: "blue-650", Value: "#2159e2"),
+            (Name: "Blue 600", Slug: "blue-600", Value: "#2563eb"),
+            (Name: "Blue 500", Slug: "blue-500", Value: "#3b82f6"),
+            (Name: "Blue 300", Slug: "blue-300", Value: "#93c5fd"),
+            (Name: "Blue 50", Slug: "blue-50", Value: "#eff6ff")
+        }),
+        (Name: "Green", Purpose: "Positive Status and successful outcomes.", Colors: new[]
+        {
+            (Name: "Green 900", Slug: "green-900", Value: "#10291d"),
+            (Name: "Green 700", Slug: "green-700", Value: "#166534"),
+            (Name: "Green 400", Slug: "green-400", Value: "#65d799"),
+            (Name: "Green 50", Slug: "green-50", Value: "#e8f7ed")
+        }),
+        (Name: "Orange", Purpose: "Caution and warning Status.", Colors: new[]
+        {
+            (Name: "Orange 900", Slug: "orange-900", Value: "#33250d"),
+            (Name: "Orange 700", Slug: "orange-700", Value: "#7a4600"),
+            (Name: "Orange 300", Slug: "orange-300", Value: "#f1b849"),
+            (Name: "Orange 50", Slug: "orange-50", Value: "#fff4d6")
+        }),
+        (Name: "Red", Purpose: "Errors, destructive Actions, and danger Status.", Colors: new[]
+        {
+            (Name: "Red 900", Slug: "red-900", Value: "#371412"),
+            (Name: "Red 700", Slug: "red-700", Value: "#b42318"),
+            (Name: "Red 300", Slug: "red-300", Value: "#ff8b82"),
+            (Name: "Red 50", Slug: "red-50", Value: "#fff0ee")
+        })
+    };
+    var semanticColorGroups = new[]
+    {
+        (Name: "Canvas and Surfaces", Purpose: "Background Roles that establish the Page and Layer hierarchy.", Rows: new[]
+        {
+            (Role: "Page Background", Purpose: "Base Canvas behind all Page content.", Token: "--design-system-semantic-color-page-background", Light: "Gray 100", Dark: "Black", LightSwatch: "gray-100", DarkSwatch: "black"),
+            (Role: "Surface Background", Purpose: "Default background for content and Components.", Token: "--design-system-semantic-color-surface-background", Light: "White", Dark: "Gray 900", LightSwatch: "white", DarkSwatch: "gray-900"),
+            (Role: "Subtle Surface", Purpose: "Low-emphasis background for nested content zones.", Token: "--design-system-semantic-color-surface-background-subtle", Light: "Gray 50", Dark: "Gray 850", LightSwatch: "gray-50", DarkSwatch: "gray-850"),
+            (Role: "Elevated Surface", Purpose: "Surface visually raised above its current Layer.", Token: "--design-system-semantic-color-surface-background-elevated", Light: "White", Dark: "Gray 800", LightSwatch: "white", DarkSwatch: "gray-800"),
+            (Role: "Inverse Surface", Purpose: "Dark Surface intended for inverse foreground content.", Token: "--design-system-semantic-color-surface-background-inverse", Light: "Gray 800", Dark: "Gray 800", LightSwatch: "gray-800", DarkSwatch: "gray-800"),
+            (Role: "Control Surface", Purpose: "Default fill behind Fields and neutral Controls.", Token: "--design-system-semantic-color-surface-background-control", Light: "Gray 100", Dark: "Gray 800", LightSwatch: "gray-100", DarkSwatch: "gray-800"),
+            (Role: "Hovered Surface", Purpose: "Hover feedback on neutral Surfaces.", Token: "--design-system-semantic-color-surface-background-hover", Light: "Gray 25", Dark: "Gray 750", LightSwatch: "gray-25", DarkSwatch: "gray-750"),
+            (Role: "Selected Surface", Purpose: "Background that identifies selected content.", Token: "--design-system-semantic-color-surface-background-selected", Light: "Blue 50", Dark: "Blue 900", LightSwatch: "blue-50", DarkSwatch: "blue-900"),
+            (Role: "Disabled Surface", Purpose: "Background for unavailable content and Controls.", Token: "--design-system-semantic-color-surface-background-disabled", Light: "Gray 150", Dark: "Gray 800", LightSwatch: "gray-150", DarkSwatch: "gray-800")
+        }),
+        (Name: "Text", Purpose: "Foreground Roles for readable content and interface labels.", Rows: new[]
+        {
+            (Role: "Primary Text", Purpose: "Headings and primary reading content.", Token: "--design-system-semantic-color-text-foreground-primary", Light: "Black", Dark: "Gray 10", LightSwatch: "black", DarkSwatch: "gray-10"),
+            (Role: "Secondary Text", Purpose: "Supporting labels and less prominent content.", Token: "--design-system-semantic-color-text-foreground-secondary", Light: "Gray 700", Dark: "Gray 250", LightSwatch: "gray-700", DarkSwatch: "gray-250"),
+            (Role: "Muted Text", Purpose: "Metadata and low-emphasis supporting content.", Token: "--design-system-semantic-color-text-foreground-muted", Light: "Gray 500", Dark: "Gray 450", LightSwatch: "gray-500", DarkSwatch: "gray-450"),
+            (Role: "Disabled Text", Purpose: "Text belonging to unavailable content or Controls.", Token: "--design-system-semantic-color-text-foreground-disabled", Light: "Gray 400", Dark: "Gray 500", LightSwatch: "gray-400", DarkSwatch: "gray-500"),
+            (Role: "Accent Text", Purpose: "Interactive and highlighted text.", Token: "--design-system-semantic-color-text-foreground-accent", Light: "Blue 700", Dark: "Blue 300", LightSwatch: "blue-700", DarkSwatch: "blue-300"),
+            (Role: "Inverse Text", Purpose: "Text placed on dark or strongly colored Surfaces.", Token: "--design-system-semantic-color-text-foreground-inverse", Light: "White", Dark: "White", LightSwatch: "white", DarkSwatch: "white")
+        }),
+        (Name: "Boundaries and Focus", Purpose: "Borders, selected edges, and keyboard focus indication.", Rows: new[]
+        {
+            (Role: "Default Boundary", Purpose: "Standard separation between adjacent areas.", Token: "--design-system-semantic-color-boundary-border", Light: "Gray 200", Dark: "Gray 750", LightSwatch: "gray-200", DarkSwatch: "gray-750"),
+            (Role: "Strong Boundary", Purpose: "Emphasized separation around important content.", Token: "--design-system-semantic-color-boundary-border-strong", Light: "Gray 400", Dark: "Gray 550", LightSwatch: "gray-400", DarkSwatch: "gray-550"),
+            (Role: "Selected Boundary", Purpose: "Edge that identifies a selected state.", Token: "--design-system-semantic-color-boundary-border-selected", Light: "Blue 500", Dark: "Blue 650", LightSwatch: "blue-500", DarkSwatch: "blue-650"),
+            (Role: "Focus Ring", Purpose: "Visible keyboard focus indicator.", Token: "--design-system-semantic-color-focus-ring", Light: "Blue 600", Dark: "Blue 600", LightSwatch: "blue-600", DarkSwatch: "blue-600")
+        }),
+        (Name: "Actions", Purpose: "Default and hover Colors for primary, negative, and neutral Actions.", Rows: new[]
+        {
+            (Role: "Primary Action", Purpose: "Default background for the highest-priority Action.", Token: "--design-system-semantic-color-action-background", Light: "Blue 600", Dark: "Blue 600", LightSwatch: "blue-600", DarkSwatch: "blue-600"),
+            (Role: "Primary Action Hover", Purpose: "Hover background for a primary Action.", Token: "--design-system-semantic-color-action-background-hover", Light: "Blue 700", Dark: "Blue 700", LightSwatch: "blue-700", DarkSwatch: "blue-700"),
+            (Role: "Negative Action", Purpose: "Default background for a high-emphasis destructive Action.", Token: "--design-system-semantic-color-action-background-danger", Light: "Red 700", Dark: "Red 700", LightSwatch: "red-700", DarkSwatch: "red-700"),
+            (Role: "Negative Action Hover", Purpose: "Hover background for a high-emphasis destructive Action.", Token: "--design-system-semantic-color-action-background-danger-hover", Light: "Red 900", Dark: "Red 900", LightSwatch: "red-900", DarkSwatch: "red-900"),
+            (Role: "Neutral Action", Purpose: "Default background for a neutral Action.", Token: "--design-system-semantic-color-action-background-neutral", Light: "Gray 100", Dark: "Gray 800", LightSwatch: "gray-100", DarkSwatch: "gray-800"),
+            (Role: "Neutral Action Hover", Purpose: "Hover background for a neutral Action.", Token: "--design-system-semantic-color-action-background-neutral-hover", Light: "Gray 150", Dark: "Gray 750", LightSwatch: "gray-150", DarkSwatch: "gray-750"),
+            (Role: "Neutral Action Text", Purpose: "Text and Icon Color inside a neutral Action.", Token: "--design-system-semantic-color-action-foreground-neutral", Light: "Gray 700", Dark: "Gray 250", LightSwatch: "gray-700", DarkSwatch: "gray-250")
+        }),
+        (Name: "Status", Purpose: "Foreground and background pairs for feedback and system state.", Rows: new[]
+        {
+            (Role: "Success Foreground", Purpose: "Text and Icons that communicate success.", Token: "--design-system-semantic-color-status-foreground-success", Light: "Green 700", Dark: "Green 400", LightSwatch: "green-700", DarkSwatch: "green-400"),
+            (Role: "Success Background", Purpose: "Subtle Surface behind success content.", Token: "--design-system-semantic-color-status-background-success", Light: "Green 50", Dark: "Green 900", LightSwatch: "green-50", DarkSwatch: "green-900"),
+            (Role: "Warning Foreground", Purpose: "Text and Icons that communicate warning.", Token: "--design-system-semantic-color-status-foreground-warning", Light: "Orange 700", Dark: "Orange 300", LightSwatch: "orange-700", DarkSwatch: "orange-300"),
+            (Role: "Warning Background", Purpose: "Subtle Surface behind warning content.", Token: "--design-system-semantic-color-status-background-warning", Light: "Orange 50", Dark: "Orange 900", LightSwatch: "orange-50", DarkSwatch: "orange-900"),
+            (Role: "Danger Foreground", Purpose: "Text and Icons that communicate danger or error.", Token: "--design-system-semantic-color-status-foreground-danger", Light: "Red 700", Dark: "Red 300", LightSwatch: "red-700", DarkSwatch: "red-300"),
+            (Role: "Danger Background", Purpose: "Subtle Surface behind danger or error content.", Token: "--design-system-semantic-color-status-background-danger", Light: "Red 50", Dark: "Red 900", LightSwatch: "red-50", DarkSwatch: "red-900"),
+            (Role: "Information Foreground", Purpose: "Text and Icons that communicate information.", Token: "--design-system-semantic-color-status-foreground-info", Light: "Blue 700", Dark: "Blue 300", LightSwatch: "blue-700", DarkSwatch: "blue-300"),
+            (Role: "Information Background", Purpose: "Subtle Surface behind information content.", Token: "--design-system-semantic-color-status-background-info", Light: "Blue 50", Dark: "Blue 900", LightSwatch: "blue-50", DarkSwatch: "blue-900"),
+            (Role: "Solid Status Text", Purpose: "Text placed on a solid Status background.", Token: "--design-system-semantic-color-status-foreground-solid", Light: "White", Dark: "Black", LightSwatch: "white", DarkSwatch: "black")
+        })
+    };
+
+    string[] GetPrimitiveColorSources(string swatch) => new[] { $"--design-system-primitive-color-{swatch}" };
+
+    string TokenName(string token) => token.StartsWith("--", StringComparison.Ordinal) ? token[2..] : token;
+
+}
+
+<article class="documentation-page documentation-foundation-page documentation-tabbed-foundation-page documentation-color-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Foundations</span>
+            <h1 id="documentation-page-title">Color</h1>
+            <p class="documentation-lead">
+                Color organizes the interface, identifies interaction, and communicates Status without overwhelming the content.
+            </p>
+        </div>
+    </header>
+
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="color-page-tabs">
+        <span class="documentation-page-context-sentinel"
+              aria-hidden="true"
+              data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true">
+                <span class="documentation-page-compact-title-text">Color</span>
+                <span class="documentation-page-compact-section" data-documentation-page-compact-section></span>
+            </span>
+            <div class="documentation-page-compact-controls" data-documentation-page-compact-controls></div>
+            <div class="design-system-tab-list" role="tablist" aria-label="Color documentation sections">
+                <button class="design-system-tab"
+                        id="color-page-tab-anatomy"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="color-page-panel-anatomy"
+                        data-design-system-tab
+                        data-design-system-value="anatomy">
+                    Anatomy
+                </button>
+                <button class="design-system-tab"
+                        id="color-page-tab-tokens"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="color-page-panel-tokens"
+                        tabindex="-1"
+                        data-design-system-tab
+                        data-design-system-value="tokens">
+                    Tokens
+                </button>
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="color-page-panel-anatomy"
+             role="tabpanel"
+             aria-labelledby="color-page-tab-anatomy"
+             data-design-system-tab-panel>
+    <section class="documentation-page-tab-section" id="anatomy" aria-labelledby="color-anatomy-title">
+        <h2 class="design-system-visually-hidden" id="color-anatomy-title">Anatomy</h2>
+
+        <nav class="documentation-reference-toc design-system-tab-list"
+             aria-label="On this page"
+             data-documentation-reference-toc>
+            <ol class="documentation-reference-toc-list">
+                <li data-documentation-reference-toc-group>
+                    <a class="design-system-tab documentation-reference-toc-parent" href="#color-palette-title" aria-current="location">Palette</a>
+                    <ol class="documentation-reference-toc-sublist">
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#gray-family-title">Gray</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#core-blue-family-title">Blue</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#alert-colors-title">Alert Colors</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </nav>
+
+        <section class="documentation-subsection documentation-color-palette" aria-labelledby="color-palette-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="color-palette-title">Palette</h3>
+                <p>The design system uses a restrained Color system. Gray organizes the interface, Blue identifies interaction, and Alert Colors communicate important Status.</p>
+            </div>
+
+            <div class="documentation-color-anatomy documentation-color-context">
+            <section class="documentation-color-family documentation-subsection" aria-labelledby="gray-family-title">
+                <div class="documentation-color-family-copy documentation-subsection-heading">
+                    <h4 id="gray-family-title">Gray</h4>
+                    <p>Gray is dominant in the default Themes, moving from Black through subtle changes in Value to White to separate the page, surfaces, boundaries, and text into clear zones.</p>
+                </div>
+
+                <div class="documentation-color-scale-list">
+                    @foreach (var palette in colorPalettes.Take(1))
+                    {
+                        <figure class="documentation-color-scale" aria-label="@palette.Name Primitive Color scale">
+                            <ol class="documentation-color-swatches" data-documentation-columns="@palette.Colors.Length">
+                                @foreach (var color in palette.Colors)
+                                {
+                                    <li data-documentation-color="@color.Slug"><span class="documentation-color-block">@color.Name.Replace("Gray ", string.Empty)</span></li>
+                                }
+                            </ol>
+
+                        </figure>
+                    }
+                </div>
+            </section>
+
+            <section class="documentation-color-family documentation-subsection" aria-labelledby="core-blue-family-title">
+                <div class="documentation-color-family-copy documentation-subsection-heading">
+                    <h4 id="core-blue-family-title">Blue</h4>
+                    <p>The design system's primary Action family. It identifies interactive elements, focus, selection, and Information.</p>
+                </div>
+
+                <figure class="documentation-color-scale" aria-label="Blue Primitive Color scale with Blue 600 identified as the Primary Action Value">
+                    <ol class="documentation-color-swatches" data-documentation-columns="@colorPalettes[1].Colors.Length">
+                        @foreach (var color in colorPalettes[1].Colors)
+                        {
+                            <li data-documentation-color="@color.Slug">
+                                <span class="documentation-color-block">
+                                    <span>@color.Name.Replace("Blue ", string.Empty)</span>
+                                    @if (color.Slug == "blue-600")
+                                    {
+                                        <strong>Primary Action</strong>
+                                    }
+                                </span>
+                            </li>
+                        }
+                    </ol>
+                </figure>
+            </section>
+
+            <section class="documentation-color-family documentation-subsection" aria-labelledby="alert-colors-title">
+                <div class="documentation-color-family-copy documentation-subsection-heading">
+                    <h4 id="alert-colors-title">Alert Colors</h4>
+                    <p>Used sparingly and purposefully to communicate Status. Information reuses Blue.</p>
+                </div>
+
+                <div>
+                    <ul class="documentation-alert-color-list">
+                        @foreach (var palette in colorPalettes.Skip(2))
+                        {
+                            <li>
+                                <h4>@palette.Name</h4>
+                                <div class="documentation-alert-color-scale" aria-label="@palette.Name Primitive Color scale">
+                                    @foreach (var color in palette.Colors)
+                                    {
+                                        <span data-documentation-color="@color.Slug">@color.Name.Split(' ')[1]</span>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </section>
+            </div>
+        </section>
+    </section>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="color-page-panel-tokens"
+             role="tabpanel"
+             aria-labelledby="color-page-tab-tokens"
+             data-design-system-tab-panel
+             hidden>
+    <section class="documentation-page-tab-section" id="color-tokens" aria-labelledby="color-tokens-title">
+        <h2 class="design-system-visually-hidden" id="color-tokens-title">Tokens</h2>
+
+        <nav class="documentation-reference-toc design-system-tab-list"
+             aria-label="On this page"
+             data-documentation-reference-toc>
+            <ol class="documentation-reference-toc-list">
+                <li data-documentation-reference-toc-group>
+                    <a class="design-system-tab documentation-reference-toc-parent" href="#primitive-color-tokens-title" aria-current="location">Primitive Tokens</a>
+                    <ol class="documentation-reference-toc-sublist">
+                        @for (var paletteIndex = 0; paletteIndex < colorPalettes.Length; paletteIndex++)
+                        {
+                            <li><a class="design-system-tab documentation-reference-toc-child" href="#primitive-color-palette-@paletteIndex-title">@colorPalettes[paletteIndex].Name</a></li>
+                        }
+                    </ol>
+                </li>
+                <li data-documentation-reference-toc-group>
+                    <a class="design-system-tab documentation-reference-toc-parent" href="#semantic-color-tokens-title">Semantic Tokens</a>
+                    <ol class="documentation-reference-toc-sublist">
+                        @for (var groupIndex = 0; groupIndex < semanticColorGroups.Length; groupIndex++)
+                        {
+                            <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-color-group-@groupIndex-title">@semanticColorGroups[groupIndex].Name</a></li>
+                        }
+                    </ol>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="documentation-token-category-list">
+            <section class="documentation-token-category"
+                     id="primitive-color-tokens"
+                     aria-labelledby="primitive-color-tokens-title">
+                <div class="documentation-token-category-heading">
+                    <h3 id="primitive-color-tokens-title">Primitive Tokens</h3>
+                    <p>The complete set of approved Color Values.</p>
+                </div>
+                <div class="documentation-token-panel-content">
+                    @for (var paletteIndex = 0; paletteIndex < colorPalettes.Length; paletteIndex++)
+                    {
+                        var palette = colorPalettes[paletteIndex];
+                        var paletteTitleId = $"primitive-color-palette-{paletteIndex}-title";
+                        <section class="documentation-subsection" aria-labelledby="@paletteTitleId">
+                            <div class="documentation-subsection-heading">
+                                <h4 id="@paletteTitleId">@palette.Name</h4>
+                                <p>@palette.Purpose</p>
+                            </div>
+
+                            <div class="design-system-table-wrap documentation-color-token-wrap" role="region" aria-label="@palette.Name Primitive Color Tokens" tabindex="0">
+                                <table class="design-system-table documentation-color-token-table documentation-color-context documentation-primitive-token-table documentation-color-primitive-token-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Value</th>
+                                            <th scope="col">Preview</th>
+                                            <th scope="col">Primitive Token</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var color in palette.Colors)
+                                        {
+                                            <tr data-documentation-color="@color.Slug">
+                                                <th scope="row">@color.Name</th>
+                                                <td><code>@color.Value</code></td>
+                                                <td><span class="documentation-color-token-swatch" aria-hidden="true"></span></td>
+                                                <td><code class="documentation-token-name">design-system-primitive-color-@color.Slug</code></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    }
+
+                </div>
+            </section>
+
+            <section class="documentation-token-category"
+                     id="semantic-color-tokens"
+                     aria-labelledby="semantic-color-tokens-title"
+                     data-documentation-color-semantic-panel>
+                <div class="documentation-token-category-heading documentation-token-category-heading-with-control">
+                    <h3 id="semantic-color-tokens-title">Semantic Tokens</h3>
+                    <div class="design-system-segmented documentation-color-theme-control"
+                         role="group"
+                         aria-label="Semantic Token Theme"
+                         data-design-system-segmented
+                         data-documentation-color-theme-control
+                         data-documentation-page-compact-control-for="semantic-color-tokens-title">
+                        <design-system-button variant="@ButtonVariant.Text"
+                                         size="@ComponentSize.Small"
+                                         toggle="true"
+                                         pressed="true"
+                                         accessible-label="Light Theme"
+                                         data-design-system-value="light">
+                            <design-system-icon name="@IconName.Sun" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                            <span class="documentation-color-theme-label">Light</span>
+                        </design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text"
+                                         size="@ComponentSize.Small"
+                                         toggle="true"
+                                         pressed="false"
+                                         accessible-label="Dark Theme"
+                                         data-design-system-value="dark">
+                            <design-system-icon name="@IconName.Moon" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                            <span class="documentation-color-theme-label">Dark</span>
+                        </design-system-button>
+                    </div>
+                    <p>Purpose-based Color roles whose Primitive sources can change by Theme.</p>
+                </div>
+                <div class="documentation-token-panel-content">
+                    @for (var groupIndex = 0; groupIndex < semanticColorGroups.Length; groupIndex++)
+                    {
+                        var group = semanticColorGroups[groupIndex];
+                        var groupTitleId = $"semantic-color-group-{groupIndex}-title";
+                        <section class="documentation-subsection" aria-labelledby="@groupTitleId">
+                            <div class="documentation-subsection-heading">
+                                <h4 id="@groupTitleId">@group.Name</h4>
+                                <p>@group.Purpose</p>
+                            </div>
+
+                            <div class="design-system-table-wrap documentation-color-token-wrap" role="region" aria-label="@group.Name Semantic Color Tokens" tabindex="0">
+                                <table class="design-system-table documentation-color-token-table documentation-semantic-color-table documentation-color-context">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Role</th>
+                                            <th scope="col">Primitive Composition</th>
+                                            <th scope="col">Semantic Token</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var row in group.Rows)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    <span class="documentation-table-label">
+                                                        <span>@row.Role</span>
+                                                        <small>@row.Purpose</small>
+                                                    </span>
+                                                </th>
+                                                <td>
+                                                    <span class="documentation-color-theme-compositions">
+                                                        <span class="documentation-color-theme-source" data-documentation-color-theme="light">
+                                                            <span class="documentation-token-source-list">
+                                                                @foreach (var source in GetPrimitiveColorSources(row.LightSwatch))
+                                                                {
+                                                                    <code class="documentation-token-name">@TokenName(source)</code>
+                                                                }
+                                                            </span>
+                                                        </span>
+                                                        <span class="documentation-color-theme-source" data-documentation-color-theme="dark" hidden>
+                                                            <span class="documentation-token-source-list">
+                                                                @foreach (var source in GetPrimitiveColorSources(row.DarkSwatch))
+                                                                {
+                                                                    <code class="documentation-token-name">@TokenName(source)</code>
+                                                                }
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </td>
+                                                <td><code class="documentation-token-name">@TokenName(row.Token)</code></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    }
+                </div>
+            </section>
+        </div>
+    </section>
+        </div>
+
+    </div>
+</article>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>DesignSystem.Documentation</AssemblyName>
+    <RootNamespace>DesignSystem.Documentation</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../design-system/src/DesignSystem.Razor/DesignSystem.Razor.csproj" />
+  </ItemGroup>
+</Project>

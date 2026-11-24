@@ -1,0 +1,315 @@
+@page "/foundations/spacing"
+@{
+    ViewData["Title"] = "Spacing";
+
+    var primitiveSpacingTokens = new[]
+    {
+        (Measure: "0", Value: "0px", Token: "--design-system-primitive-spacing-0"),
+        (Measure: "2", Value: "2px", Token: "--design-system-primitive-spacing-2"),
+        (Measure: "4", Value: "4px", Token: "--design-system-primitive-spacing-4"),
+        (Measure: "6", Value: "6px", Token: "--design-system-primitive-spacing-6"),
+        (Measure: "8", Value: "8px", Token: "--design-system-primitive-spacing-8"),
+        (Measure: "10", Value: "10px", Token: "--design-system-primitive-spacing-10"),
+        (Measure: "12", Value: "12px", Token: "--design-system-primitive-spacing-12"),
+        (Measure: "14", Value: "14px", Token: "--design-system-primitive-spacing-14"),
+        (Measure: "16", Value: "16px", Token: "--design-system-primitive-spacing-16"),
+        (Measure: "20", Value: "20px", Token: "--design-system-primitive-spacing-20"),
+        (Measure: "24", Value: "24px", Token: "--design-system-primitive-spacing-24"),
+        (Measure: "32", Value: "32px", Token: "--design-system-primitive-spacing-32"),
+        (Measure: "48", Value: "48px", Token: "--design-system-primitive-spacing-48")
+    };
+
+    var semanticSpacingGroups = new[]
+    {
+        new
+        {
+            Name = "Control Padding",
+            Purpose = "Horizontal space inside Buttons, Fields, Tabs, and triggers.",
+            Tokens = new[]
+            {
+                (Name: "Inline", Value: "14px", Source: "--design-system-primitive-spacing-14", Token: "--design-system-semantic-spacing-control-padding-inline", Purpose: "Both horizontal sides of a Control")
+            }
+        },
+        new
+        {
+            Name = "Item Padding",
+            Purpose = "Space inside List, Menu, Picker, Navigation, and Table rows.",
+            Tokens = new[]
+            {
+                (Name: "Block", Value: "8px", Source: "--design-system-primitive-spacing-8", Token: "--design-system-semantic-spacing-item-padding-block", Purpose: "Top and bottom of an Item"),
+                (Name: "Inline", Value: "10px", Source: "--design-system-primitive-spacing-10", Token: "--design-system-semantic-spacing-item-padding-inline", Purpose: "Both horizontal sides of an Item")
+            }
+        },
+        new
+        {
+            Name = "Container Padding",
+            Purpose = "Space between a Surface boundary and the content inside it.",
+            Tokens = new[]
+            {
+                (Name: "All sides", Value: "16px", Source: "--design-system-primitive-spacing-16", Token: "--design-system-semantic-spacing-container-padding", Purpose: "Content inset from a Container boundary")
+            }
+        },
+        new
+        {
+            Name = "Composition Gaps",
+            Purpose = "Distances between related content, distinct sections, and anchored Surfaces.",
+            Tokens = new[]
+            {
+                (Name: "Content Gap", Value: "16px", Source: "--design-system-primitive-spacing-16", Token: "--design-system-semantic-spacing-content-gap", Purpose: "Related content arranged in a Stack"),
+                (Name: "Section Gap", Value: "24px", Source: "--design-system-primitive-spacing-24", Token: "--design-system-semantic-spacing-section-gap", Purpose: "Distinct sections inside the same composition"),
+                (Name: "Overlay Gap", Value: "6px", Source: "--design-system-primitive-spacing-6", Token: "--design-system-semantic-spacing-overlay-gap", Purpose: "Distance between a trigger and its floating Surface")
+            }
+        }
+    };
+
+    string TokenName(string token) => token.StartsWith("--", StringComparison.Ordinal) ? token[2..] : token;
+}
+
+<article class="documentation-page documentation-foundation-page documentation-tabbed-foundation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Foundations</span>
+            <h1 id="documentation-page-title">Spacing</h1>
+            <p class="documentation-lead">
+                Spacing creates rhythm, separates ideas, and keeps Components readable without changing their size or behavior.
+            </p>
+        </div>
+    </header>
+
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="spacing-page-tabs">
+        <span class="documentation-page-context-sentinel"
+              aria-hidden="true"
+              data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true">
+                <span class="documentation-page-compact-title-text">Spacing</span>
+                <span class="documentation-page-compact-section" data-documentation-page-compact-section></span>
+            </span>
+            <div class="design-system-tab-list" role="tablist" aria-label="Spacing documentation sections">
+                <button class="design-system-tab"
+                        id="spacing-page-tab-anatomy"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="spacing-page-panel-anatomy"
+                        data-design-system-tab
+                        data-design-system-value="anatomy">
+                    Anatomy
+                </button>
+                <button class="design-system-tab"
+                        id="spacing-page-tab-tokens"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="spacing-page-panel-tokens"
+                        tabindex="-1"
+                        data-design-system-tab
+                        data-design-system-value="tokens">
+                    Tokens
+                </button>
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="spacing-page-panel-anatomy"
+             role="tabpanel"
+             aria-labelledby="spacing-page-tab-anatomy"
+             data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" id="anatomy" aria-labelledby="spacing-anatomy-title">
+                <h2 class="design-system-visually-hidden" id="spacing-anatomy-title">Anatomy</h2>
+
+                <nav class="documentation-reference-toc design-system-tab-list"
+                     aria-label="On this page"
+                     data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#spacing-anatomy-model-title" aria-current="location">Spacing Anatomy</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#spacing-padding-title">Padding</a></li>
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#spacing-content-gap-title">Content Gap</a></li>
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#spacing-section-gap-title">Section Gap</a></li>
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#spacing-overlay-gap-title">Overlay Gap</a></li>
+                            </ol>
+                        </li>
+                    </ol>
+                </nav>
+
+                <section class="documentation-subsection" aria-labelledby="spacing-anatomy-model-title">
+                    <div class="documentation-subsection-heading">
+                        <h3 id="spacing-anatomy-model-title">Spacing Anatomy</h3>
+                        <p>Spacing describes empty distance. The meaning of that distance depends on where it sits in the composition.</p>
+                    </div>
+
+                    <div class="documentation-spacing-anatomy">
+            <div class="documentation-foundation-anatomy-model documentation-spacing-anatomy-visual">
+                <div class="documentation-foundation-anatomy-row documentation-spacing-concept" data-documentation-spacing-concept="padding">
+                    <div class="documentation-spacing-concept-copy documentation-card-copy">
+                        <strong id="spacing-padding-title">Padding</strong>
+                        <span>Space inside a Container, between its boundary and its content.</span>
+                    </div>
+                    <div class="documentation-spacing-physical-example">
+                        <div class="documentation-spacing-padding-sample" aria-label="One Container with highlighted Padding bands inside its boundary">
+                            <div class="documentation-spacing-padding-content">
+                                <span class="design-system-label">Customer</span>
+                                <span class="design-system-body">Account details</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="documentation-foundation-anatomy-row documentation-spacing-concept" data-documentation-spacing-concept="content-gap">
+                    <div class="documentation-spacing-concept-copy documentation-card-copy">
+                        <strong id="spacing-content-gap-title">Content Gap</strong>
+                        <span>Space between related items. Prefer <code>gap</code> when a parent owns the relationship.</span>
+                    </div>
+                    <div class="documentation-spacing-physical-example">
+                        <div class="design-system-cluster documentation-spacing-gap-sample" aria-label="Name and Status separated by a highlighted Content Gap">
+                            <span class="documentation-spacing-item">Name</span>
+                            <span class="documentation-spacing-measure" aria-hidden="true"></span>
+                            <span class="documentation-spacing-item">Status</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="documentation-foundation-anatomy-row documentation-spacing-concept" data-documentation-spacing-concept="section">
+                    <div class="documentation-spacing-concept-copy documentation-card-copy">
+                        <strong id="spacing-section-gap-title">Section Gap</strong>
+                        <span>A larger pause that tells the reader one content group has ended and another has begun.</span>
+                    </div>
+                    <div class="documentation-spacing-physical-example documentation-spacing-physical-example-wide">
+                        <div class="documentation-spacing-section-sample" aria-label="Two content groups separated by a highlighted Section Gap">
+                            <div class="documentation-spacing-group"><span></span><span></span></div>
+                            <span class="documentation-spacing-section-measure" aria-hidden="true"></span>
+                            <div class="documentation-spacing-group"><span></span><span></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="documentation-foundation-anatomy-row documentation-spacing-concept" data-documentation-spacing-concept="overlay">
+                    <div class="documentation-spacing-concept-copy documentation-card-copy">
+                        <strong id="spacing-overlay-gap-title">Overlay Gap</strong>
+                        <span>The consistent separation between a trigger and an anchored Menu, Picker, or Popover.</span>
+                    </div>
+                    <div class="documentation-spacing-physical-example">
+                        <div class="documentation-spacing-overlay-sample" aria-label="Options trigger and floating surface separated by a highlighted Overlay Gap">
+                            <button class="design-system-button" type="button" data-design-system-variant="filled" data-design-system-tone="accent">Options</button>
+                            <span class="documentation-spacing-overlay-measure" aria-hidden="true"></span>
+                            <div class="design-system-popover documentation-spacing-overlay-surface">
+                                <div class="design-system-popover__body">Floating surface</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="spacing-page-panel-tokens"
+             role="tabpanel"
+             aria-labelledby="spacing-page-tab-tokens"
+             data-design-system-tab-panel
+             hidden>
+            <section class="documentation-page-tab-section" id="tokens" aria-labelledby="spacing-tokens-title">
+                <h2 class="design-system-visually-hidden" id="spacing-tokens-title">Tokens</h2>
+
+                <nav class="documentation-reference-toc design-system-tab-list"
+                     aria-label="On this page"
+                     data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#primitive-spacing-tokens-title" aria-current="location">Primitive Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#primitive-spacing-scale-title">Spacing Scale</a></li>
+                            </ol>
+                        </li>
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#semantic-spacing-tokens-title">Semantic Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                @for (var groupIndex = 0; groupIndex < semanticSpacingGroups.Length; groupIndex++)
+                                {
+                                    <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-spacing-group-@groupIndex-title">@semanticSpacingGroups[groupIndex].Name</a></li>
+                                }
+                            </ol>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="documentation-token-category-list">
+                    <section class="documentation-token-category" id="primitive-spacing-tokens" aria-labelledby="primitive-spacing-tokens-title">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="primitive-spacing-tokens-title">Primitive Tokens</h3>
+                            <p>The approved distance scale used to compose repeated Spacing responsibilities.</p>
+                        </div>
+                <div class="documentation-token-panel-content">
+                    <section class="documentation-subsection" id="primitive-scale" aria-labelledby="primitive-spacing-scale-title">
+                        <div class="documentation-subsection-heading">
+                            <h4 id="primitive-spacing-scale-title">Spacing Scale</h4>
+                            <p>The Token suffix states the actual pixel Value: 2px is <code>design-system-primitive-spacing-2</code>, and 16px is <code>design-system-primitive-spacing-16</code>.</p>
+                        </div>
+                        <div class="design-system-table-wrap documentation-spacing-table-wrap" role="region" aria-label="Primitive Spacing Scale Tokens" tabindex="0">
+                            <table class="design-system-table documentation-spacing-token-table documentation-primitive-token-table documentation-three-column-primitive-token-table">
+                                <thead>
+                                    <tr><th scope="col">Value</th><th scope="col">Preview</th><th scope="col">Primitive Token</th></tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var spacing in primitiveSpacingTokens)
+                                    {
+                                        <tr>
+                                            <th scope="row"><code>@spacing.Value</code></th>
+                                            <td><span class="documentation-spacing-scale" data-documentation-spacing="@spacing.Measure"><span aria-hidden="true"></span></span></td>
+                                            <td><code class="documentation-token-name">@TokenName(spacing.Token)</code></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="documentation-spacing-note"><strong>Why Values are skipped:</strong> the scale keeps only distances the system actually needs. It does not create a Token for every possible number.</p>
+                    </section>
+                </div>
+                    </section>
+
+                    <section class="documentation-token-category" id="semantic-spacing-tokens" aria-labelledby="semantic-spacing-tokens-title">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="semantic-spacing-tokens-title">Semantic Tokens</h3>
+                            <p>Purpose-based Spacing roles reused across Components and compositions.</p>
+                        </div>
+                <div class="documentation-token-panel-content">
+                    @for (var groupIndex = 0; groupIndex < semanticSpacingGroups.Length; groupIndex++)
+                    {
+                        var group = semanticSpacingGroups[groupIndex];
+                        var groupTitleId = $"semantic-spacing-group-{groupIndex}-title";
+                        <section class="documentation-subsection" aria-labelledby="@groupTitleId">
+                            <div class="documentation-subsection-heading">
+                                <h4 id="@groupTitleId">@group.Name</h4>
+                                <p>@group.Purpose</p>
+                            </div>
+                            <div class="design-system-table-wrap documentation-spacing-table-wrap" role="region" aria-label="@group.Name Semantic Spacing Tokens" tabindex="0">
+                                <table class="design-system-table documentation-spacing-token-table documentation-spacing-semantic-table">
+                                    <thead>
+                                        <tr><th scope="col">Role</th><th scope="col">Primitive Composition</th><th scope="col">Semantic Token</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var spacing in group.Tokens)
+                                        {
+                                            <tr>
+                                                <th scope="row"><span class="documentation-table-label"><span>@spacing.Name</span><small>@spacing.Purpose</small></span></th>
+                                                <td><span class="documentation-token-source-list"><code class="documentation-token-name">@TokenName(spacing.Source)</code></span></td>
+                                                <td><code class="documentation-token-name">@TokenName(spacing.Token)</code></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    }
+                </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</article>

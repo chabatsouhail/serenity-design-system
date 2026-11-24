@@ -1,0 +1,283 @@
+@page "/foundations/sizing"
+@{
+    ViewData["Title"] = "Sizing";
+
+    var primitiveSizingTokens = new[]
+    {
+        (Value: "24px", Measure: "extra-small", Token: "--design-system-primitive-sizing-24"),
+        (Value: "30px", Measure: "small", Token: "--design-system-primitive-sizing-30"),
+        (Value: "34px", Measure: "medium", Token: "--design-system-primitive-sizing-34"),
+        (Value: "44px", Measure: "large", Token: "--design-system-primitive-sizing-44"),
+        (Value: "56px", Measure: "extra-large", Token: "--design-system-primitive-sizing-56")
+    };
+
+    var semanticSizingTokens = new[]
+    {
+        (Name: "Compact Action Size", Value: "24px", Source: "--design-system-primitive-sizing-24", Token: "--design-system-semantic-sizing-action-size-compact", Purpose: "Small secondary Actions inside another Control"),
+        (Name: "Compact Control Height", Value: "30px", Source: "--design-system-primitive-sizing-30", Token: "--design-system-semantic-sizing-control-height-compact", Purpose: "Controls inside a Compact Density scope"),
+        (Name: "Normal Control Height", Value: "34px", Source: "--design-system-primitive-sizing-34", Token: "--design-system-semantic-sizing-control-height-normal", Purpose: "Controls inside the default Normal Density scope"),
+        (Name: "Relaxed Control Height", Value: "44px", Source: "--design-system-primitive-sizing-44", Token: "--design-system-semantic-sizing-control-height-relaxed", Purpose: "Controls inside a Relaxed Density scope and coarse-pointer Controls")
+    };
+
+    string TokenName(string token) => token.StartsWith("--", StringComparison.Ordinal) ? token[2..] : token;
+}
+
+<article class="documentation-page documentation-foundation-page documentation-tabbed-foundation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Foundations</span>
+            <h1 id="documentation-page-title">Sizing</h1>
+            <p class="documentation-lead">
+                Sizing gives Controls predictable dimensions while allowing their content and surrounding Layout to remain flexible.
+            </p>
+        </div>
+    </header>
+
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="sizing-page-tabs">
+        <span class="documentation-page-context-sentinel"
+              aria-hidden="true"
+              data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true">
+                <span class="documentation-page-compact-title-text">Sizing</span>
+                <span class="documentation-page-compact-section" data-documentation-page-compact-section></span>
+            </span>
+            <div class="design-system-tab-list" role="tablist" aria-label="Sizing documentation sections">
+                <button class="design-system-tab"
+                        id="sizing-page-tab-anatomy"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="sizing-page-panel-anatomy"
+                        data-design-system-tab
+                        data-design-system-value="anatomy">
+                    Anatomy
+                </button>
+                <button class="design-system-tab"
+                        id="sizing-page-tab-tokens"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="sizing-page-panel-tokens"
+                        tabindex="-1"
+                        data-design-system-tab
+                        data-design-system-value="tokens">
+                    Tokens
+                </button>
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="sizing-page-panel-anatomy"
+             role="tabpanel"
+             aria-labelledby="sizing-page-tab-anatomy"
+             data-design-system-tab-panel>
+    <section class="documentation-page-tab-section" id="anatomy" aria-labelledby="sizing-anatomy-title">
+        <h2 class="design-system-visually-hidden" id="sizing-anatomy-title">Anatomy</h2>
+
+        <nav class="documentation-reference-toc design-system-tab-list"
+             aria-label="On this page"
+             data-documentation-reference-toc>
+            <ol class="documentation-reference-toc-list">
+                <li data-documentation-reference-toc-group>
+                    <a class="design-system-tab documentation-reference-toc-parent" href="#sizing-behavior-model-title" aria-current="location">Sizing Behavior</a>
+                    <ol class="documentation-reference-toc-sublist">
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#sizing-fixed-title">Fixed</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#sizing-content-driven-title">Content-driven</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#sizing-fluid-title">Fluid</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#sizing-constrained-title">Constrained</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </nav>
+
+        <section class="documentation-subsection" aria-labelledby="sizing-behavior-model-title">
+            <div class="documentation-subsection-heading">
+                <h3 id="sizing-behavior-model-title">Sizing Behavior</h3>
+                <p>Choose a Behavior independently for Width and Height. A Component can combine two different Behaviors across its two axes.</p>
+            </div>
+
+            <div class="documentation-sizing-behavior-model">
+                <article>
+                    <div class="documentation-card-copy">
+                        <h4 id="sizing-fixed-title">Fixed</h4>
+                        <p>The chosen dimension stays at one approved Value.</p>
+                    </div>
+                    <div class="documentation-sizing-control-measure">
+                        <span class="documentation-sizing-height-ruler" aria-hidden="true">34px</span>
+                        <div class="documentation-sizing-measured-control">
+                            <design-system-button icon-only="true" accessible-label="Fixed close Action">
+                                <design-system-icon name="@IconName.Close" decorative="true"></design-system-icon>
+                            </design-system-button>
+                            <span class="documentation-sizing-width-ruler" aria-hidden="true"><span>34px</span></span>
+                        </div>
+                    </div>
+                </article>
+                <article>
+                    <div class="documentation-card-copy">
+                        <h4 id="sizing-content-driven-title">Content-driven</h4>
+                        <p>The chosen dimension grows or shrinks with its content.</p>
+                    </div>
+                    <div class="design-system-cluster documentation-sizing-behavior-content">
+                        <div class="documentation-sizing-measured-control">
+                            <design-system-button>Save</design-system-button>
+                            <span class="documentation-sizing-width-ruler" aria-hidden="true"><span>Content Width</span></span>
+                        </div>
+                        <div class="documentation-sizing-measured-control">
+                            <design-system-button>Save and Continue</design-system-button>
+                            <span class="documentation-sizing-width-ruler" aria-hidden="true"><span>Content Width</span></span>
+                        </div>
+                    </div>
+                </article>
+                <article>
+                    <div class="documentation-card-copy">
+                        <h4 id="sizing-fluid-title">Fluid</h4>
+                        <p>The chosen dimension fills the available Layout space.</p>
+                    </div>
+                    <div class="documentation-sizing-control-measure documentation-sizing-fluid-measure">
+                        <span class="documentation-sizing-height-ruler" aria-hidden="true">Available Height</span>
+                        <div class="documentation-sizing-measured-control documentation-sizing-measured-fluid">
+                            <div class="design-system-panel documentation-sizing-fluid-sample">
+                                <span class="design-system-body-small">Fluid content</span>
+                            </div>
+                            <span class="documentation-sizing-width-ruler" aria-hidden="true"><span>Available Width</span></span>
+                        </div>
+                    </div>
+                </article>
+                <article>
+                    <div class="documentation-card-copy">
+                        <h4 id="sizing-constrained-title">Constrained</h4>
+                        <p>The chosen dimension responds to available space but stays between minimum and maximum limits owned by its Component or Layout.</p>
+                    </div>
+                    <div class="documentation-sizing-control-measure documentation-sizing-fluid-measure">
+                        <span class="documentation-sizing-height-ruler" aria-hidden="true">Available Height</span>
+                        <div class="documentation-sizing-measured-control documentation-sizing-measured-fluid">
+                            <div class="design-system-panel documentation-sizing-fluid-sample documentation-sizing-constrained-sample">
+                                <span class="design-system-body-small">Constrained size</span>
+                            </div>
+                            <span class="documentation-sizing-width-ruler" aria-hidden="true"><span>Available Width</span></span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </section>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="sizing-page-panel-tokens"
+             role="tabpanel"
+             aria-labelledby="sizing-page-tab-tokens"
+             data-design-system-tab-panel
+             hidden>
+            <section class="documentation-page-tab-section" id="tokens" aria-labelledby="sizing-tokens-title">
+                <h2 class="design-system-visually-hidden" id="sizing-tokens-title">Tokens</h2>
+
+                <nav class="documentation-reference-toc design-system-tab-list"
+                     aria-label="On this page"
+                     data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#primitive-sizing-tokens-title" aria-current="location">Primitive Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#primitive-sizing-scale-title">Sizing Scale</a></li>
+                            </ol>
+                        </li>
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#semantic-sizing-tokens-title">Semantic Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-sizing-action-title">Action Sizes</a></li>
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-sizing-control-title">Control Heights</a></li>
+                            </ol>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="documentation-token-category-list">
+                    <section class="documentation-token-category" id="primitive-sizing-tokens" aria-labelledby="primitive-sizing-tokens-title">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="primitive-sizing-tokens-title">Primitive Tokens</h3>
+                            <p>Five approved Sizes form the shared dimension scale.</p>
+                        </div>
+                <div class="documentation-token-panel-content">
+                    <section class="documentation-subsection" id="primitive-sizes" aria-labelledby="primitive-sizing-scale-title">
+                        <div class="documentation-subsection-heading">
+                            <h4 id="primitive-sizing-scale-title">Sizing Scale</h4>
+                            <p>Five approved pixel Values form one shared dimension scale.</p>
+                        </div>
+                        <div class="design-system-table-wrap documentation-sizing-table-wrap" role="region" aria-label="Primitive Sizing Scale Tokens" tabindex="0">
+                            <table class="design-system-table documentation-sizing-token-table documentation-primitive-token-table documentation-three-column-primitive-token-table">
+                                <thead><tr><th scope="col">Value</th><th scope="col">Preview</th><th scope="col">Primitive Token</th></tr></thead>
+                                <tbody>
+                                    @foreach (var sizing in primitiveSizingTokens)
+                                    {
+                                        <tr>
+                                            <th scope="row"><code>@sizing.Value</code></th>
+                                            <td><span class="documentation-sizing-scale" data-documentation-sizing="@sizing.Measure"><span aria-hidden="true"></span></span></td>
+                                            <td><code class="documentation-token-name">@TokenName(sizing.Token)</code></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                    </section>
+
+                    <section class="documentation-token-category" id="semantic-sizing-tokens" aria-labelledby="semantic-sizing-tokens-title">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="semantic-sizing-tokens-title">Semantic Tokens</h3>
+                            <p>Purpose-based dimensions assigned to reusable Component Roles.</p>
+                        </div>
+                <div class="documentation-token-panel-content">
+                    <section class="documentation-subsection" aria-labelledby="semantic-sizing-action-title">
+                        <div class="documentation-subsection-heading">
+                            <h4 id="semantic-sizing-action-title">Action Sizes</h4>
+                            <p>Compact dimensions for secondary Actions placed inside a larger Control.</p>
+                        </div>
+                        <div class="design-system-table-wrap documentation-sizing-table-wrap" role="region" aria-label="Semantic Action Size Tokens" tabindex="0">
+                            <table class="design-system-table documentation-sizing-token-table documentation-sizing-semantic-table">
+                                <thead><tr><th scope="col">Role</th><th scope="col">Primitive Composition</th><th scope="col">Semantic Token</th></tr></thead>
+                                <tbody>
+                                    @foreach (var sizing in semanticSizingTokens.Where(token => token.Token.Contains("action-size", StringComparison.Ordinal)))
+                                    {
+                                        <tr>
+                                            <th scope="row"><span class="documentation-table-label"><span>@sizing.Name</span><small>@sizing.Purpose</small></span></th>
+                                            <td><span class="documentation-token-source-list"><code class="documentation-token-name">@TokenName(sizing.Source)</code></span></td>
+                                            <td><code class="documentation-token-name">@TokenName(sizing.Token)</code></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="documentation-subsection" aria-labelledby="semantic-sizing-control-title">
+                        <div class="documentation-subsection-heading">
+                            <h4 id="semantic-sizing-control-title">Control Heights</h4>
+                            <p>Shared Heights for Compact, Normal, and Relaxed Controls.</p>
+                        </div>
+                        <div class="design-system-table-wrap documentation-sizing-table-wrap" role="region" aria-label="Semantic Control Height Tokens" tabindex="0">
+                            <table class="design-system-table documentation-sizing-token-table documentation-sizing-semantic-table">
+                                <thead><tr><th scope="col">Role</th><th scope="col">Primitive Composition</th><th scope="col">Semantic Token</th></tr></thead>
+                                <tbody>
+                                    @foreach (var sizing in semanticSizingTokens.Where(token => token.Token.Contains("control-height", StringComparison.Ordinal)))
+                                    {
+                                        <tr>
+                                            <th scope="row"><span class="documentation-table-label"><span>@sizing.Name</span><small>@sizing.Purpose</small></span></th>
+                                            <td><span class="documentation-token-source-list"><code class="documentation-token-name">@TokenName(sizing.Source)</code></span></td>
+                                            <td><code class="documentation-token-name">@TokenName(sizing.Token)</code></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</article>

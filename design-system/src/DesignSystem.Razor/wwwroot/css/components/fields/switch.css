@@ -1,0 +1,106 @@
+@layer design-system.component {
+    .design-system-switch {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-height: var(--_design-system-density-control-height);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        cursor: pointer;
+    }
+
+    .design-system-switch input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .design-system-switch-track {
+        display: flex;
+        flex: none;
+        align-items: center;
+        width: var(--design-system-component-switch-track-width);
+        height: var(--design-system-component-switch-track-height);
+        padding: var(--design-system-component-switch-track-padding);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-surface-background-control);
+        transition: background-color var(--design-system-semantic-timing-interaction-duration-release), border-color var(--design-system-semantic-timing-interaction-duration-release), box-shadow var(--design-system-semantic-timing-interaction-duration-release);
+    }
+
+    .design-system-switch-thumb {
+        width: var(--design-system-component-switch-thumb-size);
+        height: var(--design-system-component-switch-thumb-size);
+        border-radius: 50%;
+        background: var(--design-system-semantic-color-text-foreground-muted);
+        transition: transform var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-standard), background-color var(--design-system-semantic-timing-interaction-duration-release);
+    }
+
+    .design-system-switch input:checked + .design-system-switch-track {
+        border-color: var(--design-system-semantic-color-action-background);
+        background: var(--design-system-semantic-color-action-background);
+    }
+
+    .design-system-switch input:checked + .design-system-switch-track .design-system-switch-thumb {
+        background: var(--design-system-semantic-color-text-foreground-inverse);
+        transform: translateX(var(--design-system-component-switch-thumb-travel));
+    }
+
+    .design-system-switch:hover:not(:has(input:disabled)) input:not(:checked) + .design-system-switch-track {
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-hover);
+    }
+
+    .design-system-switch:hover:not(:has(input:disabled)) input:checked + .design-system-switch-track {
+        border-color: var(--design-system-semantic-color-action-background-hover);
+        background: var(--design-system-semantic-color-action-background-hover);
+    }
+
+    .design-system-switch input:focus-visible + .design-system-switch-track {
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-switch:has(input:disabled) {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+    }
+
+    .design-system-switch input:disabled + .design-system-switch-track {
+        border-color: var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-semantic-color-surface-background-disabled);
+    }
+
+    .design-system-switch input:disabled + .design-system-switch-track .design-system-switch-thumb {
+        background: var(--design-system-semantic-color-text-foreground-disabled);
+    }
+
+    .design-system-switch input:disabled:checked + .design-system-switch-track {
+        border-color: var(--design-system-semantic-color-text-foreground-disabled);
+        background: var(--design-system-semantic-color-text-foreground-disabled);
+    }
+
+    .design-system-switch input:disabled:checked + .design-system-switch-track .design-system-switch-thumb {
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-switch {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-switch > input:focus-visible + .design-system-switch-track {
+            outline: var(--design-system-primitive-shape-border-width-2) solid Highlight;
+            outline-offset: var(--design-system-primitive-shape-border-width-2);
+        }
+
+        .design-system-switch > input:checked + .design-system-switch-track {
+            border-color: Highlight;
+            background: Highlight;
+            color: HighlightText;
+            forced-color-adjust: none;
+        }
+    }
+}

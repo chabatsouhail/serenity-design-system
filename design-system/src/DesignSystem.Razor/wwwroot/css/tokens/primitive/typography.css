@@ -1,0 +1,24 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-typography-family-ibm-plex-sans: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+        --design-system-primitive-typography-family-ibm-plex-serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+        --design-system-primitive-typography-family-ibm-plex-mono: "IBM Plex Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+        --design-system-primitive-typography-style-normal: normal;
+        --design-system-primitive-typography-style-italic: italic;
+        --design-system-primitive-typography-size-11: 11px;
+        --design-system-primitive-typography-size-12: 12px;
+        --design-system-primitive-typography-size-13: 13px;
+        --design-system-primitive-typography-size-14: 14px;
+        --design-system-primitive-typography-size-16: 16px;
+        --design-system-primitive-typography-size-20: 20px;
+        --design-system-primitive-typography-size-28: 28px;
+        --design-system-primitive-typography-line-height-1: 1;
+        --design-system-primitive-typography-line-height-1-25: 1.25;
+        --design-system-primitive-typography-line-height-1-5: 1.5;
+        --design-system-primitive-typography-weight-400: 400;
+        --design-system-primitive-typography-weight-500: 500;
+        --design-system-primitive-typography-weight-600: 600;
+        --design-system-primitive-typography-weight-700: 700;
+        --design-system-primitive-typography-underline-offset-0-2em: .2em;
+    }
+}

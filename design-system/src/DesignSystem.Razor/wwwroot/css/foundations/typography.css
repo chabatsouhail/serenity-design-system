@@ -1,0 +1,64 @@
+@layer design-system.foundation {
+    h1,
+    .design-system-heading-1 {
+        font: var(--design-system-semantic-typography-heading-1);
+    }
+
+    h2,
+    .design-system-heading-2 {
+        font: var(--design-system-semantic-typography-heading-2);
+    }
+
+    h3,
+    .design-system-heading-3 {
+        font: var(--design-system-semantic-typography-heading-3);
+    }
+
+    h4,
+    .design-system-heading-4 {
+        font: var(--design-system-semantic-typography-heading-4);
+    }
+
+    .design-system-body-small {
+        font: var(--design-system-semantic-typography-body-small);
+    }
+
+    .design-system-body {
+        font: var(--design-system-semantic-typography-body);
+    }
+
+    .design-system-body-large {
+        font: var(--design-system-semantic-typography-body-large);
+    }
+
+    code,
+    pre,
+    .design-system-code {
+        font: var(--design-system-semantic-typography-code);
+        font-variant-ligatures: none;
+    }
+
+    .design-system-label {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-label);
+    }
+
+    .design-system-caption {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-caption);
+    }
+
+    .design-system-numeric {
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    .design-system-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .design-system-wrap {
+        overflow-wrap: anywhere;
+    }
+}

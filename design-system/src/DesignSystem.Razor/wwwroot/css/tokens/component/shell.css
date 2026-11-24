@@ -1,0 +1,12 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-shell-background-navigation: var(--design-system-semantic-color-surface-background-subtle);
+        --design-system-component-shell-background-content: var(--design-system-semantic-color-surface-background);
+        --design-system-component-shell-boundary: var(--design-system-semantic-color-boundary-border);
+        --design-system-component-shell-sidebar-width: 232px;
+        --design-system-component-shell-header-height-compact: var(--design-system-primitive-sizing-56);
+        --design-system-component-shell-popover-width: 280px;
+        --design-system-component-shell-scrollbar-thumb: color-mix(in srgb, var(--design-system-semantic-color-text-foreground-muted), transparent 18%);
+        --design-system-component-shell-scrollbar-thumb-hover: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+}

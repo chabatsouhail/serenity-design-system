@@ -1,0 +1,9 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-switch-track-width: 38px;
+        --design-system-component-switch-track-height: 22px;
+        --design-system-component-switch-track-padding: 2px;
+        --design-system-component-switch-thumb-size: 16px;
+        --design-system-component-switch-thumb-travel: 16px;
+    }
+}

@@ -1,0 +1,90 @@
+@model DesignSystem.Razor.Models.DatePickerModel
+@using System.Globalization
+@using DesignSystem.Razor.Contracts
+@{
+    if (Model is null || string.IsNullOrWhiteSpace(Model.Id) || string.IsNullOrWhiteSpace(Model.Name) || string.IsNullOrWhiteSpace(Model.Label))
+    {
+        throw new InvalidOperationException("Date-picker id, name, and label are required.");
+    }
+
+    if (Model.Minimum is not null && Model.Maximum is not null && Model.Minimum > Model.Maximum)
+    {
+        throw new InvalidOperationException("Date-picker minimum cannot be later than its maximum.");
+    }
+
+    if (Model.Value is not null && ((Model.Minimum is not null && Model.Value < Model.Minimum) || (Model.Maximum is not null && Model.Value > Model.Maximum)))
+    {
+        throw new InvalidOperationException("Date-picker value must fall within its minimum and maximum.");
+    }
+
+    if (new[] { Model.EmptyLabel, Model.DialogLabel, Model.PreviousMonthLabel, Model.NextMonthLabel, Model.TodayLabel, Model.ClearLabel }.Any(string.IsNullOrWhiteSpace) ||
+        (Model.Required && string.IsNullOrWhiteSpace(Model.RequiredLabel)))
+    {
+        throw new InvalidOperationException("Date-picker interface labels cannot be empty.");
+    }
+
+    var hintId = string.IsNullOrWhiteSpace(Model.Hint) ? null : $"{Model.Id}-hint";
+    var errorId = string.IsNullOrWhiteSpace(Model.Error) ? null : $"{Model.Id}-error";
+    var describedBy = string.Join(' ', new[] { hintId, errorId }.Where(value => value is not null));
+    var dialogId = $"{Model.Id}-dialog";
+    var dateValue = Model.Value?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    var displayValue = Model.Value?.ToString("d", CultureInfo.CurrentCulture) ?? Model.EmptyLabel;
+}
+<div class="design-system-field-group design-system-date-picker"
+     data-design-system-date-picker
+     data-design-system-empty-label="@Model.EmptyLabel"
+     data-design-system-previous-month-label="@Model.PreviousMonthLabel"
+     data-design-system-next-month-label="@Model.NextMonthLabel"
+     data-design-system-today-label="@Model.TodayLabel"
+     data-design-system-clear-label="@Model.ClearLabel">
+    <label class="design-system-field-label" for="@Model.Id">
+        @Model.Label
+        @if (Model.Required)
+        {
+            <span class="design-system-field-required">@Model.RequiredLabel</span>
+        }
+    </label>
+    <div class="design-system-picker-anchor">
+        <input class="design-system-date-native"
+               id="@Model.Id"
+               name="@Model.Name"
+               type="date"
+               value="@dateValue"
+               min="@Model.Minimum?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"
+               max="@Model.Maximum?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)"
+               disabled="@Model.Disabled"
+               required="@Model.Required"
+               aria-describedby="@describedBy"
+               aria-invalid="@(errorId is null ? null : "true")"
+               data-design-system-date-picker-control />
+        <button class="design-system-button design-system-picker-trigger"
+                type="button"
+                hidden
+                disabled="@Model.Disabled"
+                data-design-system-button
+                data-design-system-variant="tonal"
+                data-design-system-tone="neutral"
+                data-design-system-size="medium"
+                aria-haspopup="dialog"
+                aria-expanded="false"
+                aria-controls="@dialogId"
+                data-design-system-date-picker-trigger>
+            <span class="design-system-picker-value" data-design-system-date-picker-value>@displayValue</span>
+            <design-system-icon name="@IconName.Calendar" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+        </button>
+    </div>
+    <div class="design-system-date-popover"
+         id="@dialogId"
+         role="dialog"
+         aria-label="@Model.DialogLabel"
+         hidden
+         data-design-system-date-picker-dialog></div>
+    @if (hintId is not null)
+    {
+        <div class="design-system-field-hint" id="@hintId">@Model.Hint</div>
+    }
+    @if (errorId is not null)
+    {
+        <div class="design-system-field-error" id="@errorId" role="alert">@Model.Error</div>
+    }
+</div>

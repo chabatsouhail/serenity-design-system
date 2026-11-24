@@ -1,0 +1,4447 @@
+@layer documentation {
+    html {
+        scrollbar-gutter: stable;
+    }
+
+    .documentation-body {
+        margin: 0;
+        background: var(--design-system-component-shell-background-navigation);
+    }
+
+    .documentation-shell {
+        display: grid;
+        grid-template-areas:
+            "topbar topbar"
+            "navigation main";
+        grid-template-columns: var(--design-system-component-shell-sidebar-width) minmax(0, 1fr);
+        grid-template-rows: var(--design-system-component-shell-header-height-compact) minmax(0, 1fr);
+        min-height: 100dvh;
+        background: var(--design-system-component-shell-background-navigation);
+    }
+
+    .documentation-topbar,
+    [data-design-system-shell] > .documentation-topbar {
+        position: sticky;
+        top: 0;
+        z-index: var(--design-system-primitive-elevation-layer-20);
+        display: flex;
+        grid-area: topbar;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        min-height: var(--design-system-component-shell-header-height-compact);
+        padding-inline: var(--design-system-primitive-spacing-16);
+        border-bottom: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-component-shell-boundary);
+        background: var(--design-system-component-shell-background-content);
+    }
+
+    .documentation-brand {
+        min-width: 0;
+        overflow: hidden;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .documentation-brand:focus-visible {
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        outline: var(--design-system-semantic-shape-focus-width) solid var(--design-system-semantic-color-focus-ring);
+        outline-offset: var(--design-system-primitive-spacing-4);
+    }
+
+    .documentation-topbar-divider {
+        align-self: stretch;
+        width: var(--design-system-semantic-shape-boundary-width-subtle);
+        margin-block: var(--design-system-primitive-spacing-10);
+        background: var(--design-system-component-shell-boundary);
+    }
+
+    .documentation-navigation-trigger {
+        display: none;
+    }
+
+    [data-design-system-shell] > .documentation-navigation {
+        position: sticky;
+        top: var(--design-system-component-shell-header-height-compact);
+        grid-area: navigation;
+        width: 100%;
+        height: calc(100dvh - var(--design-system-component-shell-header-height-compact));
+        min-height: 0;
+        margin: 0;
+    }
+
+    [data-design-system-shell] > .documentation-main {
+        grid-area: main;
+        min-height: calc(100dvh - var(--design-system-component-shell-header-height-compact));
+    }
+
+    .documentation-page {
+        width: min(100%, var(--design-system-semantic-layout-content-measure-wide));
+        min-height: 100%;
+        margin-inline: auto;
+        padding-block: var(--design-system-primitive-spacing-32) var(--design-system-primitive-spacing-48);
+    }
+
+    .documentation-page:not(.documentation-foundation-page) {
+        counter-reset: documentation-discover-section;
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) {
+        width: calc(100% + (var(--design-system-semantic-spacing-container-padding) * 2));
+        margin-inline: calc(var(--design-system-semantic-spacing-container-padding) * -1);
+        padding: 0;
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) > .documentation-page-header {
+        padding: var(--design-system-primitive-spacing-48);
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) .documentation-page-tabs-context {
+        position: sticky;
+        top: var(--design-system-component-shell-header-height-compact);
+        z-index: var(--design-system-primitive-elevation-layer-20);
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+        min-height: var(--design-system-component-shell-header-height-compact);
+        padding-inline: var(--design-system-primitive-spacing-48);
+        border-block-end: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-component-shell-background-content);
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) .documentation-page-tabs-context > .design-system-tab-list {
+        flex: 1 1 auto;
+        width: auto;
+        margin-inline: 0;
+        padding-inline: 0;
+        border-block-end: 0;
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) .documentation-page-tabs-context > .design-system-tab-list > .design-system-tab {
+        min-height: var(--design-system-component-shell-header-height-compact);
+    }
+
+    .documentation-page-context-sentinel {
+        display: block;
+        width: 100%;
+        height: var(--design-system-semantic-shape-boundary-width-subtle);
+        margin-block-end: calc(var(--design-system-semantic-shape-boundary-width-subtle) * -1);
+        pointer-events: none;
+    }
+
+    .documentation-page-compact-title {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        max-width: 0;
+        padding-inline-end: 0;
+        border-inline-end: var(--design-system-semantic-shape-boundary-width-subtle) solid transparent;
+        margin-inline-end: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateX(calc(var(--design-system-primitive-spacing-8) * -1));
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-heading-3);
+        white-space: nowrap;
+        transition-property: opacity, transform, max-width, padding-inline-end, border-color, margin-inline-end;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+        transition-delay:
+            0s,
+            0s,
+            var(--design-system-semantic-timing-interaction-duration-press),
+            var(--design-system-semantic-timing-interaction-duration-press),
+            var(--design-system-semantic-timing-interaction-duration-press),
+            var(--design-system-semantic-timing-interaction-duration-press);
+    }
+
+    .documentation-page-compact-title-text {
+        flex: none;
+    }
+
+    .documentation-page-compact-section {
+        display: block;
+        max-width: 0;
+        min-width: 0;
+        margin-inline-start: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateX(calc(var(--design-system-primitive-spacing-8) * -1));
+        visibility: hidden;
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition-property: max-width, margin-inline-start, opacity, transform, visibility;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+        transition-delay:
+            0s,
+            0s,
+            0s,
+            0s,
+            var(--design-system-semantic-timing-interaction-duration-release);
+    }
+
+    .documentation-page-compact-controls {
+        display: flex;
+        flex: none;
+        align-items: center;
+        min-width: 0;
+        margin-inline-end: 0;
+        padding-inline-end: 0;
+        border-inline-end: var(--design-system-semantic-shape-boundary-width-subtle) solid transparent;
+        opacity: 0;
+        transform: translateX(calc(var(--design-system-primitive-spacing-8) * -1));
+        transition:
+            margin-inline-end var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press),
+            padding-inline-end var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press),
+            border-color var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press),
+            opacity var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press),
+            transform var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .documentation-page-compact-controls:not(:empty) {
+        margin-inline-end: var(--design-system-primitive-spacing-16);
+        padding-inline-end: var(--design-system-primitive-spacing-16);
+        border-inline-end-color: var(--design-system-semantic-color-boundary-border);
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .documentation-page-compact-controls .documentation-color-theme-control > .design-system-button {
+        width: var(--design-system-semantic-sizing-action-size-compact);
+        min-width: var(--design-system-semantic-sizing-action-size-compact);
+        height: var(--design-system-semantic-sizing-action-size-compact);
+        padding: 0;
+        gap: 0;
+    }
+
+    .documentation-page-compact-controls .documentation-color-theme-label {
+        display: none;
+    }
+
+    @media (any-pointer: coarse) {
+        .documentation-page-compact-controls .documentation-color-theme-control > .design-system-button {
+            width: var(--design-system-semantic-sizing-control-height-relaxed);
+            min-width: var(--design-system-semantic-sizing-control-height-relaxed);
+            height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    .documentation-page-tabs-context:has(> .documentation-page-compact-controls:not(:empty))
+        > .documentation-page-compact-title {
+        margin-inline-end: var(--design-system-primitive-spacing-8);
+        padding-inline-end: 0;
+        border-inline-end-color: transparent;
+    }
+
+    .documentation-page-tabs-context[data-documentation-page-context-nested]
+        > .documentation-page-compact-title
+        > .documentation-page-compact-section:not(:empty) {
+        max-width: var(--design-system-primitive-layout-measure-180);
+        margin-inline-start: var(--design-system-primitive-spacing-8);
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    .documentation-page-tabs-context[data-documentation-page-context-compact] > .documentation-page-compact-title {
+        max-width: calc(var(--design-system-primitive-layout-measure-180) * 2);
+        padding-inline-end: var(--design-system-primitive-spacing-16);
+        border-inline-end-color: var(--design-system-semantic-color-boundary-border);
+        margin-inline-end: var(--design-system-primitive-spacing-16);
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay:
+            var(--design-system-semantic-timing-interaction-duration-press),
+            var(--design-system-semantic-timing-interaction-duration-press),
+            0s,
+            0s,
+            0s,
+            0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .documentation-page-compact-title,
+        .documentation-page-compact-section,
+        .documentation-page-compact-controls {
+            transition: none;
+        }
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) > .documentation-page-tabs > .design-system-tab-panel {
+        width: min(
+            calc(100% - (var(--design-system-primitive-spacing-48) * 2)),
+            calc(
+                var(--design-system-semantic-layout-content-measure-wide)
+                + var(--design-system-primitive-spacing-32)
+                + var(--design-system-primitive-layout-measure-180)
+            )
+        );
+        margin-inline-start: var(--design-system-primitive-spacing-48);
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) > .documentation-page-tabs > .design-system-tab-panel {
+        padding-block-start: var(--design-system-primitive-spacing-48);
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) [id$="-page-panel-anatomy"] .documentation-page-tab-section > .documentation-subsection {
+        gap: var(--design-system-primitive-spacing-32);
+        padding-block-start: 0;
+    }
+
+    .documentation-page-header {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        padding-block-end: var(--design-system-primitive-spacing-48);
+    }
+
+    .documentation-page-tabs > .design-system-tab-list {
+        width: calc(100% + (var(--design-system-primitive-spacing-16) * 2));
+        margin-inline: calc(var(--design-system-primitive-spacing-16) * -1);
+        padding-inline: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-page-heading {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-page-heading > :where(h1, p),
+    .documentation-section-heading :where(h2, p),
+    .documentation-subsection-heading :where(h3, h4, p),
+    .documentation-contract :where(h3, p),
+    .documentation-release :where(h3, p),
+    .documentation-step-list p {
+        margin-block: 0;
+    }
+
+    .documentation-page-heading h1 {
+        max-width: var(--design-system-semantic-layout-content-measure-readable);
+    }
+
+    .documentation-eyebrow {
+        color: var(--design-system-semantic-color-text-foreground-accent);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-lead {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font-size: var(--design-system-primitive-typography-size-14);
+        line-height: var(--design-system-primitive-typography-line-height-1-5);
+    }
+
+    .documentation-title-row,
+    .documentation-contract-heading,
+    .documentation-release > div {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-title-row > h1,
+    .documentation-contract-heading > h3,
+    .documentation-release h3 {
+        margin: 0;
+    }
+
+    .documentation-section {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-24);
+        padding-block: var(--design-system-primitive-spacing-48);
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        scroll-margin-top: calc(var(--design-system-component-shell-header-height-compact) + var(--design-system-primitive-spacing-16));
+    }
+
+    .documentation-page:not(.documentation-foundation-page) > .documentation-section {
+        counter-increment: documentation-discover-section;
+    }
+
+    .documentation-section--flush-end {
+        padding-block-end: 0;
+    }
+
+    .documentation-section-heading {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: start;
+        width: 100%;
+    }
+
+    .documentation-section-heading > div {
+        display: grid;
+        grid-column: 2;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-page:not(.documentation-foundation-page) > .documentation-section > .documentation-section-heading::before {
+        content: counter(documentation-discover-section, decimal-leading-zero);
+        grid-column: 1;
+        grid-row: 1;
+        min-width: var(--design-system-primitive-spacing-24);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+        font-size: var(--design-system-primitive-typography-size-14);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-section-heading p,
+    .documentation-subsection-heading p {
+        width: 100%;
+        max-width: none;
+    }
+
+    .documentation-subsection-heading p {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-card-grid {
+        align-items: stretch;
+    }
+
+    .documentation-card-grid > .design-system-card {
+        height: 100%;
+    }
+
+    .documentation-card-grid .design-system-card__body > .design-system-badge {
+        justify-self: start;
+    }
+
+    .documentation-card-grid .design-system-card__body > code,
+    .documentation-state-row code,
+    .documentation-decision code,
+    .documentation-page :not(pre) > code {
+        display: inline-block;
+        max-width: 100%;
+        padding: var(--design-system-primitive-spacing-2) var(--design-system-primitive-spacing-6);
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-code);
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .documentation-page .documentation-token-name {
+        display: inline-block;
+        width: fit-content;
+        max-width: 100%;
+        padding: var(--design-system-primitive-spacing-2) var(--design-system-primitive-spacing-6);
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-code);
+        overflow-wrap: normal !important;
+        text-overflow: clip;
+        vertical-align: middle;
+        white-space: nowrap !important;
+        word-break: normal;
+    }
+
+    .documentation-decision-list,
+    .documentation-state-list,
+    .documentation-contract-list,
+    .documentation-release-list,
+    .documentation-step-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        margin: 0;
+        padding: 0;
+    }
+
+    .documentation-decision,
+    .documentation-state-row {
+        display: grid;
+        grid-template-columns: minmax(var(--design-system-primitive-layout-measure-180), 1fr) minmax(0, 2fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: start;
+        padding-block: var(--design-system-primitive-spacing-12);
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-contract,
+    .documentation-release {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        align-content: start;
+    }
+
+    .documentation-code {
+        max-width: 100%;
+        margin: 0;
+        overflow: auto;
+        padding: var(--design-system-primitive-spacing-12) var(--design-system-primitive-spacing-16);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        white-space: pre;
+    }
+
+    .documentation-code-block {
+        padding: var(--design-system-primitive-spacing-20);
+    }
+
+    .documentation-token-concept {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+    }
+
+    .documentation-concept-card {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-20);
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-20);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .documentation-concept-card-named {
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-concept-heading {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-concept-heading h3,
+    .documentation-concept-facts,
+    .documentation-concept-facts :where(dt, dd) {
+        margin: 0;
+    }
+
+    .documentation-concept-index {
+        padding: var(--design-system-primitive-spacing-4) var(--design-system-primitive-spacing-10);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-action-background-neutral);
+        color: var(--design-system-semantic-color-action-foreground-neutral);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-value-sample {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+        min-width: 0;
+        min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        padding: var(--design-system-primitive-spacing-16);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-value-sample-token {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .documentation-value-sample > .design-system-code {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-color-swatch {
+        display: inline-block;
+        flex: 0 0 auto;
+        width: var(--design-system-semantic-icons-control-size-medium);
+        height: var(--design-system-semantic-icons-control-size-medium);
+        border: var(--design-system-semantic-shape-boundary-width) solid currentColor;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+    }
+
+    .documentation-color-swatch-blue {
+        background: var(--design-system-primitive-color-blue-600);
+        color: var(--design-system-primitive-color-blue-700);
+    }
+
+    .documentation-concept-facts {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-concept-facts > div {
+        display: grid;
+        grid-template-columns: minmax(var(--design-system-primitive-layout-measure-180), auto) minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-12);
+        padding-block-start: var(--design-system-primitive-spacing-8);
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-concept-facts dt {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-concept-arrow {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-16);
+    }
+
+    .documentation-token-journey {
+        margin: 0;
+        padding: var(--design-system-primitive-spacing-20);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-token-journey figcaption {
+        margin-block-end: var(--design-system-primitive-spacing-20);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-14);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-token-journey ol {
+        position: relative;
+        display: grid;
+        gap: var(--design-system-primitive-spacing-12);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .documentation-token-journey ol::before {
+        position: absolute;
+        top: var(--design-system-primitive-spacing-16);
+        bottom: var(--design-system-primitive-spacing-16);
+        left: calc(var(--design-system-semantic-sizing-control-height-compact) / 2);
+        width: var(--design-system-semantic-shape-boundary-width);
+        background: var(--design-system-semantic-color-boundary-border-strong);
+        content: "";
+    }
+
+    .documentation-token-journey li {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto minmax(var(--design-system-primitive-layout-measure-180), 0.65fr) minmax(0, 1.35fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+        min-width: 0;
+    }
+
+    .documentation-journey-marker {
+        z-index: 1;
+        display: grid;
+        width: var(--design-system-semantic-sizing-control-height-compact);
+        height: var(--design-system-semantic-sizing-control-height-compact);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        place-items: center;
+    }
+
+    .documentation-journey-label,
+    .documentation-token-capsule > div {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+    }
+
+    .documentation-journey-label > span,
+    .documentation-token-capsule .design-system-code {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-journey-label small {
+        color: var(--design-system-semantic-color-text-foreground-accent);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+    }
+
+    .documentation-token-capsule,
+    .documentation-token-result {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+        min-width: 0;
+        min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        padding: var(--design-system-primitive-spacing-12) var(--design-system-primitive-spacing-16);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .documentation-journey-optional .documentation-token-capsule {
+        border-style: dashed;
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+    }
+
+    .documentation-anatomy-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-20);
+    }
+
+    .documentation-anatomy-card {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        margin: 0;
+        padding: var(--design-system-primitive-spacing-20);
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .documentation-token-group-wrap {
+        scrollbar-gutter: auto;
+    }
+
+    .documentation-token-group-table {
+        --design-system-component-table-minimum-width: 0;
+    }
+
+    .documentation-token-group-table :is(th, td) {
+        overflow-wrap: anywhere;
+        text-align: start;
+    }
+
+    .design-system-table.documentation-token-group-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: transparent;
+    }
+
+    .documentation-token-group-table th[scope="rowgroup"] {
+        vertical-align: top;
+    }
+
+    .design-system-table th[scope="rowgroup"] {
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-anatomy-card figcaption {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-anatomy-card figcaption > span {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    .documentation-anatomy-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+        padding-block-end: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-anatomy-token {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--design-system-primitive-spacing-8);
+        width: max-content;
+        min-width: 100%;
+    }
+
+    .documentation-anatomy-part {
+        display: block;
+        min-width: max-content;
+        text-align: center;
+    }
+
+    .documentation-anatomy-separator {
+        align-self: flex-start;
+        padding-block-start: calc(var(--design-system-primitive-spacing-8) + .05em);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-anatomy-part > span {
+        display: block;
+        width: max-content;
+        padding: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-12);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-anatomy-part[data-optional="true"] > span {
+        border-style: dashed;
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-anatomy-example {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        gap: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-12);
+        overflow-x: auto;
+    }
+
+    .documentation-anatomy-example > span {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-anatomy-example > code {
+        min-width: 0;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-typography-mechanic-label {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-typography-style-specimen,
+    .documentation-typography-size-specimen,
+    .documentation-typography-weight-specimen,
+    .documentation-typography-line-height-specimen {
+        overflow: hidden;
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-typography-style-presentation,
+    .documentation-typography-size-presentation,
+    .documentation-typography-weight-presentation,
+    .documentation-typography-line-height-presentation {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        min-width: 0;
+    }
+
+    .documentation-typography-style-controls,
+    .documentation-typography-size-controls,
+    .documentation-typography-weight-controls,
+    .documentation-typography-line-height-controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        justify-self: end;
+        gap: var(--design-system-primitive-spacing-8);
+        width: fit-content;
+        max-width: 100%;
+        height: fit-content;
+    }
+
+    .documentation-typography-size-list {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        min-width: 0;
+        overflow: hidden;
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-typography-style-specimen > .documentation-typography-style-list,
+    .documentation-typography-size-specimen > .documentation-typography-size-list,
+    .documentation-typography-weight-specimen > .documentation-typography-weight-list,
+    .documentation-typography-line-height-specimen > .documentation-typography-line-height-list {
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .documentation-typography-size-list > div {
+        position: relative;
+        display: grid;
+        grid-template-rows: minmax(var(--design-system-primitive-spacing-28), auto) auto;
+        gap: var(--design-system-primitive-spacing-8);
+        place-items: end start;
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-typography-size-list > div + div::before {
+        position: absolute;
+        inset-block: var(--design-system-primitive-spacing-12);
+        inset-inline-start: 0;
+        width: var(--design-system-semantic-shape-boundary-width-subtle);
+        background: var(--design-system-semantic-color-boundary-border);
+        content: "";
+    }
+
+    .documentation-typography-size-list small {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-caption);
+    }
+
+    .documentation-typography-italic {
+        font-style: var(--design-system-primitive-typography-style-italic);
+    }
+
+    .documentation-typography-size-11 { font-size: var(--design-system-primitive-typography-size-11); }
+    .documentation-typography-size-12 { font-size: var(--design-system-primitive-typography-size-12); }
+    .documentation-typography-size-13 { font-size: var(--design-system-primitive-typography-size-13); }
+    .documentation-typography-size-14 { font-size: var(--design-system-primitive-typography-size-14); }
+    .documentation-typography-size-16 { font-size: var(--design-system-primitive-typography-size-16); }
+    .documentation-typography-size-20 { font-size: var(--design-system-primitive-typography-size-20); }
+    .documentation-typography-size-28 { font-size: var(--design-system-primitive-typography-size-28); }
+
+    .documentation-typeface-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .documentation-typeface-sample {
+        display: grid;
+        min-width: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .documentation-typeface-sample + .documentation-typeface-sample {
+        border-inline-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-typeface-sample > figcaption {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+        padding: var(--design-system-primitive-spacing-16) var(--design-system-primitive-spacing-20) var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-typeface-sample > figcaption strong {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-typeface-sample > figcaption span {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-typeface-sample-mono {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+    }
+
+    .documentation-typeface-sample-serif {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-serif);
+    }
+
+    .documentation-typeface-glyphs {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-16);
+        min-height: calc(var(--design-system-primitive-spacing-48) * 2);
+        padding: var(--design-system-primitive-spacing-12) var(--design-system-primitive-spacing-20);
+    }
+
+    .documentation-typeface-pairs {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-20);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+        white-space: nowrap;
+    }
+
+    .documentation-typeface-pairs em {
+        font-weight: inherit;
+    }
+
+    .documentation-typeface-focus-glyph {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: calc(var(--design-system-primitive-typography-size-28) * 2);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+        line-height: var(--design-system-primitive-typography-line-height-1);
+    }
+
+    .documentation-typeface-classification {
+        padding: 0 var(--design-system-primitive-spacing-20) var(--design-system-primitive-spacing-16);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font-size: var(--design-system-primitive-typography-size-20);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+        text-align: center;
+    }
+
+    .documentation-typeface-character-set {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-4) var(--design-system-primitive-spacing-16);
+        padding: var(--design-system-primitive-spacing-16) var(--design-system-primitive-spacing-20);
+        background: var(--design-system-semantic-color-action-background);
+        color: var(--design-system-semantic-color-text-foreground-inverse);
+        font-size: var(--design-system-primitive-typography-size-16);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+        white-space: nowrap;
+    }
+
+    .documentation-typeface-character-set > :last-child {
+        grid-column: 1 / -1;
+    }
+
+    .documentation-typography-weight-list,
+    .documentation-typography-style-list,
+    .documentation-typography-line-height-list {
+        display: grid;
+        overflow: hidden;
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-typography-weight-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .documentation-typography-style-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .documentation-typography-line-height-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .documentation-typography-weight-list > article,
+    .documentation-typography-style-list > article,
+    .documentation-typography-line-height-list > article {
+        position: relative;
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+        align-content: start;
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-typography-weight-list > article + article::before,
+    .documentation-typography-style-list > article + article::before,
+    .documentation-typography-line-height-list > article + article::before {
+        position: absolute;
+        inset-block: var(--design-system-primitive-spacing-12);
+        inset-inline-start: 0;
+        width: var(--design-system-semantic-shape-boundary-width-subtle);
+        background: var(--design-system-semantic-color-boundary-border);
+        content: "";
+    }
+
+    .documentation-typography-weight-list p,
+    .documentation-typography-style-list p,
+    .documentation-typography-line-height-list p,
+    .documentation-typography-note {
+        margin: 0;
+    }
+
+    .documentation-typography-weight-regular {
+        font-weight: var(--design-system-primitive-typography-weight-400);
+    }
+
+    .documentation-typography-weight-medium {
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-typography-weight-semibold {
+        font-weight: var(--design-system-primitive-typography-weight-600);
+    }
+
+    .documentation-typography-weight-bold {
+        font-weight: var(--design-system-primitive-typography-weight-700);
+    }
+
+    .documentation-typography-style-normal {
+        font-style: var(--design-system-primitive-typography-style-normal);
+    }
+
+    .documentation-typography-style-italic {
+        font-style: var(--design-system-primitive-typography-style-italic);
+    }
+
+    .documentation-typography-line-normal {
+        line-height: var(--design-system-primitive-typography-line-height-1-5);
+    }
+
+    .documentation-typography-line-solid {
+        line-height: var(--design-system-primitive-typography-line-height-1);
+    }
+
+    .documentation-typography-line-tight {
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-typography-note {
+        width: 100%;
+        max-width: none;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-typography-role-list {
+        display: grid;
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-typography-role {
+        display: grid;
+        grid-template-columns: minmax(var(--design-system-primitive-layout-measure-180), 1fr) minmax(0, 2fr) auto;
+        gap: var(--design-system-primitive-spacing-24);
+        align-items: center;
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-20);
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-typography-role:last-child {
+        border-bottom: 0;
+    }
+
+    .documentation-typography-role-name {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+    }
+
+    .documentation-typography-role-name > strong,
+    .documentation-typography-role-preview {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-typography-role-name > span {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-typography-role-preview {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-typography-role > code {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        white-space: nowrap;
+    }
+
+    .documentation-typography-role-preview.documentation-token-name {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .documentation-typography-token-wrap {
+        width: 100%;
+    }
+
+    .documentation-typography-token-table {
+        min-width: var(--design-system-primitive-layout-measure-48ch);
+    }
+
+    .documentation-primitive-token-table {
+        --design-system-component-table-minimum-width: var(--design-system-primitive-layout-measure-72ch);
+        table-layout: fixed;
+    }
+
+    :is(
+        .documentation-primitive-token-table,
+        .documentation-semantic-color-table,
+        .documentation-spacing-semantic-table,
+        .documentation-sizing-semantic-table,
+        .documentation-foundation-semantic-table
+    ) :is(th, td) {
+        vertical-align: middle;
+    }
+
+    .documentation-typography-semantic-table :is(th, td) {
+        vertical-align: top;
+    }
+
+    .documentation-primitive-token-table code {
+        white-space: nowrap;
+    }
+
+    .documentation-foundation-token-table :is(th, td) {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-foundation-token-table code {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        white-space: nowrap;
+    }
+
+    .design-system-table.documentation-foundation-token-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-three-column-primitive-token-table :is(th, td):first-child,
+    .documentation-three-column-primitive-token-table :is(th, td):nth-child(2) {
+        width: 14%;
+    }
+
+    .documentation-three-column-primitive-token-table :is(th, td):last-child {
+        width: 72%;
+    }
+
+    .documentation-color-primitive-token-table :is(th, td):first-child {
+        width: 14%;
+    }
+
+    .documentation-color-primitive-token-table :is(th, td):nth-child(2) {
+        width: 10%;
+    }
+
+    .documentation-color-primitive-token-table :is(th, td):nth-child(3) {
+        width: 8%;
+    }
+
+    .documentation-color-primitive-token-table :is(th, td):last-child {
+        width: 68%;
+    }
+
+    .documentation-typography-token-table :is(th, td) {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-table.documentation-typography-token-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-typography-token-table code {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        white-space: nowrap;
+    }
+
+    :is(
+        .documentation-color-token-table.documentation-semantic-color-table,
+        .documentation-typography-token-table.documentation-typography-semantic-table,
+        .documentation-spacing-token-table.documentation-spacing-semantic-table,
+        .documentation-sizing-token-table.documentation-sizing-semantic-table,
+        .documentation-foundation-token-table.documentation-foundation-semantic-table
+    ) {
+        --design-system-component-table-minimum-width: calc(
+            var(--design-system-semantic-layout-content-measure-wide)
+            - var(--design-system-semantic-layout-grid-column-minimum)
+            - var(--design-system-primitive-spacing-2)
+        );
+        min-width: var(--design-system-component-table-minimum-width);
+        table-layout: fixed;
+    }
+
+    .documentation-semantic-color-table :is(th, td):first-child {
+        width: 30%;
+    }
+
+    .documentation-semantic-color-table :is(th, td):nth-child(2) {
+        width: 28%;
+    }
+
+    .documentation-semantic-color-table :is(th, td):last-child {
+        width: 42%;
+    }
+
+    .documentation-typography-semantic-table :is(th, td):first-child {
+        width: 25%;
+    }
+
+    .documentation-typography-semantic-table :is(th, td):nth-child(2) {
+        width: 40%;
+    }
+
+    .documentation-typography-semantic-table :is(th, td):last-child {
+        width: 35%;
+    }
+
+    .documentation-spacing-semantic-table :is(th, td):first-child {
+        width: 35%;
+    }
+
+    .documentation-spacing-semantic-table :is(th, td):nth-child(2) {
+        width: 25%;
+    }
+
+    .documentation-spacing-semantic-table :is(th, td):last-child {
+        width: 40%;
+    }
+
+    .documentation-sizing-semantic-table :is(th, td):first-child {
+        width: 36%;
+    }
+
+    .documentation-sizing-semantic-table :is(th, td):nth-child(2) {
+        width: 24%;
+    }
+
+    .documentation-sizing-semantic-table :is(th, td):last-child {
+        width: 40%;
+    }
+
+    .documentation-foundation-semantic-table :is(th, td):first-child {
+        width: 34%;
+    }
+
+    .documentation-foundation-semantic-table :is(th, td):nth-child(2) {
+        width: 26%;
+    }
+
+    .documentation-foundation-semantic-table :is(th, td):last-child {
+        width: 40%;
+    }
+
+    :is(
+        .documentation-semantic-color-table,
+        .documentation-typography-semantic-table,
+        .documentation-spacing-semantic-table,
+        .documentation-sizing-semantic-table,
+        .documentation-foundation-semantic-table
+    ) :is(th, td):is(:nth-child(2), :last-child) {
+        white-space: nowrap;
+    }
+
+    :is(
+        .documentation-semantic-color-table,
+        .documentation-typography-semantic-table,
+        .documentation-spacing-semantic-table,
+        .documentation-sizing-semantic-table,
+        .documentation-foundation-semantic-table
+    ) .documentation-token-name {
+        max-width: none;
+        overflow: visible;
+    }
+
+    .documentation-foundation-token-preview {
+        display: inline-flex;
+        position: relative;
+        z-index: 0;
+        isolation: isolate;
+        align-items: center;
+        justify-content: center;
+        width: min(100%, calc(2 * var(--design-system-primitive-spacing-48)));
+        min-height: var(--design-system-primitive-sizing-34);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-foundation-token-mark {
+        display: block;
+        width: var(--design-system-primitive-spacing-32);
+        height: var(--design-system-primitive-spacing-20);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-strong);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="measure"] .documentation-foundation-token-mark {
+        width: min(100%, var(--_documentation-foundation-token));
+        height: var(--design-system-primitive-spacing-8);
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border-selected);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="radius"] .documentation-foundation-token-mark {
+        border-radius: var(--_documentation-foundation-token);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="border"] .documentation-foundation-token-mark {
+        width: var(--design-system-primitive-spacing-48);
+        height: 0;
+        border: 0;
+        border-top: var(--_documentation-foundation-token) solid var(--design-system-semantic-color-boundary-border-selected);
+        background: transparent;
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="shadow-primitive"] .documentation-foundation-token-mark {
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background);
+        box-shadow: var(--_documentation-foundation-token) color-mix(in srgb, var(--design-system-primitive-color-gray-950) 14%, transparent);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="shadow-semantic"] .documentation-foundation-token-mark {
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background);
+        box-shadow: var(--_documentation-foundation-token);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="scrim"] .documentation-foundation-token-mark {
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--_documentation-foundation-token);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="layer"] .documentation-foundation-token-mark {
+        position: relative;
+        z-index: var(--_documentation-foundation-token);
+        translate: var(--design-system-primitive-spacing-8) calc(-1 * var(--design-system-primitive-spacing-4));
+        border-radius: var(--design-system-primitive-shape-radius-6);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="layer"]::before {
+        position: absolute;
+        width: var(--design-system-primitive-spacing-32);
+        height: var(--design-system-primitive-spacing-20);
+        translate: calc(-1 * var(--design-system-primitive-spacing-8)) var(--design-system-primitive-spacing-4);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        content: "";
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="icon"] .documentation-foundation-token-mark {
+        width: var(--_documentation-foundation-token);
+        height: var(--_documentation-foundation-token);
+        border: var(--design-system-semantic-shape-boundary-width-subtle) dashed var(--design-system-semantic-color-boundary-border-strong);
+        background: transparent;
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="icon"] .design-system-icon {
+        position: absolute;
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="scale"] .documentation-foundation-token-mark {
+        transform: scale(var(--_documentation-foundation-token));
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        transform-origin: center;
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="duration"] .documentation-foundation-token-mark {
+        width: var(--design-system-primitive-spacing-48);
+        height: var(--design-system-primitive-spacing-6);
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border-selected);
+        transition-duration: var(--_documentation-foundation-token);
+    }
+
+    .documentation-foundation-token-preview[data-documentation-token-preview="easing"] .documentation-foundation-token-mark {
+        width: var(--design-system-primitive-spacing-48);
+        height: var(--design-system-primitive-spacing-6);
+        border: 0;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border-selected);
+        transition-timing-function: var(--_documentation-foundation-token);
+    }
+
+    .documentation-typography-primitive-preview {
+        display: inline-grid;
+        align-content: center;
+        min-height: var(--design-system-primitive-sizing-34);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        line-height: var(--design-system-primitive-typography-line-height-1);
+    }
+
+    .documentation-typography-primitive-preview > span:last-child {
+        display: none;
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="family-ibm-plex-sans"] {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-sans);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="family-ibm-plex-mono"] {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="family-ibm-plex-serif"] {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-serif);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="style-normal"] {
+        font-style: var(--design-system-primitive-typography-style-normal);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="style-italic"] {
+        font-style: var(--design-system-primitive-typography-style-italic);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-11"] {
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-12"] {
+        font-size: var(--design-system-primitive-typography-size-12);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-13"] {
+        font-size: var(--design-system-primitive-typography-size-13);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-14"] {
+        font-size: var(--design-system-primitive-typography-size-14);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-16"] {
+        font-size: var(--design-system-primitive-typography-size-16);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-20"] {
+        font-size: var(--design-system-primitive-typography-size-20);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="size-28"] {
+        font-size: var(--design-system-primitive-typography-size-28);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview*="line-height-"] {
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview*="line-height-"] > span:last-child {
+        display: block;
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="line-height-1"] {
+        line-height: var(--design-system-primitive-typography-line-height-1);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="line-height-1-25"] {
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="line-height-1-5"] {
+        line-height: var(--design-system-primitive-typography-line-height-1-5);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="weight-400"] {
+        font-weight: var(--design-system-primitive-typography-weight-400);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="weight-500"] {
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="weight-600"] {
+        font-weight: var(--design-system-primitive-typography-weight-600);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="weight-700"] {
+        font-weight: var(--design-system-primitive-typography-weight-700);
+    }
+
+    .documentation-typography-primitive-preview[data-documentation-typography-preview$="underline-offset-0-2em"] {
+        text-decoration: underline;
+        text-underline-offset: var(--design-system-primitive-typography-underline-offset-0-2em);
+    }
+
+    .documentation-typeface-list {
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-color-anatomy {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-48);
+    }
+
+    .documentation-color-family {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        padding-block: var(--design-system-primitive-spacing-32);
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-color-family:last-child {
+        padding-block-end: 0;
+        border-bottom: 0;
+    }
+
+    .documentation-color-family-copy {
+        display: grid;
+        align-content: start;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-color-family-copy :where(h3, h4, p),
+    .documentation-color-scale,
+    .documentation-color-swatches,
+    .documentation-alert-color-list,
+    .documentation-alert-color-list h4 {
+        margin: 0;
+    }
+
+    .documentation-color-family-copy p {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-color-swatches {
+        display: grid;
+        grid-template-columns: repeat(var(--_documentation-color-columns), minmax(0, 1fr));
+        gap: 0;
+    }
+
+    [data-documentation-columns="2"] {
+        --_documentation-color-columns: 2;
+    }
+
+    [data-documentation-columns="7"] {
+        --_documentation-color-columns: 7;
+    }
+
+    [data-documentation-columns="18"] {
+        --_documentation-color-columns: 18;
+    }
+
+    [data-documentation-columns="20"] {
+        --_documentation-color-columns: 20;
+    }
+
+    .documentation-color-scale-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-24);
+        min-width: 0;
+    }
+
+    .documentation-color-scale-label {
+        margin-block-end: var(--design-system-primitive-spacing-10);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-color-swatches {
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        padding: 0;
+        list-style: none;
+    }
+
+    .documentation-color-swatches > li {
+        --_documentation-color-label: var(--design-system-primitive-color-white);
+
+        min-width: 0;
+        color: var(--_documentation-color-label);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-color-block {
+        display: grid;
+        align-content: start;
+        gap: var(--design-system-primitive-spacing-4);
+        min-height: calc((var(--design-system-primitive-spacing-48) * 2) + var(--design-system-primitive-spacing-24));
+        padding: var(--design-system-primitive-spacing-10);
+        background: var(--_documentation-color-value);
+    }
+
+    .documentation-color-swatches strong {
+        color: inherit;
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-alert-color-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-24);
+        padding: 0;
+        list-style: none;
+    }
+
+    .documentation-alert-color-list > li {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-10);
+    }
+
+    .documentation-alert-color-list h4 {
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-alert-color-scale {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0;
+    }
+
+    .documentation-alert-color-scale > span {
+        --_documentation-color-label: var(--design-system-primitive-color-white);
+
+        min-height: calc(var(--design-system-primitive-spacing-48) + var(--design-system-primitive-spacing-32));
+        padding: var(--design-system-primitive-spacing-10);
+        background: var(--_documentation-color-value);
+        color: var(--_documentation-color-label);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-color-context [data-documentation-color="black"] {
+        --_documentation-color-value: var(--design-system-primitive-color-black);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-950"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-950);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-925"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-925);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-900"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-900);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-850"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-850);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-800"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-800);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-750"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-750);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-700"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-700);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-550"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-550);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-500"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-500);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-450"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-450);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-400"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-400);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-250"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-250);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-200"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-200);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-150"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-150);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-100"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-100);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-50"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-50);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-25"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-25);
+    }
+
+    .documentation-color-context [data-documentation-color="gray-10"] {
+        --_documentation-color-value: var(--design-system-primitive-color-gray-10);
+    }
+
+    .documentation-color-context [data-documentation-color="white"] {
+        --_documentation-color-value: var(--design-system-primitive-color-white);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-900"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-900);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-700"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-700);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-650"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-650);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-600"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-600);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-500"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-500);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-300"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-300);
+    }
+
+    .documentation-color-context [data-documentation-color="blue-50"] {
+        --_documentation-color-value: var(--design-system-primitive-color-blue-50);
+    }
+
+    .documentation-color-context [data-documentation-color="green-900"] {
+        --_documentation-color-value: var(--design-system-primitive-color-green-900);
+    }
+
+    .documentation-color-context [data-documentation-color="green-700"] {
+        --_documentation-color-value: var(--design-system-primitive-color-green-700);
+    }
+
+    .documentation-color-context [data-documentation-color="green-400"] {
+        --_documentation-color-value: var(--design-system-primitive-color-green-400);
+    }
+
+    .documentation-color-context [data-documentation-color="green-50"] {
+        --_documentation-color-value: var(--design-system-primitive-color-green-50);
+    }
+
+    .documentation-color-context [data-documentation-color="orange-900"] {
+        --_documentation-color-value: var(--design-system-primitive-color-orange-900);
+    }
+
+    .documentation-color-context [data-documentation-color="orange-700"] {
+        --_documentation-color-value: var(--design-system-primitive-color-orange-700);
+    }
+
+    .documentation-color-context [data-documentation-color="orange-300"] {
+        --_documentation-color-value: var(--design-system-primitive-color-orange-300);
+    }
+
+    .documentation-color-context [data-documentation-color="orange-50"] {
+        --_documentation-color-value: var(--design-system-primitive-color-orange-50);
+    }
+
+    .documentation-color-context [data-documentation-color="red-900"] {
+        --_documentation-color-value: var(--design-system-primitive-color-red-900);
+    }
+
+    .documentation-color-context [data-documentation-color="red-700"] {
+        --_documentation-color-value: var(--design-system-primitive-color-red-700);
+    }
+
+    .documentation-color-context [data-documentation-color="red-300"] {
+        --_documentation-color-value: var(--design-system-primitive-color-red-300);
+    }
+
+    .documentation-color-context [data-documentation-color="red-50"] {
+        --_documentation-color-value: var(--design-system-primitive-color-red-50);
+    }
+
+    .documentation-color-context :is(
+        [data-documentation-color="gray-450"],
+        [data-documentation-color="gray-400"],
+        [data-documentation-color="gray-250"],
+        [data-documentation-color="gray-200"],
+        [data-documentation-color="gray-150"],
+        [data-documentation-color="gray-100"],
+        [data-documentation-color="gray-50"],
+        [data-documentation-color="gray-25"],
+        [data-documentation-color="gray-10"],
+        [data-documentation-color="white"],
+        [data-documentation-color="blue-500"],
+        [data-documentation-color="blue-300"],
+        [data-documentation-color="blue-50"],
+        [data-documentation-color="green-400"],
+        [data-documentation-color="green-50"],
+        [data-documentation-color="orange-300"],
+        [data-documentation-color="orange-50"],
+        [data-documentation-color="red-300"],
+        [data-documentation-color="red-50"]
+    ) {
+        --_documentation-color-label: var(--design-system-primitive-color-black);
+    }
+
+    .documentation-color-token-wrap {
+        scrollbar-gutter: auto;
+    }
+
+    .documentation-color-token-table {
+        --design-system-component-table-minimum-width: var(--design-system-primitive-layout-measure-48ch);
+    }
+
+    .documentation-color-token-table :is(th, td) {
+        overflow-wrap: anywhere;
+        text-align: start;
+    }
+
+    .design-system-table.documentation-color-token-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-component-table-background-content);
+    }
+
+    .documentation-page-tabs,
+    .documentation-page-tab-section,
+    .documentation-token-category,
+    .documentation-token-category-list {
+        min-width: 0;
+    }
+
+    .documentation-page-tab-section {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-24);
+    }
+
+    .documentation-page-tab-intro {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-page-tab-section:has(> .documentation-reference-toc) {
+        grid-template-columns:
+            minmax(0, var(--design-system-semantic-layout-content-measure-wide))
+            var(--design-system-primitive-layout-measure-180);
+        column-gap: var(--design-system-primitive-spacing-48);
+        align-items: start;
+    }
+
+    .documentation-page-tab-section:has(> .documentation-reference-toc) > .documentation-subsection {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .documentation-reference-toc {
+        position: sticky;
+        top: calc(var(--design-system-component-shell-header-height-compact) + var(--design-system-primitive-spacing-24));
+        z-index: var(--design-system-primitive-elevation-layer-20);
+        display: block;
+        grid-column: 2;
+        grid-row: 1;
+        align-self: start;
+        max-block-size: calc(100dvh - (var(--design-system-component-shell-header-height-compact) * 2) - var(--design-system-primitive-spacing-48));
+        overflow-x: visible;
+        overflow-y: auto;
+        border-block-end: 0;
+        border-inline-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-component-shell-background-content);
+        scrollbar-gutter: stable;
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) .documentation-reference-toc {
+        top: calc(
+            var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-primitive-spacing-24)
+        );
+    }
+
+    .documentation-reference-toc-list,
+    .documentation-reference-toc-sublist {
+        display: grid;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .documentation-reference-toc-list {
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-reference-toc-sublist {
+        padding-inline-start: 0;
+    }
+
+    .documentation-reference-toc .design-system-tab {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border-block-end: 0;
+        border-inline-start: var(--design-system-semantic-shape-focus-width) solid transparent;
+        margin-inline-start: calc(var(--design-system-semantic-shape-boundary-width-subtle) * -1);
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .documentation-reference-toc-parent {
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-reference-toc-child {
+        padding-inline-start: calc(
+            var(--design-system-semantic-spacing-control-padding-inline)
+            + var(--design-system-primitive-spacing-16)
+        );
+    }
+
+    .documentation-reference-toc [data-documentation-reference-toc-group-active] > .documentation-reference-toc-parent,
+    .documentation-reference-toc .design-system-tab[aria-current="location"] {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-reference-toc .design-system-tab[aria-current="location"] {
+        border-inline-start-color: var(--design-system-semantic-color-action-background);
+    }
+
+    @media (forced-colors: active) {
+        .documentation-reference-toc .design-system-tab[aria-current="location"] {
+            border-inline-start-color: Highlight;
+        }
+    }
+
+    .documentation-token-category-list {
+        display: grid;
+        grid-column: 1;
+        grid-row: 1;
+        gap: calc(var(--design-system-primitive-spacing-48) + var(--design-system-primitive-spacing-16));
+    }
+
+    .documentation-token-category {
+        position: relative;
+        display: grid;
+        gap: var(--design-system-primitive-spacing-32);
+        scroll-margin-block-start: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-token-category + .documentation-token-category {
+        padding-block-start: 0;
+        border-top: 0;
+    }
+
+    .documentation-token-category + .documentation-token-category::before {
+        position: absolute;
+        inset-block-start: calc(var(--design-system-primitive-spacing-32) * -1);
+        inset-inline: 0;
+        height: var(--design-system-semantic-shape-boundary-width-subtle);
+        background: var(--design-system-semantic-color-boundary-border);
+        content: "";
+    }
+
+    .documentation-token-category-heading {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+    }
+
+    .documentation-token-category-heading :where(h3, p) {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+    }
+
+    .documentation-tabbed-foundation-page .documentation-token-category > .documentation-token-category-heading > h3 {
+        scroll-margin-block-start: calc(
+            var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-primitive-spacing-24)
+        );
+    }
+
+    .documentation-tabbed-foundation-page [id$="-page-panel-anatomy"] .documentation-page-tab-section > .documentation-subsection > .documentation-subsection-heading > h3 {
+        scroll-margin-block-start: calc(
+            var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-primitive-spacing-24)
+        );
+    }
+
+    :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) .design-system-tab-panel :where(h3, h4, h5, strong)[id] {
+        scroll-margin-block-start: calc(
+            var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-component-shell-header-height-compact)
+            + var(--design-system-primitive-spacing-24)
+        );
+    }
+
+    .documentation-tabbed-foundation-page .documentation-token-category + .documentation-token-category > .documentation-token-category-heading > h3 {
+        --_documentation-reference-active-lead: var(--design-system-primitive-spacing-32);
+    }
+
+    .documentation-tabbed-foundation-page :is(
+        .documentation-token-panel-content,
+        .documentation-color-anatomy,
+        .documentation-typography-composition-list
+    ) > .documentation-subsection + .documentation-subsection > .documentation-subsection-heading > :is(h3, h4) {
+        --_documentation-reference-active-lead: var(--design-system-primitive-spacing-24);
+    }
+
+    .documentation-token-category-heading > p {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-token-category-heading-with-control {
+        position: relative;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .documentation-token-category-heading-with-control > h3 {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .documentation-token-category-heading-with-control > .documentation-color-theme-control {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+    }
+
+    .documentation-token-category-heading-with-control > p {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .documentation-token-panel-content {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-48);
+    }
+
+    .documentation-token-panel-content > section.documentation-subsection {
+        padding-block-start: 0;
+    }
+
+    .documentation-foundation-page .documentation-page-tab-section {
+        counter-reset: documentation-foundation-section;
+    }
+
+    .documentation-foundation-page .documentation-page-tab-section > .documentation-subsection,
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category {
+        counter-increment: documentation-foundation-section;
+    }
+
+    .documentation-foundation-page .documentation-page-tab-section > .documentation-subsection > .documentation-subsection-heading,
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading {
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-foundation-page .documentation-page-tab-section > .documentation-subsection > .documentation-subsection-heading::before,
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading::before {
+        content: counter(documentation-foundation-section, decimal-leading-zero);
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        min-width: var(--design-system-primitive-spacing-24);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+        font-size: var(--design-system-primitive-typography-size-14);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-foundation-page .documentation-page-tab-section > .documentation-subsection > .documentation-subsection-heading > :where(h3, p),
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading > :where(h3, p) {
+        grid-column: 2;
+    }
+
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading-with-control {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading-with-control > h3 {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading-with-control > p {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading-with-control > :where(h3, p) {
+        max-width: calc(100% - var(--design-system-primitive-layout-measure-180));
+    }
+
+    .documentation-color-semantic-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-color-semantic-toolbar > p {
+        max-width: var(--design-system-semantic-layout-content-measure-readable);
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-color-token-name {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-10);
+    }
+
+    .documentation-color-token-swatch {
+        display: inline-block;
+        flex: 0 0 auto;
+        width: var(--design-system-primitive-spacing-24);
+        height: var(--design-system-primitive-spacing-24);
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--_documentation-color-value);
+    }
+
+    .documentation-color-token-table code {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-12);
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-color-theme-compositions {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-color-theme-control {
+        flex: none;
+    }
+
+    .documentation-color-theme-source {
+        display: block;
+    }
+
+    .documentation-color-theme-source[hidden] {
+        display: none;
+    }
+
+    .documentation-token-source-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+    }
+
+    .documentation-token-source-list > code {
+        display: inline-block;
+        justify-self: start;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        overflow-wrap: normal;
+        white-space: nowrap;
+    }
+
+    .documentation-subsection-heading {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+    }
+
+    .documentation-layer-progression,
+    .documentation-layer-use {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        margin: 0;
+    }
+
+    .documentation-layer-progression > figcaption,
+    .documentation-layer-use > figcaption {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-16);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-layer-progression > figcaption strong {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-layer-model-grid,
+    .documentation-layer-use-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-layer-model-theme,
+    .documentation-layer-use-theme {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-12);
+        min-width: 0;
+    }
+
+    .documentation-layer-model-theme > header,
+    .documentation-layer-use-theme > header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-layer-model-theme > header :where(h4, span),
+    .documentation-layer-use-theme > header :where(h4, span) {
+        margin: 0;
+    }
+
+    .documentation-layer-model-theme > header span,
+    .documentation-layer-use-theme > header span {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-layer-model-stack {
+        --_documentation-layer-base: var(--design-system-primitive-color-gray-100);
+        --_documentation-layer-one: var(--design-system-primitive-color-white);
+        --_documentation-layer-two: var(--design-system-primitive-color-gray-50);
+        --_documentation-layer-three: var(--design-system-primitive-color-white);
+        --_documentation-layer-text: var(--design-system-primitive-color-black);
+        --_documentation-layer-muted: var(--design-system-primitive-color-gray-500);
+
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-12);
+        min-height: calc(var(--design-system-semantic-layout-state-minimum-height) * 2);
+        padding: var(--design-system-primitive-spacing-24);
+        background: var(--_documentation-layer-base);
+        color: var(--_documentation-layer-text);
+    }
+
+    .documentation-layer-model-stack[data-documentation-theme="dark"] {
+        --_documentation-layer-base: var(--design-system-primitive-color-black);
+        --_documentation-layer-one: var(--design-system-primitive-color-gray-900);
+        --_documentation-layer-two: var(--design-system-primitive-color-gray-850);
+        --_documentation-layer-three: var(--design-system-primitive-color-gray-800);
+        --_documentation-layer-text: var(--design-system-primitive-color-gray-10);
+        --_documentation-layer-muted: var(--design-system-primitive-color-gray-250);
+    }
+
+    .documentation-layer-model-level {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-12);
+        min-width: 0;
+        min-height: 0;
+        padding: var(--design-system-primitive-spacing-24);
+        background: var(--_documentation-layer-one);
+    }
+
+    .documentation-layer-model-level .documentation-layer-model-level {
+        background: var(--_documentation-layer-two);
+    }
+
+    .documentation-layer-model-level .documentation-layer-model-level .documentation-layer-model-level {
+        grid-template-rows: minmax(0, 1fr);
+        background: var(--_documentation-layer-three);
+        place-items: center;
+    }
+
+    .documentation-layer-model-label {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+        justify-items: start;
+    }
+
+    .documentation-layer-model-label > span {
+        color: var(--_documentation-layer-muted);
+    }
+
+    .documentation-layer-model-label-center {
+        justify-items: center;
+        text-align: center;
+    }
+
+    .documentation-layer-reference-table {
+        --design-system-component-table-minimum-width: var(--design-system-semantic-layout-content-measure-readable);
+    }
+
+    .documentation-layer-reference-table :is(th, td) {
+        overflow-wrap: anywhere;
+        vertical-align: top;
+    }
+
+    .design-system-table.documentation-layer-reference-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-component-table-background-content);
+    }
+
+    .documentation-layer-window {
+        --_documentation-layer-base: var(--design-system-primitive-color-gray-100);
+        --_documentation-layer-one: var(--design-system-primitive-color-white);
+        --_documentation-layer-two: var(--design-system-primitive-color-gray-50);
+        --_documentation-layer-three: var(--design-system-primitive-color-white);
+        --_documentation-layer-control: var(--design-system-primitive-color-gray-100);
+        --_documentation-layer-hover: var(--design-system-primitive-color-gray-25);
+        --_documentation-layer-selected: var(--design-system-primitive-color-blue-50);
+        --_documentation-layer-text-primary: var(--design-system-primitive-color-black);
+        --_documentation-layer-text-secondary: var(--design-system-primitive-color-gray-700);
+        --_documentation-layer-text-muted: var(--design-system-primitive-color-gray-500);
+        --_documentation-layer-text-inverse: var(--design-system-primitive-color-white);
+        --_documentation-layer-boundary: var(--design-system-primitive-color-gray-200);
+        --_documentation-layer-boundary-strong: var(--design-system-primitive-color-gray-400);
+        --_documentation-layer-focus: var(--design-system-primitive-color-blue-600);
+        --_documentation-layer-action: var(--design-system-primitive-color-blue-600);
+        --_documentation-layer-action-hover: var(--design-system-primitive-color-blue-700);
+        --_documentation-layer-success: var(--design-system-primitive-color-green-700);
+        --_documentation-layer-success-background: var(--design-system-primitive-color-green-50);
+        --_documentation-layer-warning: var(--design-system-primitive-color-orange-700);
+        --_documentation-layer-warning-background: var(--design-system-primitive-color-orange-50);
+        --_documentation-layer-shadow-color: color-mix(in srgb, var(--design-system-primitive-color-gray-950) var(--design-system-primitive-opacity-14), transparent);
+
+        --design-system-semantic-color-page-background: var(--_documentation-layer-base);
+        --design-system-semantic-color-surface-background: var(--_documentation-layer-one);
+        --design-system-semantic-color-surface-background-subtle: var(--_documentation-layer-two);
+        --design-system-semantic-color-surface-background-elevated: var(--_documentation-layer-one);
+        --design-system-semantic-color-surface-background-control: var(--_documentation-layer-control);
+        --design-system-semantic-color-surface-background-hover: var(--_documentation-layer-hover);
+        --design-system-semantic-color-surface-background-selected: var(--_documentation-layer-selected);
+        --design-system-semantic-color-text-foreground-primary: var(--_documentation-layer-text-primary);
+        --design-system-semantic-color-text-foreground-secondary: var(--_documentation-layer-text-secondary);
+        --design-system-semantic-color-text-foreground-muted: var(--_documentation-layer-text-muted);
+        --design-system-semantic-color-text-foreground-inverse: var(--_documentation-layer-text-inverse);
+        --design-system-semantic-color-boundary-border: var(--_documentation-layer-boundary);
+        --design-system-semantic-color-boundary-border-strong: var(--_documentation-layer-boundary-strong);
+        --design-system-semantic-color-focus-ring: var(--_documentation-layer-focus);
+        --design-system-semantic-color-action-background: var(--_documentation-layer-action);
+        --design-system-semantic-color-action-background-hover: var(--_documentation-layer-action-hover);
+        --design-system-semantic-color-status-foreground-success: var(--_documentation-layer-success);
+        --design-system-semantic-color-status-background-success: var(--_documentation-layer-success-background);
+        --design-system-semantic-color-status-foreground-warning: var(--_documentation-layer-warning);
+        --design-system-semantic-color-status-background-warning: var(--_documentation-layer-warning-background);
+        --design-system-semantic-elevation-overlay-shadow: var(--design-system-primitive-elevation-shadow-0-12-30) var(--_documentation-layer-shadow-color);
+
+        position: relative;
+        min-height: calc(var(--design-system-semantic-layout-state-minimum-height) * 2);
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--_documentation-layer-boundary);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--_documentation-layer-base);
+        color: var(--_documentation-layer-text-secondary);
+    }
+
+    .documentation-layer-window[data-documentation-theme="dark"] {
+        --_documentation-layer-base: var(--design-system-primitive-color-black);
+        --_documentation-layer-one: var(--design-system-primitive-color-gray-900);
+        --_documentation-layer-two: var(--design-system-primitive-color-gray-850);
+        --_documentation-layer-three: var(--design-system-primitive-color-gray-800);
+        --_documentation-layer-control: var(--design-system-primitive-color-gray-800);
+        --_documentation-layer-hover: var(--design-system-primitive-color-gray-750);
+        --_documentation-layer-selected: var(--design-system-primitive-color-blue-900);
+        --_documentation-layer-text-primary: var(--design-system-primitive-color-gray-10);
+        --_documentation-layer-text-secondary: var(--design-system-primitive-color-gray-250);
+        --_documentation-layer-text-muted: var(--design-system-primitive-color-gray-450);
+        --_documentation-layer-text-inverse: var(--design-system-primitive-color-white);
+        --_documentation-layer-boundary: var(--design-system-primitive-color-gray-700);
+        --_documentation-layer-boundary-strong: var(--design-system-primitive-color-gray-550);
+        --_documentation-layer-focus: var(--design-system-primitive-color-blue-600);
+        --_documentation-layer-success: var(--design-system-primitive-color-green-400);
+        --_documentation-layer-success-background: var(--design-system-primitive-color-green-900);
+        --_documentation-layer-warning: var(--design-system-primitive-color-orange-300);
+        --_documentation-layer-warning-background: var(--design-system-primitive-color-orange-900);
+        --_documentation-layer-shadow-color: color-mix(in srgb, var(--design-system-primitive-color-gray-950) var(--design-system-primitive-opacity-34), transparent);
+    }
+
+    .documentation-layer-window-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--design-system-primitive-spacing-12);
+        padding: var(--design-system-primitive-spacing-12) var(--design-system-primitive-spacing-16);
+        border-bottom: var(--design-system-semantic-shape-boundary-width) solid var(--_documentation-layer-boundary);
+    }
+
+    .documentation-layer-use-label {
+        color: var(--_documentation-layer-text-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-layer-card {
+        margin: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-layer-card-heading {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-layer-card-heading > div {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+    }
+
+    .documentation-layer-nested-panel {
+        --design-system-semantic-color-surface-background-elevated: var(--_documentation-layer-two);
+        --design-system-semantic-color-surface-background-control: var(--_documentation-layer-three);
+        --design-system-component-table-background-content: var(--_documentation-layer-two);
+        --design-system-component-table-background-header: var(--_documentation-layer-control);
+        --design-system-component-table-background-header-secondary: var(--_documentation-layer-control);
+        --design-system-component-table-foreground-header: var(--_documentation-layer-text-secondary);
+        --design-system-component-table-background-row-hover: var(--_documentation-layer-two);
+        --design-system-component-table-background-row-selected: var(--_documentation-layer-selected);
+
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+        padding: var(--design-system-primitive-spacing-12);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--_documentation-layer-two);
+    }
+
+    .documentation-layer-nested-panel-heading {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--design-system-primitive-spacing-4) var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-layer-nested-panel-heading > span:last-child {
+        color: var(--_documentation-layer-text-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-layer-table {
+        --design-system-component-table-minimum-width: 0;
+    }
+
+    .documentation-layer-table :is(th, td) {
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-menu.documentation-layer-menu {
+        --design-system-semantic-color-surface-background-elevated: var(--_documentation-layer-three);
+        --design-system-semantic-color-surface-background-subtle: var(--_documentation-layer-hover);
+
+        inset-block-start: calc((var(--design-system-primitive-spacing-48) * 2) + var(--design-system-primitive-spacing-32));
+        inset-inline-end: var(--design-system-primitive-spacing-24);
+        left: auto;
+        width: max-content;
+        padding: var(--design-system-component-picker-panel-padding);
+    }
+
+    .documentation-theme-visual {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        min-height: calc(var(--design-system-primitive-layout-measure-180) * 2);
+        margin: 0;
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-theme-pane {
+        --_documentation-theme-page: var(--design-system-primitive-color-gray-100);
+        --_documentation-theme-surface: var(--design-system-primitive-color-white);
+        --_documentation-theme-text: var(--design-system-primitive-color-black);
+        --_documentation-theme-muted: var(--design-system-primitive-color-gray-500);
+        --_documentation-theme-boundary: var(--design-system-primitive-color-gray-200);
+        --_documentation-theme-action: var(--design-system-primitive-color-blue-600);
+        --_documentation-theme-action-text: var(--design-system-primitive-color-white);
+
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: var(--design-system-primitive-spacing-24);
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-32);
+        background: var(--_documentation-theme-page);
+        color: var(--_documentation-theme-text);
+    }
+
+    .documentation-theme-pane[data-preview-theme="dark"] {
+        --_documentation-theme-page: var(--design-system-primitive-color-black);
+        --_documentation-theme-surface: var(--design-system-primitive-color-gray-900);
+        --_documentation-theme-text: var(--design-system-primitive-color-gray-10);
+        --_documentation-theme-muted: var(--design-system-primitive-color-gray-450);
+        --_documentation-theme-boundary: var(--design-system-primitive-color-gray-750);
+    }
+
+    .documentation-theme-pane + .documentation-theme-pane {
+        border-left: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-theme-mode {
+        justify-self: start;
+        padding: var(--design-system-primitive-spacing-4) var(--design-system-primitive-spacing-10);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--_documentation-theme-boundary);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--_documentation-theme-surface);
+        color: var(--_documentation-theme-text);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-theme-specimen {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+        align-self: center;
+        width: min(100%, var(--design-system-semantic-layout-state-content-measure));
+        padding: var(--design-system-primitive-spacing-20);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--_documentation-theme-boundary);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--_documentation-theme-surface);
+        color: var(--_documentation-theme-text);
+    }
+
+    .documentation-theme-specimen > span:not(.documentation-theme-action) {
+        color: var(--_documentation-theme-muted);
+    }
+
+    .documentation-theme-specimen-label {
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-theme-action {
+        justify-self: start;
+        margin-block-start: var(--design-system-primitive-spacing-8);
+        padding: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-16);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--_documentation-theme-action);
+        color: var(--_documentation-theme-action-text);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-theme-value {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    .documentation-theme-value .documentation-color-swatch {
+        background: var(--_documentation-theme-surface);
+        color: var(--_documentation-theme-boundary);
+    }
+
+    .documentation-theme-value > div {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-2);
+    }
+
+    .documentation-theme-value small {
+        color: var(--_documentation-theme-muted);
+    }
+
+    .documentation-theme-summary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+    }
+
+    .documentation-theme-summary > div {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        padding: var(--design-system-primitive-spacing-16);
+        border-left: var(--design-system-semantic-shape-focus-width) solid var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-theme-summary > span {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-16);
+    }
+
+    .documentation-subsection:not(.documentation-color-family) {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        padding-block-start: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-subsection.documentation-color-palette,
+    .documentation-subsection.documentation-typography-composition {
+        gap: var(--design-system-primitive-spacing-32);
+    }
+
+    .documentation-color-anatomy > .documentation-color-family,
+    .documentation-typography-composition-list > .documentation-subsection {
+        padding-block-start: 0;
+    }
+
+    .documentation-typography-composition-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-48);
+        min-width: 0;
+    }
+
+    [data-documentation-typography-family="ibm-plex-sans"] .documentation-typography-preview-sample {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-sans);
+    }
+
+    [data-documentation-typography-family="ibm-plex-serif"] .documentation-typography-preview-sample {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-serif);
+    }
+
+    [data-documentation-typography-family="ibm-plex-mono"] .documentation-typography-preview-sample {
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+    }
+
+    [data-documentation-typography-style="normal"] .documentation-typography-preview-sample {
+        font-style: var(--design-system-primitive-typography-style-normal);
+    }
+
+    [data-documentation-typography-style="italic"] .documentation-typography-preview-sample {
+        font-style: var(--design-system-primitive-typography-style-italic);
+    }
+
+    .documentation-contract-heading > h3 {
+        font-size: var(--design-system-primitive-typography-size-14);
+    }
+
+    .documentation-version-number {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--design-system-primitive-spacing-12);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    .documentation-version-number > div {
+        display: grid;
+        justify-items: center;
+        gap: var(--design-system-primitive-spacing-4);
+    }
+
+    .documentation-version-number strong {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-28);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-version-number span {
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-step-list {
+        list-style: none;
+    }
+
+    .documentation-step-list > li {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: start;
+    }
+
+    .documentation-step-list > li > div {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+        padding-block-end: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-step-marker {
+        display: grid;
+        width: var(--design-system-semantic-sizing-control-height-compact);
+        height: var(--design-system-semantic-sizing-control-height-compact);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-action-background);
+        color: var(--design-system-semantic-color-text-foreground-inverse);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        place-items: center;
+    }
+
+    .documentation-release > div {
+        justify-content: space-between;
+    }
+
+    .documentation-skip-link {
+        position: fixed;
+        top: var(--design-system-primitive-spacing-8);
+        left: var(--design-system-primitive-spacing-8);
+        z-index: var(--design-system-semantic-elevation-dialog-layer);
+        transform: translateY(calc(-100% - var(--design-system-primitive-spacing-16)));
+    }
+
+    .documentation-skip-link:focus {
+        transform: translateY(0);
+    }
+
+    .documentation-foundation-anatomy-model {
+        display: grid;
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-foundation-anatomy-row {
+        display: grid;
+        grid-template-columns: minmax(var(--design-system-primitive-layout-measure-180), 1fr) minmax(0, 2fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-16);
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-foundation-anatomy-row + .documentation-foundation-anatomy-row {
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-card-copy {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+    }
+
+    .documentation-card-copy > :where(h3, h4, strong, p, span) {
+        margin: 0;
+    }
+
+    .documentation-card-copy > :where(h3, h4, strong) {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-heading-4);
+    }
+
+    .documentation-card-copy > :where(p, span) {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font: var(--design-system-semantic-typography-body);
+    }
+
+    .documentation-catalog-foundation-anatomy .documentation-foundation-anatomy-row {
+        min-height: calc(3 * var(--design-system-primitive-spacing-48));
+    }
+
+    .documentation-foundation-concept-preview {
+        display: grid;
+        place-items: center;
+        min-width: 0;
+        min-height: calc(2 * var(--design-system-primitive-spacing-48));
+        padding: var(--design-system-primitive-spacing-16);
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .documentation-foundation-measure-lines {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+        width: min(100%, var(--design-system-semantic-layout-content-measure-readable));
+    }
+
+    .documentation-foundation-measure-lines > span {
+        height: var(--design-system-primitive-spacing-6);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border-strong);
+    }
+
+    .documentation-foundation-measure-lines > span:nth-child(2) {
+        width: 82%;
+    }
+
+    .documentation-foundation-measure-lines > span:last-child {
+        width: 58%;
+    }
+
+    .documentation-foundation-grid-sample {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-8);
+        width: 100%;
+    }
+
+    .documentation-foundation-grid-sample > span,
+    .documentation-foundation-shape-sample > span,
+    .documentation-foundation-shape-sample > strong,
+    .documentation-foundation-container-sample > span,
+    .documentation-foundation-container-sample > strong,
+    .documentation-foundation-motion-press > span,
+    .documentation-foundation-reduced-motion > span {
+        display: grid;
+        min-height: var(--design-system-primitive-sizing-34);
+        padding-inline: var(--design-system-primitive-spacing-12);
+        place-items: center;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-semantic-color-surface-background);
+        font: var(--design-system-semantic-typography-label);
+    }
+
+    .documentation-foundation-grid-sample > span {
+        min-height: var(--design-system-primitive-spacing-48);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-foundation-state-sample {
+        display: grid;
+        justify-items: center;
+        gap: var(--design-system-primitive-spacing-4);
+        max-width: var(--design-system-semantic-layout-state-content-measure);
+        text-align: center;
+    }
+
+    .documentation-foundation-state-sample > strong {
+        font: var(--design-system-semantic-typography-heading-4);
+    }
+
+    .documentation-foundation-state-sample > span {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font: var(--design-system-semantic-typography-body);
+    }
+
+    .documentation-foundation-shape-sample,
+    .documentation-foundation-container-sample,
+    .documentation-foundation-shadow-sample,
+    .documentation-foundation-icon-row,
+    .documentation-foundation-icon-meaning,
+    .documentation-foundation-motion-press,
+    .documentation-foundation-reduced-motion {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-foundation-shape-sample > span,
+    .documentation-foundation-shape-sample > strong {
+        border-radius: var(--design-system-semantic-shape-control-radius);
+    }
+
+    .documentation-foundation-shape-sample > strong {
+        border-color: var(--design-system-semantic-color-action-background);
+        background: var(--design-system-semantic-color-action-background);
+        color: var(--design-system-semantic-color-text-foreground-inverse);
+    }
+
+    .documentation-foundation-container-sample > span,
+    .documentation-foundation-container-sample > strong {
+        min-height: var(--design-system-primitive-spacing-48);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-foundation-container-sample > strong {
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        box-shadow: var(--design-system-semantic-elevation-overlay-shadow);
+    }
+
+    .documentation-foundation-boundary-sample {
+        display: grid;
+        width: min(100%, var(--design-system-semantic-layout-state-content-measure));
+    }
+
+    .documentation-foundation-boundary-sample > span {
+        padding: var(--design-system-primitive-spacing-8);
+        border-bottom-style: solid;
+        border-bottom-color: var(--design-system-semantic-color-boundary-border-strong);
+        font: var(--design-system-semantic-typography-label);
+    }
+
+    .documentation-foundation-boundary-sample > span:first-child {
+        border-bottom-width: var(--design-system-semantic-shape-boundary-width-subtle);
+    }
+
+    .documentation-foundation-boundary-sample > span:nth-child(2) {
+        border-bottom-width: var(--design-system-semantic-shape-boundary-width);
+    }
+
+    .documentation-foundation-boundary-sample > span:last-child {
+        border-bottom-width: var(--design-system-semantic-shape-focus-width);
+        border-bottom-color: var(--design-system-semantic-color-focus-ring);
+    }
+
+    .documentation-foundation-surface-stack {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        width: 100%;
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-foundation-surface-stack > span {
+        display: grid;
+        min-height: var(--design-system-primitive-spacing-48);
+        padding: var(--design-system-primitive-spacing-8);
+        place-items: center;
+        font: var(--design-system-semantic-typography-label);
+    }
+
+    .documentation-foundation-surface-stack > span:first-child {
+        background: var(--design-system-semantic-color-page-background);
+    }
+
+    .documentation-foundation-surface-stack > span:nth-child(2) {
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-foundation-surface-stack > span:nth-child(3) {
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .documentation-foundation-surface-stack > span:last-child {
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-foundation-shadow-sample > span,
+    .documentation-foundation-shadow-sample > strong {
+        display: grid;
+        min-width: calc(2 * var(--design-system-primitive-spacing-48));
+        min-height: var(--design-system-primitive-spacing-48);
+        place-items: center;
+        border-radius: var(--design-system-semantic-shape-overlay-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        font: var(--design-system-semantic-typography-label);
+    }
+
+    .documentation-foundation-shadow-sample > span {
+        box-shadow: var(--design-system-semantic-elevation-overlay-shadow);
+    }
+
+    .documentation-foundation-shadow-sample > strong {
+        box-shadow: var(--design-system-semantic-elevation-dialog-shadow);
+    }
+
+    .documentation-foundation-layer-sample {
+        position: relative;
+        z-index: 0;
+        isolation: isolate;
+        width: min(100%, calc(5 * var(--design-system-primitive-spacing-48)));
+        height: calc(2 * var(--design-system-primitive-spacing-48));
+    }
+
+    .documentation-foundation-layer-sample > span {
+        position: absolute;
+        display: grid;
+        width: calc(2 * var(--design-system-primitive-spacing-48));
+        height: var(--design-system-primitive-spacing-48);
+        place-items: center;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-overlay-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        font: var(--design-system-semantic-typography-label);
+        box-shadow: var(--design-system-semantic-elevation-overlay-shadow);
+    }
+
+    .documentation-foundation-layer-sample > span:first-child {
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        z-index: var(--design-system-semantic-elevation-overlay-layer);
+    }
+
+    .documentation-foundation-layer-sample > span:nth-child(2) {
+        inset-block-start: var(--design-system-primitive-spacing-20);
+        inset-inline-start: calc(50% - var(--design-system-primitive-spacing-48));
+        z-index: var(--design-system-semantic-elevation-dialog-layer);
+    }
+
+    .documentation-foundation-layer-sample > span:last-child {
+        inset-block-end: 0;
+        inset-inline-end: 0;
+        z-index: var(--design-system-semantic-elevation-toast-layer);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-foundation-icon-row {
+        gap: var(--design-system-primitive-spacing-20);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-foundation-icon-meaning > span {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-6);
+        min-height: var(--design-system-primitive-sizing-34);
+        padding-inline: var(--design-system-primitive-spacing-12);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-foundation-motion-press > span {
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        transition: transform var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .documentation-foundation-motion-press > span:last-child {
+        transform: scale(var(--design-system-semantic-motion-interaction-scale-press));
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-foundation-motion-indicator {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-24);
+        width: min(100%, calc(5 * var(--design-system-primitive-spacing-48)));
+    }
+
+    .documentation-foundation-motion-indicator > span {
+        height: var(--design-system-semantic-shape-focus-width);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border-selected);
+        transform-origin: left center;
+    }
+
+    .documentation-foundation-motion-indicator > span:first-child {
+        transform: scaleX(var(--design-system-semantic-motion-indicator-scale-hidden));
+        opacity: var(--design-system-primitive-opacity-48);
+    }
+
+    .documentation-foundation-reduced-motion > span {
+        border-radius: var(--design-system-semantic-shape-control-radius);
+    }
+
+    .documentation-foundation-duration-sample,
+    .documentation-foundation-easing-sample {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-12);
+        width: min(100%, calc(5 * var(--design-system-primitive-spacing-48)));
+    }
+
+    .documentation-foundation-duration-sample > span,
+    .documentation-foundation-easing-sample > span {
+        position: relative;
+        height: var(--design-system-primitive-spacing-12);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-foundation-duration-sample > span::after,
+    .documentation-foundation-easing-sample > span::after {
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        border-radius: inherit;
+        background: var(--design-system-semantic-color-boundary-border-selected);
+        content: "";
+    }
+
+    .documentation-foundation-duration-sample > span[data-duration="press"]::after {
+        width: 40%;
+    }
+
+    .documentation-foundation-duration-sample > span[data-duration="release"]::after {
+        width: 60%;
+    }
+
+    .documentation-foundation-duration-sample > span[data-duration="standard"]::after {
+        width: 100%;
+    }
+
+    .documentation-foundation-easing-sample > span::before {
+        position: absolute;
+        z-index: 1;
+        inset-block-start: 50%;
+        width: var(--design-system-primitive-spacing-12);
+        height: var(--design-system-primitive-spacing-12);
+        translate: -50% -50%;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-text-foreground-accent);
+        content: "";
+    }
+
+    .documentation-foundation-easing-sample > span[data-easing="press"]::after {
+        width: 72%;
+    }
+
+    .documentation-foundation-easing-sample > span[data-easing="press"]::before {
+        inset-inline-start: 72%;
+    }
+
+    .documentation-foundation-easing-sample > span[data-easing="standard"]::after {
+        width: 88%;
+    }
+
+    .documentation-foundation-easing-sample > span[data-easing="standard"]::before {
+        inset-inline-start: 88%;
+    }
+
+    .documentation-spacing-anatomy {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .documentation-spacing-anatomy-visual {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 0;
+    }
+
+    .documentation-spacing-anatomy-visual > .documentation-spacing-concept {
+        grid-template-columns: minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .documentation-spacing-anatomy-visual > .documentation-spacing-concept + .documentation-spacing-concept {
+        border-top: 0;
+    }
+
+    .documentation-spacing-anatomy-visual > .documentation-spacing-concept:nth-child(even) {
+        border-inline-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-spacing-anatomy-visual > .documentation-spacing-concept:nth-child(n + 3) {
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-spacing-concept {
+        min-height: calc(2 * var(--design-system-primitive-spacing-48));
+    }
+
+    .documentation-spacing-physical-example {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+        justify-self: start;
+        min-width: 0;
+    }
+
+    .documentation-spacing-physical-example-wide {
+        justify-self: stretch;
+    }
+
+    .documentation-spacing-padding-sample {
+        display: grid;
+        min-width: var(--design-system-primitive-layout-measure-180);
+        padding: var(--design-system-semantic-spacing-container-padding);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background:
+            linear-gradient(var(--design-system-semantic-color-surface-background), var(--design-system-semantic-color-surface-background)) content-box,
+            linear-gradient(var(--design-system-semantic-color-surface-background-selected), var(--design-system-semantic-color-surface-background-selected)) padding-box;
+    }
+
+    .documentation-spacing-padding-content {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+    }
+
+    .documentation-spacing-gap-sample {
+        flex-wrap: nowrap;
+        justify-self: start;
+        gap: 0;
+    }
+
+    .documentation-spacing-item {
+        padding: var(--design-system-primitive-spacing-6) var(--design-system-primitive-spacing-10);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-label);
+    }
+
+    .documentation-spacing-measure {
+        box-sizing: border-box;
+        width: var(--design-system-semantic-spacing-content-gap);
+        align-self: stretch;
+        border-inline: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-spacing-section-sample {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-0);
+        justify-self: stretch;
+        max-width: var(--design-system-primitive-layout-measure-48ch);
+        padding: var(--design-system-primitive-spacing-12);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+    }
+
+    .documentation-token-capsule {
+        overflow-x: auto;
+    }
+
+    .documentation-spacing-section-measure {
+        box-sizing: border-box;
+        height: var(--design-system-semantic-spacing-section-gap);
+        border-block: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .documentation-spacing-group {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+    }
+
+    .documentation-spacing-group > span {
+        display: block;
+        width: 100%;
+        height: var(--design-system-primitive-spacing-8);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-spacing-group > span:last-child {
+        width: 65%;
+    }
+
+    .documentation-spacing-overlay-sample {
+        display: grid;
+        justify-items: start;
+    }
+
+    .documentation-spacing-overlay-sample {
+        gap: var(--design-system-primitive-spacing-0);
+    }
+
+    .documentation-spacing-overlay-measure {
+        box-sizing: border-box;
+        width: 100%;
+        height: var(--design-system-semantic-spacing-overlay-gap);
+        border-inline: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-selected);
+    }
+
+    .design-system-popover.documentation-spacing-overlay-surface {
+        position: static;
+        inset: auto;
+        width: auto;
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .documentation-spacing-table-wrap {
+        scrollbar-gutter: auto;
+    }
+
+    .documentation-spacing-token-table {
+        --design-system-component-table-minimum-width: var(--design-system-primitive-layout-measure-72ch);
+    }
+
+    .documentation-spacing-token-table :is(th, td) {
+        overflow-wrap: anywhere;
+        text-align: start;
+    }
+
+    .design-system-table.documentation-spacing-token-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-component-table-background-content);
+    }
+
+    .documentation-spacing-token-table code {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-12);
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-spacing-scale {
+        --_documentation-measure-value: var(--_documentation-spacing-value);
+    }
+
+    .documentation-spacing-scale,
+    .documentation-sizing-scale {
+        display: flex;
+        align-items: center;
+        width: calc(var(--design-system-primitive-sizing-56) + var(--design-system-primitive-spacing-8));
+        height: var(--design-system-primitive-spacing-20);
+    }
+
+    .documentation-spacing-scale > span,
+    .documentation-sizing-scale > span {
+        display: block;
+        box-sizing: border-box;
+        width: var(--_documentation-measure-value);
+        min-width: var(--design-system-semantic-shape-boundary-width);
+        height: var(--design-system-primitive-spacing-16);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-action-background-hover);
+        background: var(--design-system-semantic-color-action-background);
+    }
+
+    .documentation-spacing-scale[data-documentation-spacing="0"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-0); }
+    .documentation-spacing-scale[data-documentation-spacing="2"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-2); }
+    .documentation-spacing-scale[data-documentation-spacing="4"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-4); }
+    .documentation-spacing-scale[data-documentation-spacing="6"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-6); }
+    .documentation-spacing-scale[data-documentation-spacing="8"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-8); }
+    .documentation-spacing-scale[data-documentation-spacing="10"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-10); }
+    .documentation-spacing-scale[data-documentation-spacing="12"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-12); }
+    .documentation-spacing-scale[data-documentation-spacing="14"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-14); }
+    .documentation-spacing-scale[data-documentation-spacing="16"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-16); }
+    .documentation-spacing-scale[data-documentation-spacing="20"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-20); }
+    .documentation-spacing-scale[data-documentation-spacing="24"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-24); }
+    .documentation-spacing-scale[data-documentation-spacing="32"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-32); }
+    .documentation-spacing-scale[data-documentation-spacing="48"] { --_documentation-spacing-value: var(--design-system-primitive-spacing-48); }
+
+    .documentation-spacing-note {
+        max-width: var(--design-system-semantic-layout-content-measure-readable);
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-table-label {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        text-align: start;
+    }
+
+    .documentation-table-label > small {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font: var(--design-system-semantic-typography-caption);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+    }
+
+    .documentation-sizing-control-measure {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-12);
+    }
+
+    .documentation-sizing-height-ruler {
+        position: relative;
+        display: grid;
+        align-items: center;
+        height: var(--design-system-semantic-sizing-control-height-normal);
+        padding-inline-end: var(--design-system-primitive-spacing-10);
+        border-inline-end: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-caption-compact);
+    }
+
+    .documentation-sizing-height-ruler::before,
+    .documentation-sizing-height-ruler::after {
+        position: absolute;
+        inset-inline-end: calc(-1 * var(--design-system-primitive-spacing-4));
+        width: var(--design-system-primitive-spacing-4);
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+        content: "";
+    }
+
+    .documentation-sizing-height-ruler::before {
+        inset-block-start: 0;
+    }
+
+    .documentation-sizing-height-ruler::after {
+        inset-block-end: 0;
+    }
+
+    .documentation-sizing-width-sample {
+        justify-content: flex-start;
+        align-items: start;
+    }
+
+    .documentation-sizing-measured-control {
+        display: inline-grid;
+        grid-template-columns: max-content;
+        gap: var(--design-system-primitive-spacing-12);
+        justify-items: stretch;
+        min-width: 0;
+    }
+
+    .documentation-sizing-width-ruler {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-height: calc(var(--design-system-primitive-spacing-10) + var(--design-system-primitive-typography-size-11));
+        padding-block-start: var(--design-system-primitive-spacing-10);
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-caption-compact);
+    }
+
+    .documentation-sizing-width-ruler::before,
+    .documentation-sizing-width-ruler::after {
+        position: absolute;
+        inset-block-start: calc(-1 * var(--design-system-primitive-spacing-4));
+        height: var(--design-system-primitive-spacing-4);
+        border-inline-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border-strong);
+        content: "";
+    }
+
+    .documentation-sizing-width-ruler::before {
+        inset-inline-start: 0;
+    }
+
+    .documentation-sizing-width-ruler::after {
+        inset-inline-end: 0;
+    }
+
+    .documentation-sizing-width-ruler > span {
+        position: absolute;
+        inset-block-start: var(--design-system-primitive-spacing-10);
+        inset-inline-start: 50%;
+        white-space: nowrap;
+        transform: translateX(-50%);
+    }
+
+    .documentation-sizing-table-wrap {
+        scrollbar-gutter: auto;
+    }
+
+    .documentation-sizing-token-table {
+        --design-system-component-table-minimum-width: var(--design-system-primitive-layout-measure-72ch);
+    }
+
+    .documentation-sizing-token-table :is(th, td) {
+        overflow-wrap: anywhere;
+        text-align: start;
+    }
+
+    .design-system-table.documentation-sizing-token-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-component-table-background-content);
+    }
+
+    .documentation-sizing-token-table code {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-12);
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-sizing-scale {
+        --_documentation-measure-value: var(--_documentation-sizing-value);
+    }
+
+    .documentation-sizing-scale[data-documentation-sizing="extra-small"] { --_documentation-sizing-value: var(--design-system-primitive-sizing-24); }
+    .documentation-sizing-scale[data-documentation-sizing="small"] { --_documentation-sizing-value: var(--design-system-primitive-sizing-30); }
+    .documentation-sizing-scale[data-documentation-sizing="medium"] { --_documentation-sizing-value: var(--design-system-primitive-sizing-34); }
+    .documentation-sizing-scale[data-documentation-sizing="large"] { --_documentation-sizing-value: var(--design-system-primitive-sizing-44); }
+    .documentation-sizing-scale[data-documentation-sizing="extra-large"] { --_documentation-sizing-value: var(--design-system-primitive-sizing-56); }
+
+    .documentation-sizing-note {
+        max-width: var(--design-system-semantic-layout-content-measure-readable);
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-sizing-behavior-model {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-sizing-behavior-model > article {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: start;
+        align-content: start;
+        padding: var(--design-system-primitive-spacing-16);
+        background: var(--design-system-semantic-color-surface-background-primary);
+    }
+
+    .documentation-sizing-behavior-model > article + article {
+        border-top: 0;
+    }
+
+    .documentation-sizing-behavior-model > article:nth-child(even) {
+        border-inline-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-sizing-behavior-model > article:nth-child(n + 3) {
+        border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-sizing-behavior-content {
+        justify-content: flex-start;
+        align-items: start;
+    }
+
+    .documentation-sizing-behavior-model .documentation-sizing-control-measure {
+        align-items: start;
+    }
+
+    .documentation-sizing-measured-fluid {
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+    }
+
+    .documentation-sizing-fluid-measure {
+        --_documentation-sizing-fluid-height: var(--design-system-semantic-sizing-control-height-relaxed);
+
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        align-items: start;
+        width: 100%;
+    }
+
+    .documentation-sizing-fluid-measure > .documentation-sizing-height-ruler {
+        height: var(--_documentation-sizing-fluid-height);
+    }
+
+    .documentation-sizing-fluid-sample {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: var(--_documentation-sizing-fluid-height);
+        min-height: var(--_documentation-sizing-fluid-height);
+        padding-block: 0;
+        padding-inline: var(--design-system-primitive-spacing-12);
+        border-style: dashed;
+    }
+
+    .documentation-sizing-behavior-model .design-system-field {
+        width: 100%;
+    }
+
+    .documentation-sizing-constrained-sample {
+        border-color: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    .documentation-button-page .documentation-page-tab-section {
+        counter-reset: documentation-button-section;
+    }
+
+    .documentation-page-tab-section:has(> .documentation-reference-toc) > .documentation-button-section-list {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .documentation-button-section-list,
+    .documentation-button-section {
+        display: grid;
+        min-width: 0;
+    }
+
+    .documentation-button-section-list {
+        gap: var(--design-system-primitive-spacing-48);
+    }
+
+    .documentation-button-section {
+        gap: var(--design-system-primitive-spacing-32);
+        min-width: 0;
+        counter-increment: documentation-button-section;
+    }
+
+    .documentation-button-section > .documentation-subsection-heading:first-child {
+        grid-template-columns: auto minmax(0, 1fr);
+        column-gap: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-button-section > .documentation-subsection-heading:first-child::before {
+        content: counter(documentation-button-section, decimal-leading-zero);
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        min-width: var(--design-system-primitive-spacing-24);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+        font-size: var(--design-system-primitive-typography-size-14);
+        font-weight: var(--design-system-primitive-typography-weight-400);
+        line-height: var(--design-system-primitive-typography-line-height-1-25);
+    }
+
+    .documentation-button-section > .documentation-subsection-heading:first-child > :where(h3, p) {
+        grid-column: 2;
+    }
+
+    .documentation-button-comparison-heading :where(h4, p, span),
+    .documentation-component-tab-placeholder :where(h2, p),
+    .documentation-button-foundation-note {
+        margin: 0;
+    }
+
+    .documentation-button-comparison-heading p,
+    .documentation-button-comparison-heading span,
+    .documentation-component-tab-placeholder p,
+    .documentation-button-foundation-note {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-button-subsection-list {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-48);
+        min-width: 0;
+    }
+
+    .documentation-subsection.documentation-button-comparison-subsection {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-16);
+        min-width: 0;
+        padding-block-start: 0;
+    }
+
+    .documentation-button-comparison-heading {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-6);
+    }
+
+    .documentation-button-comparison-heading span,
+    .documentation-button-comparison-stage figcaption {
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-button-comparison-stage {
+        display: grid;
+        place-items: center;
+        min-height: calc(var(--design-system-primitive-spacing-48) * 2);
+        padding: var(--design-system-primitive-spacing-24) var(--design-system-primitive-spacing-16);
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-button-comparison-stage--paired {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-button-comparison-stage figure {
+        display: grid;
+        place-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        margin: 0;
+    }
+
+    .documentation-button-comparison-stage figcaption {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        text-align: center;
+    }
+
+    .documentation-button-comparison-tokens {
+        display: grid;
+        align-content: start;
+        justify-items: start;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font-size: var(--design-system-primitive-typography-size-12);
+    }
+
+    .documentation-page .documentation-button-comparison-tokens > code {
+        display: block;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+
+    .documentation-button-state-stage {
+        display: grid;
+        place-items: center;
+        gap: var(--design-system-primitive-spacing-16);
+        padding: var(--design-system-primitive-spacing-24) var(--design-system-primitive-spacing-16);
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-button-composition-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: var(--design-system-primitive-spacing-24) var(--design-system-primitive-spacing-16);
+        width: 100%;
+        min-width: 0;
+    }
+
+    .documentation-button-composition {
+        display: grid;
+        place-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        margin: 0;
+    }
+
+    .documentation-button-composition figcaption {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font-size: var(--design-system-primitive-typography-size-11);
+    }
+
+    .documentation-button-specimen {
+        display: contents;
+    }
+    .documentation-button-part-key {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-16);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .documentation-button-part-key > li {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-6);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font-size: var(--design-system-primitive-typography-size-12);
+    }
+
+    .documentation-button-part-key b {
+        display: inline-grid;
+        place-items: center;
+        min-width: var(--design-system-primitive-spacing-24);
+        min-height: var(--design-system-primitive-spacing-24);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-selected);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        color: var(--design-system-semantic-color-text-foreground-accent);
+        font-family: var(--design-system-primitive-typography-family-ibm-plex-mono);
+        font-size: var(--design-system-primitive-typography-size-11);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-button-foundation-recipe {
+        display: grid;
+        align-content: start;
+        overflow: hidden;
+        margin: 0;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-primary);
+    }
+
+    .documentation-button-foundation-recipe > div {
+        display: grid;
+        grid-template-columns:
+            minmax(calc(var(--design-system-primitive-spacing-48) * 2), 0.35fr)
+            minmax(0, 1.65fr)
+            minmax(calc(var(--design-system-primitive-spacing-48) * 3), 0.8fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+        padding: var(--design-system-primitive-spacing-10) var(--design-system-primitive-spacing-16);
+        border-block-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-button-foundation-recipe > div:first-child {
+        border-block-start: 0;
+    }
+
+    .documentation-button-foundation-recipe :where(dt, dd) {
+        min-width: 0;
+        margin: 0;
+    }
+
+    .documentation-button-foundation-recipe dt {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-12);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-button-foundation-recipe dd {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font-size: var(--design-system-primitive-typography-size-12);
+    }
+
+    .documentation-button-foundation-tokens {
+        display: grid;
+        justify-items: start;
+        gap: var(--design-system-primitive-spacing-4);
+    }
+
+    .documentation-page .documentation-button-foundation-tokens > code {
+        display: block;
+        max-width: 100%;
+        overflow-x: visible;
+        overflow-y: visible;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-code);
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .documentation-button-foundation-note {
+        padding-block-start: var(--design-system-primitive-spacing-24);
+        border-block-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-button-preview-stage {
+        display: grid;
+        place-items: center;
+        gap: var(--design-system-primitive-spacing-16);
+        min-height: calc(var(--design-system-primitive-spacing-48) * 3);
+        padding: var(--design-system-primitive-spacing-32) var(--design-system-primitive-spacing-16);
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-button-preview-status {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        max-width: var(--design-system-semantic-layout-content-measure-reading);
+        text-align: center;
+    }
+
+    .documentation-button-preview-status > p {
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        font-size: var(--design-system-primitive-typography-size-12);
+    }
+
+    .documentation-button-preview-status > [data-documentation-button-preview-note]:empty {
+        display: none;
+    }
+
+    .documentation-button-preview-controls {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-12);
+        min-width: 0;
+    }
+
+    .documentation-button-preview-control {
+        display: grid;
+        grid-template-columns: calc(var(--design-system-primitive-spacing-48) * 2) minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+        min-width: 0;
+    }
+
+    .documentation-button-preview-control > span {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font-size: var(--design-system-primitive-typography-size-12);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-button-preview-control > .design-system-segmented {
+        justify-self: start;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .documentation-button-responsive-stage--paired {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: end;
+    }
+
+    .documentation-button-responsive-stage figure {
+        display: grid;
+        place-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        margin: 0;
+    }
+
+    .documentation-button-block-example {
+        width: 100%;
+    }
+
+    .documentation-button-wrap-example {
+        width: min(100%, calc(var(--design-system-primitive-spacing-48) * 4));
+    }
+
+    .documentation-button-token-wrap {
+        width: 100%;
+        scrollbar-gutter: auto;
+    }
+
+    .documentation-button-token-table {
+        --design-system-component-table-minimum-width: calc(
+            var(--design-system-semantic-layout-content-measure-wide)
+            - var(--design-system-semantic-layout-grid-column-minimum)
+            - var(--design-system-primitive-spacing-2)
+        );
+
+        width: 100%;
+        min-width: var(--design-system-component-table-minimum-width);
+        table-layout: fixed;
+    }
+
+    .documentation-button-token-table :is(th, td) {
+        min-width: 0;
+        vertical-align: middle;
+        overflow-wrap: anywhere;
+        text-align: start;
+    }
+
+    .documentation-button-token-table :is(th, td):first-child {
+        width: 20%;
+    }
+
+    .documentation-button-token-table :is(th, td):nth-child(2) {
+        width: 48%;
+    }
+
+    .documentation-button-token-table :is(th, td):last-child {
+        width: 32%;
+    }
+
+    .documentation-page .documentation-button-token-table :is(th, td) > code {
+        display: inline;
+        max-width: none;
+        overflow: visible;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        white-space: nowrap;
+    }
+
+    .design-system-table.documentation-button-token-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-catalog-parts-table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .documentation-catalog-parts-table :is(th, td) {
+        vertical-align: middle;
+        text-align: start;
+    }
+
+    .documentation-catalog-parts-table :is(th, td):first-child {
+        width: 28%;
+    }
+
+    .design-system-table.documentation-catalog-parts-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]) > :is(th, td) {
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-catalog-contract-list {
+        display: grid;
+        margin: 0;
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background);
+    }
+
+    .documentation-catalog-contract-list > div {
+        display: grid;
+        grid-template-columns: minmax(calc(var(--design-system-primitive-spacing-48) * 3), 0.35fr) minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: start;
+        padding: var(--design-system-primitive-spacing-16);
+    }
+
+    .documentation-catalog-contract-list > div + div {
+        border-block-start: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+    }
+
+    .documentation-catalog-contract-list :is(dt, dd) {
+        margin: 0;
+    }
+
+    .documentation-catalog-contract-list dt {
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    .documentation-catalog-contract-list dd,
+    .documentation-catalog-empty-token-note {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+    }
+
+    .documentation-catalog-state-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--design-system-primitive-spacing-8);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .documentation-catalog-state-list > li {
+        padding: var(--design-system-primitive-spacing-8) var(--design-system-primitive-spacing-12);
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-control-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-catalog-preview-stage {
+        display: grid;
+        place-items: center;
+        min-height: calc(var(--design-system-primitive-spacing-48) * 4);
+        padding: var(--design-system-primitive-spacing-32);
+        overflow: visible;
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-surface-background-subtle);
+    }
+
+    .documentation-catalog-preview-stage > * {
+        max-width: 100%;
+    }
+
+    .documentation-catalog-specimen-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--design-system-primitive-spacing-12);
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+    }
+
+    .documentation-catalog-specimen-stack,
+    .documentation-catalog-skeleton-lines {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-12);
+        width: min(100%, var(--design-system-semantic-layout-content-measure-readable));
+        min-width: 0;
+    }
+
+    .documentation-catalog-card-example,
+    .documentation-catalog-list-example,
+    .documentation-catalog-navigation-example {
+        width: min(100%, calc(var(--design-system-primitive-spacing-48) * 8));
+    }
+
+    .documentation-catalog-inner-tabs {
+        width: 100%;
+    }
+
+    .documentation-catalog-side-navigation {
+        min-height: calc(var(--design-system-primitive-spacing-48) * 7);
+        max-height: calc(var(--design-system-primitive-spacing-48) * 9);
+        border: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+    }
+
+    .documentation-catalog-skeleton-example {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--design-system-primitive-spacing-16);
+        align-items: center;
+        width: min(100%, calc(var(--design-system-primitive-spacing-48) * 8));
+    }
+
+    .documentation-catalog-skeleton-example > .design-system-skeleton--block {
+        grid-column: 1 / -1;
+    }
+
+    .documentation-catalog-overlay-stage {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-width: min(100%, calc(var(--design-system-primitive-spacing-48) * 6));
+        min-height: calc(var(--design-system-primitive-spacing-48) * 4);
+    }
+
+    .documentation-catalog-busy-example {
+        width: min(100%, calc(var(--design-system-primitive-spacing-48) * 8));
+        min-height: calc(var(--design-system-primitive-spacing-48) * 3);
+    }
+
+    .documentation-catalog-empty-token-note {
+        margin: 0;
+    }
+
+    .documentation-component-tab-placeholder {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    @media (max-width: 1200px) {
+        .documentation-button-composition-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .documentation-button-foundation-recipe > div {
+            grid-template-columns:
+                minmax(calc(var(--design-system-primitive-spacing-48) * 2), 0.4fr)
+                minmax(0, 1.4fr)
+                minmax(calc(var(--design-system-primitive-spacing-48) * 2), 0.8fr);
+        }
+    }
+
+    @media (max-width: 760px) {
+        .documentation-page-tab-section:has(> .documentation-reference-toc) {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-reference-toc {
+            position: static;
+            grid-column: 1;
+            grid-row: 1;
+            max-block-size: none;
+            overflow: visible;
+            scrollbar-gutter: auto;
+        }
+
+        .documentation-page-tab-section:has(> .documentation-reference-toc) > .documentation-token-category-list {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .documentation-page-tab-section:has(> .documentation-reference-toc) > .documentation-subsection {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .documentation-page-tab-section:has(> .documentation-reference-toc) > .documentation-button-section-list {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading-with-control > :where(h3, p) {
+            max-width: none;
+        }
+
+        .documentation-catalog-contract-list > div {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--design-system-primitive-spacing-4);
+        }
+
+        .documentation-catalog-preview-stage {
+            padding: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-foundation-page .documentation-token-category-list > .documentation-token-category > .documentation-token-category-heading-with-control > .documentation-color-theme-control {
+            position: static;
+            grid-column: 2;
+            grid-row: 3;
+            justify-self: start;
+        }
+
+        .documentation-typography-size-list {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .documentation-typography-size-list > div:nth-child(5)::before {
+            display: none;
+        }
+
+        .documentation-typography-size-list > div:nth-child(n + 5)::after {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline: var(--design-system-primitive-spacing-12);
+            height: var(--design-system-semantic-shape-boundary-width-subtle);
+            background: var(--design-system-semantic-color-boundary-border);
+            content: "";
+        }
+
+        .documentation-sizing-behavior-model,
+        .documentation-spacing-anatomy-visual {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-sizing-behavior-model > article:nth-child(even),
+        .documentation-spacing-anatomy-visual > .documentation-spacing-concept:nth-child(even) {
+            border-inline-start: 0;
+        }
+
+        .documentation-sizing-behavior-model > article + article,
+        .documentation-spacing-anatomy-visual > .documentation-spacing-concept + .documentation-spacing-concept {
+            border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        }
+
+        .documentation-shell,
+        [data-design-system-shell].documentation-shell[data-design-system-shell-ready] {
+            grid-template-areas:
+                "topbar"
+                "main";
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: var(--design-system-component-shell-header-height-compact) minmax(0, 1fr);
+        }
+
+        .documentation-topbar,
+        [data-design-system-shell][data-design-system-shell-ready] > .documentation-topbar {
+            grid-area: topbar;
+            padding-inline: var(--design-system-primitive-spacing-6) var(--design-system-primitive-spacing-10);
+        }
+
+        .documentation-navigation-trigger {
+            display: inline-flex;
+        }
+
+        [data-design-system-shell] > .documentation-navigation,
+        [data-design-system-shell][data-design-system-shell-ready] > .documentation-navigation {
+            height: 100dvh;
+            margin: 0;
+        }
+
+        [data-design-system-shell][data-design-system-shell-ready][data-design-system-compact-navigation="panel"] > .documentation-navigation {
+            position: fixed;
+            inset: 0 auto 0 0;
+            height: 100dvh;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        [data-design-system-shell] > .documentation-main,
+        [data-design-system-shell][data-design-system-shell-ready] > .documentation-main {
+            grid-area: main;
+            min-height: calc(100dvh - var(--design-system-component-shell-header-height-compact));
+        }
+
+        .documentation-token-concept {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-concept-arrow {
+            transform: rotate(90deg);
+            justify-self: center;
+        }
+
+        .documentation-token-journey li {
+            grid-template-columns: auto minmax(0, 1fr);
+        }
+
+        .documentation-token-capsule,
+        .documentation-token-result {
+            grid-column: 2;
+        }
+
+        .documentation-color-family {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-layer-model-grid,
+        .documentation-layer-use-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-spacing-anatomy {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+    }
+
+    @media (max-width: 560px) {
+        .documentation-button-composition-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .documentation-button-comparison-stage--paired {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-button-foundation-recipe > div {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--design-system-primitive-spacing-6);
+        }
+
+        .documentation-button-preview-control {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--design-system-primitive-spacing-6);
+        }
+
+        .documentation-button-responsive-stage--paired {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-typography-size-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .documentation-typography-size-list > div:nth-child(odd)::before {
+            display: none;
+        }
+
+        .documentation-typography-size-list > div:nth-child(even)::before {
+            display: block;
+        }
+
+        .documentation-typography-size-list > div:nth-child(n + 3)::after {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline: var(--design-system-primitive-spacing-12);
+            height: var(--design-system-semantic-shape-boundary-width-subtle);
+            background: var(--design-system-semantic-color-boundary-border);
+            content: "";
+        }
+
+        .documentation-concept-facts > div {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-token-journey,
+        .documentation-anatomy-card {
+            padding: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-theme-visual,
+        .documentation-theme-summary {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-theme-visual {
+            min-height: auto;
+        }
+
+        .documentation-theme-pane + .documentation-theme-pane {
+            border-top: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+            border-left: 0;
+        }
+
+        .documentation-theme-summary > span {
+            justify-self: center;
+            transform: rotate(90deg);
+        }
+
+        .documentation-alert-color-list {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-typeface-list,
+        .documentation-typography-weight-list,
+        .documentation-typography-style-list,
+        .documentation-typography-line-height-list {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-typeface-sample + .documentation-typeface-sample {
+            border-inline-start: 0;
+            border-top: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        }
+
+        .documentation-typography-weight-list > article + article::before,
+        .documentation-typography-style-list > article + article::before,
+        .documentation-typography-line-height-list > article + article::before {
+            inset-block: 0 auto;
+            inset-inline: var(--design-system-primitive-spacing-12);
+            width: auto;
+            height: var(--design-system-semantic-shape-boundary-width-subtle);
+        }
+
+        .documentation-typography-role {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--design-system-primitive-spacing-10);
+        }
+
+        .documentation-typography-role > code {
+            white-space: normal;
+        }
+
+        .documentation-foundation-anatomy-row,
+        .documentation-spacing-concept {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-spacing-concept {
+            min-height: auto;
+        }
+
+        .documentation-sizing-behavior-model > article {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+    }
+
+    @media (max-width: 390px) {
+        .documentation-topbar-divider {
+            display: none;
+        }
+
+        :is(.documentation-tabbed-foundation-page, .documentation-tabbed-component-page) .documentation-page-tabs-context {
+            padding-inline: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-page {
+            padding-block-start: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-page-header {
+            padding-block-end: var(--design-system-primitive-spacing-32);
+        }
+
+        .documentation-section {
+            padding-block: var(--design-system-primitive-spacing-32);
+        }
+
+        .documentation-decision,
+        .documentation-state-row {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-button-foundation-recipe > div {
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--design-system-primitive-spacing-4);
+        }
+
+        .documentation-button-composition-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .documentation-color-scale {
+            overflow-x: auto;
+            padding-block-end: var(--design-system-primitive-spacing-8);
+        }
+
+        .documentation-color-swatches,
+        .documentation-color-zones {
+            min-width: var(--design-system-primitive-layout-measure-48ch);
+        }
+
+        .documentation-layer-model-stack {
+            gap: var(--design-system-primitive-spacing-8);
+            min-height: calc(var(--design-system-semantic-layout-state-minimum-height) * 2);
+            padding: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-layer-model-level {
+            gap: var(--design-system-primitive-spacing-8);
+            padding: var(--design-system-primitive-spacing-16);
+        }
+
+        .documentation-layer-card {
+            margin: var(--design-system-primitive-spacing-10);
+        }
+
+        .design-system-menu.documentation-layer-menu {
+            inset-block-start: calc((var(--design-system-primitive-spacing-48) * 2) + var(--design-system-primitive-spacing-24));
+            inset-inline-end: var(--design-system-primitive-spacing-16);
+        }
+
+    }
+
+    @media (forced-colors: active) {
+        .documentation-topbar {
+            border-color: CanvasText;
+        }
+
+        .documentation-topbar-divider {
+            background: CanvasText;
+        }
+
+        .documentation-layer-model-stack,
+        .documentation-layer-model-level,
+        .documentation-layer-window {
+            border: var(--design-system-semantic-shape-boundary-width) solid CanvasText;
+        }
+    }
+}

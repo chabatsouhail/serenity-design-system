@@ -1,0 +1,8 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-icons-control-size-small: var(--design-system-primitive-icons-size-14);
+        --design-system-semantic-icons-control-size-medium: var(--design-system-primitive-icons-size-16);
+        --design-system-semantic-icons-control-size-large: var(--design-system-primitive-icons-size-20);
+    }
+}
+

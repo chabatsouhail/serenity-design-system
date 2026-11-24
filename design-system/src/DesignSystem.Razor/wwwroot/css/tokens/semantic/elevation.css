@@ -1,0 +1,10 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-elevation-overlay-shadow: var(--design-system-primitive-elevation-shadow-0-12-30) color-mix(in srgb, var(--design-system-primitive-color-gray-950) var(--design-system-primitive-opacity-14), transparent);
+        --design-system-semantic-elevation-dialog-shadow: var(--design-system-primitive-elevation-shadow-0-20-60) color-mix(in srgb, var(--design-system-primitive-color-gray-950) var(--design-system-primitive-opacity-22), transparent);
+        --design-system-semantic-elevation-scrim-background: color-mix(in srgb, var(--design-system-primitive-color-gray-950) var(--design-system-primitive-opacity-34), transparent);
+        --design-system-semantic-elevation-overlay-layer: var(--design-system-primitive-elevation-layer-40);
+        --design-system-semantic-elevation-dialog-layer: var(--design-system-primitive-elevation-layer-70);
+        --design-system-semantic-elevation-toast-layer: var(--design-system-primitive-elevation-layer-90);
+    }
+}

@@ -1,0 +1,8 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-layout-measure-72ch: 72ch;
+        --design-system-primitive-layout-measure-48ch: 48ch;
+        --design-system-primitive-layout-measure-1180: 1180px;
+        --design-system-primitive-layout-measure-180: 180px;
+    }
+}

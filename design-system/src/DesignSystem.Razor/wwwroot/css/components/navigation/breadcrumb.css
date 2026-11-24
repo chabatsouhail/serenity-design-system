@@ -1,0 +1,47 @@
+@layer design-system.component {
+    .design-system-breadcrumbs {
+        min-width: 0;
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        font: var(--design-system-semantic-typography-body-small);
+    }
+
+    .design-system-breadcrumbs :is(ol, .design-system-breadcrumb-list) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .design-system-breadcrumbs li {
+        min-width: 0;
+    }
+
+    .design-system-breadcrumbs li:not(:last-child)::after {
+        content: "/";
+        margin-inline-start: var(--design-system-primitive-spacing-8);
+        color: var(--design-system-semantic-color-boundary-border-strong);
+    }
+
+    .design-system-breadcrumbs a {
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        text-decoration: none;
+    }
+
+    .design-system-breadcrumbs [aria-current="page"] {
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    @media (forced-colors: active) {
+        .design-system-breadcrumbs li:not(:last-child)::after {
+            color: GrayText;
+        }
+
+        .design-system-breadcrumbs a {
+            color: LinkText;
+        }
+    }
+}

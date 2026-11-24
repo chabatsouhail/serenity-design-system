@@ -1,0 +1,18 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-spacing-0: 0;
+        --design-system-primitive-spacing-2: 2px;
+        --design-system-primitive-spacing-4: 4px;
+        --design-system-primitive-spacing-6: 6px;
+        --design-system-primitive-spacing-8: 8px;
+        --design-system-primitive-spacing-10: 10px;
+        --design-system-primitive-spacing-12: 12px;
+        --design-system-primitive-spacing-14: 14px;
+        --design-system-primitive-spacing-16: 16px;
+        --design-system-primitive-spacing-20: 20px;
+        --design-system-primitive-spacing-24: 24px;
+        --design-system-primitive-spacing-32: 32px;
+        --design-system-primitive-spacing-48: 48px;
+    }
+}
+

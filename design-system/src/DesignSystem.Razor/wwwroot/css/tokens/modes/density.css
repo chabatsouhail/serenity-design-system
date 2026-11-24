@@ -1,0 +1,14 @@
+@layer design-system.theme {
+    :root,
+    [data-design-system-density="normal"] {
+        --_design-system-density-control-height: var(--design-system-semantic-sizing-control-height-normal);
+    }
+
+    [data-design-system-density="compact"] {
+        --_design-system-density-control-height: var(--design-system-semantic-sizing-control-height-compact);
+    }
+
+    [data-design-system-density="relaxed"] {
+        --_design-system-density-control-height: var(--design-system-semantic-sizing-control-height-relaxed);
+    }
+}

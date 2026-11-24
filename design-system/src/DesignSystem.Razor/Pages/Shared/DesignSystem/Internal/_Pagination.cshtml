@@ -1,0 +1,83 @@
+@model DesignSystem.Razor.Models.PaginationModel
+@using DesignSystem.Razor.Contracts
+@{
+    if (Model is null ||
+        string.IsNullOrWhiteSpace(Model.Label) ||
+        string.IsNullOrWhiteSpace(Model.PreviousLabel) ||
+        string.IsNullOrWhiteSpace(Model.NextLabel) ||
+        string.IsNullOrWhiteSpace(Model.PreviousText) ||
+        string.IsNullOrWhiteSpace(Model.NextText) ||
+        string.IsNullOrWhiteSpace(Model.PageLabelTemplate))
+    {
+        throw new InvalidOperationException("Pagination labels and visible navigation text are required.");
+    }
+
+    var pages = Model.GetVisiblePages();
+}
+<nav class="design-system-pagination-nav" aria-label="@Model.Label" data-design-system-pagination>
+    <ol class="design-system-pagination">
+        <li>
+            @if (Model.CurrentPage > 1)
+            {
+                <a class="design-system-button"
+                   href="@Model.GetPageUrl(Model.CurrentPage - 1)"
+                   rel="prev"
+                   aria-label="@Model.PreviousLabel"
+                   data-design-system-variant="text"
+                   data-design-system-tone="neutral"
+                    data-design-system-size="small">
+                    <design-system-icon name="@IconName.ChevronLeft" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    <span>@Model.PreviousText</span>
+                </a>
+            }
+            else
+            {
+                <span class="design-system-button" aria-disabled="true" aria-label="@Model.PreviousLabel" data-design-system-variant="text" data-design-system-tone="neutral" data-design-system-size="small">
+                    <design-system-icon name="@IconName.ChevronLeft" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                    <span>@Model.PreviousText</span>
+                </span>
+            }
+        </li>
+        @foreach (var pageItem in pages)
+        {
+            <li>
+                @if (pageItem is null)
+                {
+                    <span class="design-system-pagination-ellipsis" aria-hidden="true">…</span>
+                }
+                else if (pageItem.Value == Model.CurrentPage)
+                {
+                    <span class="design-system-button" aria-current="page" aria-label="@Model.GetPageLabel(pageItem.Value)" data-design-system-variant="text" data-design-system-tone="accent" data-design-system-size="small">
+                        @pageItem.Value
+                    </span>
+                }
+                else
+                {
+                    <a class="design-system-button" href="@Model.GetPageUrl(pageItem.Value)" aria-label="@Model.GetPageLabel(pageItem.Value)" data-design-system-variant="text" data-design-system-tone="neutral" data-design-system-size="small">@pageItem.Value</a>
+                }
+            </li>
+        }
+        <li>
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <a class="design-system-button"
+                   href="@Model.GetPageUrl(Model.CurrentPage + 1)"
+                   rel="next"
+                   aria-label="@Model.NextLabel"
+                   data-design-system-variant="text"
+                   data-design-system-tone="neutral"
+                    data-design-system-size="small">
+                    <span>@Model.NextText</span>
+                    <design-system-icon name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                </a>
+            }
+            else
+            {
+                <span class="design-system-button" aria-disabled="true" aria-label="@Model.NextLabel" data-design-system-variant="text" data-design-system-tone="neutral" data-design-system-size="small">
+                    <span>@Model.NextText</span>
+                    <design-system-icon name="@IconName.ChevronRight" size="@ComponentSize.Small" decorative="true"></design-system-icon>
+                </span>
+            }
+        </li>
+    </ol>
+</nav>

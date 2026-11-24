@@ -1,0 +1,564 @@
+@page "/foundations/typography"
+@{
+    ViewData["Title"] = "Typography";
+
+    var primitiveTokenGroups = new[]
+    {
+        (Name: "Font Family", Purpose: "Typefaces available for interface and technical text.", Tokens: new[]
+        {
+            (Value: "IBM Plex Sans", Token: "--design-system-primitive-typography-family-ibm-plex-sans"),
+            (Value: "IBM Plex Serif", Token: "--design-system-primitive-typography-family-ibm-plex-serif"),
+            (Value: "IBM Plex Mono", Token: "--design-system-primitive-typography-family-ibm-plex-mono")
+        }),
+        (Name: "Font Style", Purpose: "Regular and Italic forms available across the shipped Typefaces.", Tokens: new[]
+        {
+            (Value: "Regular", Token: "--design-system-primitive-typography-style-normal"),
+            (Value: "Italic", Token: "--design-system-primitive-typography-style-italic")
+        }),
+        (Name: "Font Size", Purpose: "Approved sizes that establish hierarchy and reading priority.", Tokens: new[]
+        {
+            (Value: "11px", Token: "--design-system-primitive-typography-size-11"),
+            (Value: "12px", Token: "--design-system-primitive-typography-size-12"),
+            (Value: "13px", Token: "--design-system-primitive-typography-size-13"),
+            (Value: "14px", Token: "--design-system-primitive-typography-size-14"),
+            (Value: "16px", Token: "--design-system-primitive-typography-size-16"),
+            (Value: "20px", Token: "--design-system-primitive-typography-size-20"),
+            (Value: "28px", Token: "--design-system-primitive-typography-size-28")
+        }),
+        (Name: "Font Weight", Purpose: "Exact shipped strengths from Regular through Bold.", Tokens: new[]
+        {
+            (Value: "400", Token: "--design-system-primitive-typography-weight-400"),
+            (Value: "500", Token: "--design-system-primitive-typography-weight-500"),
+            (Value: "600", Token: "--design-system-primitive-typography-weight-600"),
+            (Value: "700", Token: "--design-system-primitive-typography-weight-700")
+        }),
+        (Name: "Line Height", Purpose: "Vertical rhythm for single-line and multi-line text.", Tokens: new[]
+        {
+            (Value: "1", Token: "--design-system-primitive-typography-line-height-1"),
+            (Value: "1.25", Token: "--design-system-primitive-typography-line-height-1-25"),
+            (Value: "1.5", Token: "--design-system-primitive-typography-line-height-1-5")
+        }),
+        (Name: "Underline", Purpose: "Reusable decoration placement for Links and text.", Tokens: new[]
+        {
+            (Value: ".2em", Token: "--design-system-primitive-typography-underline-offset-0-2em")
+        })
+    };
+
+    var readingTypeStyles = new[]
+    {
+        (Name: "Heading 1", Purpose: "Primary Page title", Composition: "Regular · 500 · 28px / 1.25 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-28 + line-height-1-25 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-heading-1"),
+        (Name: "Heading 2", Purpose: "Section title", Composition: "Regular · 500 · 20px / 1.25 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-20 + line-height-1-25 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-heading-2"),
+        (Name: "Heading 3", Purpose: "Subsection title", Composition: "Regular · 500 · 16px / 1.25 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-16 + line-height-1-25 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-heading-3"),
+        (Name: "Heading 4", Purpose: "Group title", Composition: "Regular · 500 · 14px / 1.25 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-14 + line-height-1-25 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-heading-4"),
+        (Name: "Body Small", Purpose: "Compact reading text", Composition: "Regular · 400 · 12px / 1.5 · IBM Plex Sans", Sources: "style-normal + weight-400 + size-12 + line-height-1-5 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-body-small"),
+        (Name: "Body", Purpose: "Default reading text", Composition: "Regular · 400 · 13px / 1.5 · IBM Plex Sans", Sources: "style-normal + weight-400 + size-13 + line-height-1-5 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-body"),
+        (Name: "Body Large", Purpose: "Prominent reading text", Composition: "Regular · 400 · 14px / 1.5 · IBM Plex Sans", Sources: "style-normal + weight-400 + size-14 + line-height-1-5 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-body-large"),
+        (Name: "Caption", Purpose: "Supporting metadata", Composition: "Regular · 400 · 11px / 1.5 · IBM Plex Sans", Sources: "style-normal + weight-400 + size-11 + line-height-1-5 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-caption"),
+        (Name: "Code", Purpose: "Code, identifiers, and Token names", Composition: "Regular · 400 · 12px / 1.5 · IBM Plex Mono", Sources: "style-normal + weight-400 + size-12 + line-height-1-5 + family-ibm-plex-mono", Token: "--design-system-semantic-typography-code")
+    };
+
+    var interfaceTypeStyles = new[]
+    {
+        (Name: "Label", Purpose: "Control and data labels", Composition: "Regular · 500 · 12px / 1.5 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-12 + line-height-1-5 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-label"),
+        (Name: "Label Compact", Purpose: "Single-line compact labels", Composition: "Regular · 500 · 12px / 1 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-12 + line-height-1 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-label-compact"),
+        (Name: "Caption Compact", Purpose: "Single-line compact metadata", Composition: "Regular · 500 · 11px / 1 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-11 + line-height-1 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-caption-compact"),
+        (Name: "Control", Purpose: "Text entered inside controls", Composition: "Regular · 400 · 13px / 1 · IBM Plex Sans", Sources: "style-normal + weight-400 + size-13 + line-height-1 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-control"),
+        (Name: "Action Small", Purpose: "Compact action labels", Composition: "Regular · 500 · 12px / 1 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-12 + line-height-1 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-action-small"),
+        (Name: "Action", Purpose: "Default action labels", Composition: "Regular · 500 · 13px / 1 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-13 + line-height-1 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-action"),
+        (Name: "Action Large", Purpose: "Large action labels", Composition: "Regular · 500 · 14px / 1 · IBM Plex Sans", Sources: "style-normal + weight-500 + size-14 + line-height-1 + family-ibm-plex-sans", Token: "--design-system-semantic-typography-action-large")
+    };
+
+    string TokenName(string token) => token.StartsWith("--", StringComparison.Ordinal) ? token[2..] : token;
+}
+
+<article class="documentation-page documentation-foundation-page documentation-tabbed-foundation-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Foundations</span>
+            <h1 id="documentation-page-title">Typography</h1>
+            <p class="documentation-lead">
+                Typography establishes hierarchy, reading rhythm, and emphasis across every interface in the design system.
+            </p>
+        </div>
+    </header>
+
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="typography-page-tabs">
+        <span class="documentation-page-context-sentinel"
+              aria-hidden="true"
+              data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true">
+                <span class="documentation-page-compact-title-text">Typography</span>
+                <span class="documentation-page-compact-section" data-documentation-page-compact-section></span>
+            </span>
+            <div class="design-system-tab-list" role="tablist" aria-label="Typography documentation sections">
+                <button class="design-system-tab"
+                        id="typography-page-tab-anatomy"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="typography-page-panel-anatomy"
+                        data-design-system-tab
+                        data-design-system-value="anatomy">
+                    Anatomy
+                </button>
+                <button class="design-system-tab"
+                        id="typography-page-tab-tokens"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="typography-page-panel-tokens"
+                        tabindex="-1"
+                        data-design-system-tab
+                        data-design-system-value="tokens">
+                    Tokens
+                </button>
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="typography-page-panel-anatomy"
+             role="tabpanel"
+             aria-labelledby="typography-page-tab-anatomy"
+             data-design-system-tab-panel>
+    <section class="documentation-page-tab-section" id="anatomy" aria-labelledby="typography-anatomy-title">
+        <h2 class="design-system-visually-hidden" id="typography-anatomy-title">Anatomy</h2>
+
+        <nav class="documentation-reference-toc design-system-tab-list"
+             aria-label="On this page"
+             data-documentation-reference-toc>
+            <ol class="documentation-reference-toc-list">
+                <li data-documentation-reference-toc-group>
+                    <a class="design-system-tab documentation-reference-toc-parent" href="#typography-composition-title" aria-current="location">Composition</a>
+                    <ol class="documentation-reference-toc-sublist">
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#font-family-title">Font Family</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#font-style-title">Font Style</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#font-size-title">Font Size</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#font-weight-title">Font Weight</a></li>
+                        <li><a class="design-system-tab documentation-reference-toc-child" href="#line-height-title">Line Height</a></li>
+                    </ol>
+                </li>
+            </ol>
+        </nav>
+
+        <section class="documentation-subsection documentation-typography-composition"
+                 aria-labelledby="typography-composition-title"
+                 data-documentation-typography-preview
+                 data-documentation-typography-family="ibm-plex-sans"
+                 data-documentation-typography-style="normal">
+            <div class="documentation-subsection-heading">
+                <h3 id="typography-composition-title">Composition</h3>
+                <p>The design system composes Typography from Font Family, Font Size, Font Weight, Font Style, and Line Height.</p>
+            </div>
+
+        <div class="documentation-typography-composition-list">
+        <section class="documentation-subsection" aria-labelledby="font-family-title">
+            <div class="documentation-subsection-heading">
+                <h4 id="font-family-title">Font Family</h4>
+                <p>The design system uses IBM Plex Sans for interface text, IBM Plex Serif for editorial content, and IBM Plex Mono for technical content.</p>
+            </div>
+
+            <div class="documentation-typeface-list">
+                <figure class="documentation-typeface-sample documentation-typeface-sample-sans">
+                    <figcaption>
+                        <strong>IBM Plex Sans</strong>
+                        <span>Primary Typeface · Shipped with the design system</span>
+                    </figcaption>
+                    <div class="documentation-typeface-glyphs" aria-hidden="true">
+                        <span class="documentation-typeface-pairs">
+                            <span>Aa Ee Rr</span>
+                            <em>Aa Ee Rr</em>
+                        </span>
+                        <span class="documentation-typeface-focus-glyph">a</span>
+                    </div>
+                    <strong class="documentation-typeface-classification">Mainframe</strong>
+                    <div class="documentation-typeface-character-set" aria-label="IBM Plex Sans lowercase alphabet and numerals">
+                        <span>abcdefghijklm</span>
+                        <span>nopqrstuvwxyz</span>
+                        <span>0123456789</span>
+                    </div>
+                </figure>
+                <figure class="documentation-typeface-sample documentation-typeface-sample-serif">
+                    <figcaption>
+                        <strong>IBM Plex Serif</strong>
+                        <span>Editorial Typeface · Shipped with the design system</span>
+                    </figcaption>
+                    <div class="documentation-typeface-glyphs" aria-hidden="true">
+                        <span class="documentation-typeface-pairs">
+                            <span>Aa Ee Rr</span>
+                            <em>Aa Ee Rr</em>
+                        </span>
+                        <span class="documentation-typeface-focus-glyph">a</span>
+                    </div>
+                    <strong class="documentation-typeface-classification">Serif</strong>
+                    <div class="documentation-typeface-character-set" aria-label="IBM Plex Serif lowercase alphabet and numerals">
+                        <span>abcdefghijklm</span>
+                        <span>nopqrstuvwxyz</span>
+                        <span>0123456789</span>
+                    </div>
+                </figure>
+                <figure class="documentation-typeface-sample documentation-typeface-sample-mono">
+                    <figcaption>
+                        <strong>IBM Plex Mono</strong>
+                        <span>Code Typeface · Shipped with the design system</span>
+                    </figcaption>
+                    <div class="documentation-typeface-glyphs" aria-hidden="true">
+                        <span class="documentation-typeface-pairs">
+                            <span>Aa Ee Rr</span>
+                            <em>Aa Ee Rr</em>
+                        </span>
+                        <span class="documentation-typeface-focus-glyph">a</span>
+                    </div>
+                    <strong class="documentation-typeface-classification">Typewriter</strong>
+                    <div class="documentation-typeface-character-set" aria-label="IBM Plex Mono lowercase alphabet and numerals">
+                        <span>abcdefghijklm</span>
+                        <span>nopqrstuvwxyz</span>
+                        <span>0123456789</span>
+                    </div>
+                </figure>
+            </div>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="font-style-title">
+            <div class="documentation-subsection-heading">
+                <h4 id="font-style-title">Font Style</h4>
+                <p>Regular is the default form; Italic introduces a deliberate change in voice without changing Size or Weight.</p>
+            </div>
+
+            <div class="documentation-typography-style-presentation"
+                 data-documentation-typography-style-specimen
+                 data-documentation-typography-family="ibm-plex-sans">
+                <div class="documentation-typography-style-controls" aria-label="Font Style illustration controls">
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Typeface"
+                         data-design-system-segmented
+                         data-documentation-typography-style-control="family">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="ibm-plex-sans">Sans</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-serif">Serif</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-mono">Mono</design-system-button>
+                    </div>
+                </div>
+                <div class="documentation-typography-style-specimen">
+                    <div class="documentation-typography-style-list">
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Regular</span>
+                            <p class="documentation-typography-style-normal documentation-typography-preview-sample">The customer record was updated today.</p>
+                        </article>
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Italic</span>
+                            <p class="documentation-typography-style-italic documentation-typography-preview-sample">The customer record was updated today.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="font-size-title">
+            <div class="documentation-subsection-heading">
+                <h4 id="font-size-title">Font Size</h4>
+                <p>A restrained seven-step scale establishes hierarchy without filling the system with nearly identical Sizes.</p>
+            </div>
+
+            <div class="documentation-typography-size-presentation"
+                 data-documentation-typography-size-specimen
+                 data-documentation-typography-family="ibm-plex-sans"
+                 data-documentation-typography-style="normal">
+                <div class="documentation-typography-size-controls" aria-label="Font Size illustration controls">
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Typeface"
+                         data-design-system-segmented
+                         data-documentation-typography-size-control="family">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="ibm-plex-sans">Sans</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-serif">Serif</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-mono">Mono</design-system-button>
+                    </div>
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Font Style"
+                         data-design-system-segmented
+                         data-documentation-typography-size-control="style">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="normal">Regular</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="italic">Italic</design-system-button>
+                    </div>
+                </div>
+                <div class="documentation-typography-size-specimen">
+                    <div class="documentation-typography-size-list" aria-label="Design system Font Size scale">
+                        <div>
+                            <span class="documentation-typography-size-11 documentation-typography-preview-sample">Aa</span>
+                            <small>11px</small>
+                        </div>
+                        <div>
+                            <span class="documentation-typography-size-12 documentation-typography-preview-sample">Aa</span>
+                            <small>12px</small>
+                        </div>
+                        <div>
+                            <span class="documentation-typography-size-13 documentation-typography-preview-sample">Aa</span>
+                            <small>13px</small>
+                        </div>
+                        <div>
+                            <span class="documentation-typography-size-14 documentation-typography-preview-sample">Aa</span>
+                            <small>14px</small>
+                        </div>
+                        <div>
+                            <span class="documentation-typography-size-16 documentation-typography-preview-sample">Aa</span>
+                            <small>16px</small>
+                        </div>
+                        <div>
+                            <span class="documentation-typography-size-20 documentation-typography-preview-sample">Aa</span>
+                            <small>20px</small>
+                        </div>
+                        <div>
+                            <span class="documentation-typography-size-28 documentation-typography-preview-sample">Aa</span>
+                            <small>28px</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="font-weight-title">
+            <div class="documentation-subsection-heading">
+                <h4 id="font-weight-title">Font Weight</h4>
+                <p>The design system ships real Regular, Medium, Semibold, and Bold files so the browser never has to manufacture a missing Weight.</p>
+            </div>
+
+            <div class="documentation-typography-weight-presentation"
+                 data-documentation-typography-weight-specimen
+                 data-documentation-typography-family="ibm-plex-sans"
+                 data-documentation-typography-style="normal">
+                <div class="documentation-typography-weight-controls" aria-label="Font Weight illustration controls">
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Typeface"
+                         data-design-system-segmented
+                         data-documentation-typography-weight-control="family">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="ibm-plex-sans">Sans</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-serif">Serif</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-mono">Mono</design-system-button>
+                    </div>
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Font Style"
+                         data-design-system-segmented
+                         data-documentation-typography-weight-control="style">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="normal">Regular</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="italic">Italic</design-system-button>
+                    </div>
+                </div>
+                <div class="documentation-typography-weight-specimen">
+                    <div class="documentation-typography-weight-list">
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Regular · 400</span>
+                            <p class="documentation-typography-weight-regular documentation-typography-preview-sample">Customer record</p>
+                        </article>
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Medium · 500</span>
+                            <p class="documentation-typography-weight-medium documentation-typography-preview-sample">Customer record</p>
+                        </article>
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Semibold · 600</span>
+                            <p class="documentation-typography-weight-semibold documentation-typography-preview-sample">Customer record</p>
+                        </article>
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Bold · 700</span>
+                            <p class="documentation-typography-weight-bold documentation-typography-preview-sample">Customer record</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            <p class="documentation-typography-note">Emphasis uses the next Primitive Weight directly: 400 → 500, 500 → 600, and 600 → 700. Text already at 700 remains at 700.</p>
+        </section>
+
+        <section class="documentation-subsection" aria-labelledby="line-height-title">
+            <div class="documentation-subsection-heading">
+                <h4 id="line-height-title">Line Height</h4>
+                <p>The design system chooses Line Height from the amount and purpose of the text, not from Font Size alone.</p>
+            </div>
+
+            <div class="documentation-typography-line-height-presentation"
+                 data-documentation-typography-line-height-specimen
+                 data-documentation-typography-family="ibm-plex-sans"
+                 data-documentation-typography-style="normal">
+                <div class="documentation-typography-line-height-controls" aria-label="Line Height illustration controls">
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Typeface"
+                         data-design-system-segmented
+                         data-documentation-typography-line-height-control="family">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="ibm-plex-sans">Sans</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-serif">Serif</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="ibm-plex-mono">Mono</design-system-button>
+                    </div>
+                    <div class="design-system-segmented"
+                         role="group"
+                         aria-label="Font Style"
+                         data-design-system-segmented
+                         data-documentation-typography-line-height-control="style">
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="true" data-design-system-value="normal">Regular</design-system-button>
+                        <design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" toggle="true" pressed="false" data-design-system-value="italic">Italic</design-system-button>
+                    </div>
+                </div>
+                <div class="documentation-typography-line-height-specimen">
+                    <div class="documentation-typography-line-height-list">
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Solid · 1</span>
+                            <p class="documentation-typography-line-solid documentation-typography-preview-sample">Customer information<br />updated today</p>
+                        </article>
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Tight · 1.25</span>
+                            <p class="documentation-typography-line-tight documentation-typography-preview-sample">Customer information<br />updated today</p>
+                        </article>
+                        <article>
+                            <span class="documentation-typography-mechanic-label">Normal · 1.5</span>
+                            <p class="documentation-typography-line-normal documentation-typography-preview-sample">Customer information<br />updated today</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div>
+        </section>
+
+    </section>
+        </div>
+
+        <div class="design-system-tab-panel"
+             id="typography-page-panel-tokens"
+             role="tabpanel"
+             aria-labelledby="typography-page-tab-tokens"
+             data-design-system-tab-panel
+             hidden>
+            <section class="documentation-page-tab-section" id="tokens" aria-labelledby="typography-tokens-title">
+                <h2 class="design-system-visually-hidden" id="typography-tokens-title">Tokens</h2>
+
+                <nav class="documentation-reference-toc design-system-tab-list"
+                     aria-label="On this page"
+                     data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#primitive-typography-tokens-title" aria-current="location">Primitive Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                @for (var groupIndex = 0; groupIndex < primitiveTokenGroups.Length; groupIndex++)
+                                {
+                                    <li><a class="design-system-tab documentation-reference-toc-child" href="#primitive-typography-group-@groupIndex-title">@primitiveTokenGroups[groupIndex].Name</a></li>
+                                }
+                            </ol>
+                        </li>
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#semantic-typography-tokens-title">Semantic Tokens</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-typography-reading-title">Reading Type Styles</a></li>
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#semantic-typography-interface-title">Interface Type Styles</a></li>
+                            </ol>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="documentation-token-category-list">
+                    <section class="documentation-token-category" id="primitive-typography-tokens" aria-labelledby="primitive-typography-tokens-title">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="primitive-typography-tokens-title">Primitive Tokens</h3>
+                            <p>Individual Typeface, Size, Line Height, Weight, and decoration Values.</p>
+                        </div>
+                <div class="documentation-token-panel-content">
+                    @for (var groupIndex = 0; groupIndex < primitiveTokenGroups.Length; groupIndex++)
+                    {
+                        var group = primitiveTokenGroups[groupIndex];
+                        var groupTitleId = $"primitive-typography-group-{groupIndex}-title";
+                        <section class="documentation-subsection" aria-labelledby="@groupTitleId">
+                            <div class="documentation-subsection-heading">
+                                <h4 id="@groupTitleId">@group.Name</h4>
+                                <p>@group.Purpose</p>
+                            </div>
+                            <div class="design-system-table-wrap documentation-typography-token-wrap" role="region" aria-label="@group.Name Primitive Typography Tokens" tabindex="0">
+                                <table class="design-system-table documentation-typography-token-table documentation-primitive-token-table documentation-three-column-primitive-token-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Value</th>
+                                            <th scope="col">Preview</th>
+                                            <th scope="col">Primitive Token</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var token in group.Tokens)
+                                        {
+                                            <tr>
+                                                <th scope="row"><code>@token.Value</code></th>
+                                                <td>
+                                                    <span class="documentation-typography-primitive-preview" data-documentation-typography-preview="@TokenName(token.Token)" aria-label="@token.Value Preview">
+                                                        <span>Aa</span>
+                                                        <span aria-hidden="true">Aa</span>
+                                                    </span>
+                                                </td>
+                                                <td><code class="documentation-token-name">@TokenName(token.Token)</code></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    }
+                </div>
+                    </section>
+
+                    <section class="documentation-token-category" id="semantic-typography-tokens" aria-labelledby="semantic-typography-tokens-title">
+                        <div class="documentation-token-category-heading">
+                            <h3 id="semantic-typography-tokens-title">Semantic Tokens</h3>
+                            <p>Complete Type Styles used directly by Foundations and Components.</p>
+                        </div>
+                <div class="documentation-token-panel-content">
+                    <section class="documentation-subsection" aria-labelledby="semantic-typography-reading-title">
+                        <div class="documentation-subsection-heading">
+                            <h4 id="semantic-typography-reading-title">Reading Type Styles</h4>
+                            <p>Headings, reading text, metadata, and technical content.</p>
+                        </div>
+                        <div class="design-system-table-wrap documentation-typography-token-wrap" role="region" aria-label="Reading Type Style Tokens" tabindex="0">
+                            <table class="design-system-table documentation-typography-token-table documentation-typography-semantic-table">
+                                <thead><tr><th scope="col">Role</th><th scope="col">Primitive Composition</th><th scope="col">Semantic Token</th></tr></thead>
+                                <tbody>
+                                    @foreach (var style in readingTypeStyles)
+                                    {
+                                        <tr>
+                                            <th scope="row"><span class="documentation-table-label"><span>@style.Name</span><small>@style.Purpose</small></span></th>
+                                            <td><span class="documentation-token-source-list">@foreach (var source in style.Sources.Split(" + ", StringSplitOptions.RemoveEmptyEntries)) { <code class="documentation-token-name">design-system-primitive-typography-@source</code> }</span></td>
+                                            <td><code class="documentation-token-name">@TokenName(style.Token)</code></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section class="documentation-subsection" aria-labelledby="semantic-typography-interface-title">
+                        <div class="documentation-subsection-heading">
+                            <h4 id="semantic-typography-interface-title">Interface Type Styles</h4>
+                            <p>Labels, Controls, and Actions that prioritize compact clarity.</p>
+                        </div>
+                        <div class="design-system-table-wrap documentation-typography-token-wrap" role="region" aria-label="Interface Type Style Tokens" tabindex="0">
+                            <table class="design-system-table documentation-typography-token-table documentation-typography-semantic-table">
+                                <thead><tr><th scope="col">Role</th><th scope="col">Primitive Composition</th><th scope="col">Semantic Token</th></tr></thead>
+                                <tbody>
+                                    @foreach (var style in interfaceTypeStyles)
+                                    {
+                                        <tr>
+                                            <th scope="row"><span class="documentation-table-label"><span>@style.Name</span><small>@style.Purpose</small></span></th>
+                                            <td><span class="documentation-token-source-list">@foreach (var source in style.Sources.Split(" + ", StringSplitOptions.RemoveEmptyEntries)) { <code class="documentation-token-name">design-system-primitive-typography-@source</code> }</span></td>
+                                            <td><code class="documentation-token-name">@TokenName(style.Token)</code></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</article>

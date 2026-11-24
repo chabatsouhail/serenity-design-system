@@ -1,0 +1,38 @@
+@layer design-system.component {
+    .design-system-link {
+        color: var(--design-system-semantic-color-text-foreground-accent);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        text-decoration-line: underline;
+        text-decoration-thickness: var(--design-system-semantic-shape-boundary-width);
+        text-underline-offset: var(--design-system-primitive-typography-underline-offset-0-2em);
+        transition-property: color, text-decoration-thickness;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .design-system-link:visited {
+        color: var(--design-system-semantic-color-text-foreground-accent);
+    }
+
+    .design-system-link:is(:hover, [data-design-system-preview-state="hover"]):not([aria-disabled="true"]) {
+        text-decoration-thickness: var(--design-system-semantic-shape-focus-width);
+    }
+
+    .design-system-link[aria-disabled="true"] {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    @media (forced-colors: active) {
+        .design-system-link,
+        .design-system-link:visited {
+            color: LinkText;
+        }
+
+        .design-system-link[aria-disabled="true"] {
+            color: GrayText;
+        }
+    }
+}

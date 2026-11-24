@@ -1,0 +1,138 @@
+@layer design-system.component {
+    .design-system-choice {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-height: var(--_design-system-density-control-height);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        cursor: pointer;
+    }
+
+    .design-system-choice input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+    }
+
+    .design-system-choice-mark {
+        display: grid;
+        flex: none;
+        place-items: center;
+        width: var(--design-system-component-choice-mark-size);
+        height: var(--design-system-component-choice-mark-size);
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border-strong);
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background-elevated);
+        color: var(--design-system-semantic-color-text-foreground-inverse);
+        transition: background-color var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press), border-color var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press), box-shadow var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    .design-system-choice[data-design-system-type="radio"] .design-system-choice-mark {
+        width: calc(var(--design-system-component-choice-mark-size) + var(--design-system-primitive-spacing-2));
+        height: calc(var(--design-system-component-choice-mark-size) + var(--design-system-primitive-spacing-2));
+        border-radius: 50%;
+    }
+
+    .design-system-choice input:checked + .design-system-choice-mark,
+    .design-system-choice input:indeterminate + .design-system-choice-mark {
+        border-color: var(--design-system-semantic-color-action-background);
+        background: var(--design-system-semantic-color-action-background);
+    }
+
+    .design-system-choice-mark::after {
+        content: "";
+        width: var(--design-system-component-choice-check-width);
+        height: var(--design-system-component-choice-check-height);
+        border: solid currentColor;
+        border-width: 0 0 var(--design-system-primitive-shape-border-width-2) var(--design-system-primitive-shape-border-width-2);
+        opacity: 0;
+        transform: translateY(calc(-1 * var(--design-system-semantic-shape-boundary-width))) rotate(-45deg) scale(var(--design-system-semantic-motion-indicator-scale-hidden));
+        transition: opacity var(--design-system-semantic-timing-interaction-duration-release), transform var(--design-system-semantic-timing-interaction-duration-release);
+    }
+
+    .design-system-choice input:checked + .design-system-choice-mark::after {
+        opacity: 1;
+        transform: translateY(calc(-1 * var(--design-system-semantic-shape-boundary-width))) rotate(-45deg) scale(1);
+    }
+
+    .design-system-choice[data-design-system-type="radio"] .design-system-choice-mark::after {
+        width: var(--design-system-component-choice-check-width);
+        height: var(--design-system-component-choice-check-width);
+        border: 0;
+        border-radius: 50%;
+        background: currentColor;
+        transform: scale(var(--design-system-semantic-motion-indicator-scale-hidden));
+    }
+
+    .design-system-choice[data-design-system-type="radio"] input:checked + .design-system-choice-mark::after {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .design-system-choice input:indeterminate + .design-system-choice-mark::after {
+        width: var(--design-system-component-choice-check-width);
+        height: var(--design-system-primitive-shape-border-width-2);
+        border: 0;
+        background: currentColor;
+        opacity: 1;
+        transform: none;
+    }
+
+    .design-system-choice:hover:not(:has(input:disabled)) input:not(:checked) + .design-system-choice-mark {
+        border-color: var(--design-system-semantic-color-boundary-border-selected);
+        background: var(--design-system-semantic-color-surface-background-hover);
+    }
+
+    .design-system-choice:hover:not(:has(input:disabled)) input:checked + .design-system-choice-mark {
+        border-color: var(--design-system-semantic-color-action-background-hover);
+        background: var(--design-system-semantic-color-action-background-hover);
+    }
+
+    .design-system-choice input:focus-visible + .design-system-choice-mark {
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-choice:has(input[aria-invalid="true"]) .design-system-choice-mark {
+        border-color: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    .design-system-choice:has(input:disabled) {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+    }
+
+    .design-system-choice input:disabled + .design-system-choice-mark {
+        border-color: var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-semantic-color-surface-background-disabled);
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+    }
+
+    .design-system-choice input:disabled:is(:checked, :indeterminate) + .design-system-choice-mark {
+        border-color: var(--design-system-semantic-color-text-foreground-disabled);
+        background: var(--design-system-semantic-color-text-foreground-disabled);
+        color: var(--design-system-semantic-color-surface-background);
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-choice {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-choice > input:focus-visible + .design-system-choice-mark {
+            outline: var(--design-system-primitive-shape-border-width-2) solid Highlight;
+            outline-offset: var(--design-system-primitive-shape-border-width-2);
+        }
+
+        .design-system-choice > input:checked + .design-system-choice-mark,
+        .design-system-choice > input:indeterminate + .design-system-choice-mark {
+            border-color: Highlight;
+            background: Highlight;
+            color: HighlightText;
+            forced-color-adjust: none;
+        }
+    }
+}

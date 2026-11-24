@@ -1,0 +1,22 @@
+@layer design-system.foundation {
+    :where(h1, h2, h3, h4, p) {
+        margin-block-start: 0;
+    }
+
+    :where(h1, h2, h3, h4, .design-system-heading-1, .design-system-heading-2, .design-system-heading-3, .design-system-heading-4) {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    strong {
+        font-weight: var(--design-system-primitive-typography-weight-500);
+    }
+
+    p {
+        max-width: var(--design-system-semantic-layout-content-measure-readable);
+    }
+
+    a {
+        color: var(--design-system-semantic-color-text-foreground-accent);
+        text-underline-offset: var(--design-system-primitive-typography-underline-offset-0-2em);
+    }
+}

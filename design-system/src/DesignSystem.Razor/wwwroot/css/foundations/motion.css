@@ -1,0 +1,18 @@
+@layer design-system.foundation {
+    :where(button, input, select, textarea, [role="option"]) {
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            scroll-behavior: auto !important;
+            animation-duration: var(--design-system-primitive-timing-duration-0-01ms) !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: var(--design-system-primitive-timing-duration-0-01ms) !important;
+        }
+    }
+}
+

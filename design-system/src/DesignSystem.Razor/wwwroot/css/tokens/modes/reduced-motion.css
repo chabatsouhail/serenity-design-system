@@ -1,0 +1,11 @@
+@layer design-system.theme {
+    @media (prefers-reduced-motion: reduce) {
+        :root {
+            --design-system-semantic-motion-interaction-scale-press: 1;
+            --design-system-semantic-motion-interaction-scale-press-compact: 1;
+            --design-system-semantic-timing-interaction-duration-press: var(--design-system-primitive-timing-duration-0-01ms);
+            --design-system-semantic-timing-interaction-duration-release: var(--design-system-primitive-timing-duration-0-01ms);
+        }
+    }
+}
+

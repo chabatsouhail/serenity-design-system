@@ -1,0 +1,169 @@
+.harness-page {
+    min-width: 0;
+    margin: 0;
+    background: var(--design-system-semantic-color-surface-background);
+}
+
+.harness-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--design-system-primitive-elevation-layer-20);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--design-system-primitive-spacing-12);
+    padding: var(--design-system-primitive-spacing-10) var(--design-system-primitive-spacing-16);
+    border-bottom: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+    background: var(--design-system-semantic-color-surface-background-elevated);
+}
+
+.harness-header h1,
+.harness-category > h2,
+.harness-component h3,
+.harness-component h4 {
+    margin: 0;
+}
+
+.harness-header p,
+.harness-component p {
+    margin: 0;
+}
+
+.harness-heading {
+    display: grid;
+    gap: var(--design-system-primitive-spacing-4);
+    min-width: 0;
+}
+
+.harness-heading p,
+.harness-component > header p,
+.harness-caption {
+    color: var(--design-system-semantic-color-text-foreground-muted);
+    font: var(--design-system-semantic-typography-body-small);
+}
+
+.harness-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--design-system-primitive-spacing-6) var(--design-system-primitive-spacing-10);
+    padding: var(--design-system-primitive-spacing-10) var(--design-system-primitive-spacing-16);
+    border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+}
+
+.harness-main {
+    display: grid;
+    gap: var(--design-system-primitive-spacing-32);
+    width: min(100%, var(--design-system-semantic-layout-content-measure-wide));
+    margin-inline: auto;
+    padding: var(--design-system-primitive-spacing-20) var(--design-system-primitive-spacing-16) var(--design-system-primitive-spacing-48);
+}
+
+.harness-category {
+    display: grid;
+    gap: var(--design-system-primitive-spacing-16);
+    min-width: 0;
+}
+
+.harness-category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+    gap: var(--design-system-primitive-spacing-16);
+    min-width: 0;
+}
+
+.harness-component {
+    display: grid;
+    align-content: start;
+    gap: var(--design-system-primitive-spacing-12);
+    min-width: 0;
+    padding: var(--design-system-primitive-spacing-14);
+    border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+    border-radius: var(--design-system-semantic-shape-container-radius);
+    background: var(--design-system-semantic-color-surface-background-elevated);
+}
+
+.harness-component > header {
+    display: grid;
+    gap: var(--design-system-primitive-spacing-4);
+}
+
+.harness-specimen,
+.harness-stack,
+.harness-field-stack {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--design-system-primitive-spacing-10);
+    min-width: 0;
+}
+
+.harness-stack,
+.harness-field-stack {
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.harness-field-stack {
+    max-width: var(--design-system-semantic-layout-content-measure-readable);
+}
+
+.harness-overlay-stage {
+    position: relative;
+    min-height: calc(5 * var(--design-system-semantic-sizing-control-height-relaxed));
+}
+
+.harness-menu-stage {
+    min-height: calc(7 * var(--design-system-semantic-sizing-control-height-relaxed));
+}
+
+.harness-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--design-system-primitive-spacing-10);
+}
+
+.harness-skeleton-stack {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--design-system-primitive-spacing-8);
+    align-items: center;
+}
+
+.harness-skeleton-lines {
+    display: grid;
+    gap: var(--design-system-primitive-spacing-6);
+}
+
+.harness-skeleton-lines > :last-child {
+    width: 65%;
+}
+
+.harness-busy-content {
+    min-height: var(--design-system-semantic-layout-state-minimum-height);
+    padding: var(--design-system-primitive-spacing-14);
+}
+
+.harness-ready {
+    display: block;
+    padding-top: var(--design-system-primitive-spacing-16);
+    color: var(--design-system-semantic-color-text-foreground-muted);
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .harness-header {
+        position: static;
+        align-items: stretch;
+        flex-direction: column;
+        padding: var(--design-system-primitive-spacing-10);
+    }
+
+    .harness-index,
+    .harness-main {
+        padding-inline: var(--design-system-primitive-spacing-10);
+    }
+
+    .harness-component {
+        padding: var(--design-system-primitive-spacing-10);
+    }
+}

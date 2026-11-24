@@ -1,0 +1,6 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-empty-state-minimum-height: var(--design-system-semantic-layout-state-minimum-height);
+        --design-system-component-empty-state-content-measure: var(--design-system-semantic-layout-state-content-measure);
+    }
+}

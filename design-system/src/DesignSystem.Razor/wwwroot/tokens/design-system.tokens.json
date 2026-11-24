@@ -1,0 +1,70 @@
+{
+  "version": "18.1.0",
+  "foundationGroups": [
+    "color",
+    "typography",
+    "spacing",
+    "sizing",
+    "layout",
+    "shape",
+    "elevation",
+    "icons",
+    "motion",
+    "timing"
+  ],
+  "supportingPrimitiveGroups": [
+    "opacity"
+  ],
+  "densityModes": [
+    "compact",
+    "normal",
+    "relaxed"
+  ],
+  "typographyReadingStyles": [
+    "heading-1",
+    "heading-2",
+    "heading-3",
+    "heading-4",
+    "body-small",
+    "body",
+    "body-large",
+    "caption",
+    "code"
+  ],
+  "typographyInterfaceStyles": [
+    "label",
+    "label-compact",
+    "caption-compact",
+    "control",
+    "action-small",
+    "action",
+    "action-large"
+  ],
+  "componentGroups": [
+    "button",
+    "shell",
+    "table",
+    "textarea",
+    "number-field",
+    "choice",
+    "switch",
+    "picker",
+    "date-picker",
+    "navigation-list",
+    "badge",
+    "status",
+    "card",
+    "toast",
+    "progress",
+    "spinner",
+    "skeleton",
+    "empty-state",
+    "tooltip"
+  ],
+  "naming": {
+    "primitive": "--design-system-primitive-{primitive-group}-{optional-property-or-family}-{value}",
+    "semantic": "--design-system-semantic-{foundation-group}-{role}-{property}-{optional-variant}-{optional-tone}-{optional-state}",
+    "semanticTypography": "--design-system-semantic-typography-{type-style}",
+    "component": "--design-system-component-{component-group}-{property}-{optional-variant}-{optional-tone}-{optional-state}"
+  }
+}

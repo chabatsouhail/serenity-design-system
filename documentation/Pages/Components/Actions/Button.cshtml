@@ -1,0 +1,406 @@
+@page "/components/actions/button"
+@{
+    ViewData["Title"] = "Button";
+
+    var sharedFoundationRows = new[]
+    {
+        new { Foundation = "Typography", Tokens = new[] { "--design-system-semantic-typography-action" }, Summary = "Shared Action Type Style: 13px with 500 weight." },
+        new { Foundation = "Spacing", Tokens = new[] { "--design-system-semantic-spacing-control-padding-inline", "--design-system-primitive-spacing-8" }, Summary = "14px Container inset and an 8px gap between adjacent content parts." },
+        new { Foundation = "Sizing", Tokens = new[] { "--design-system-semantic-sizing-control-height-normal" }, Summary = "34px normal Control height; Icon-only width matches the height." },
+        new { Foundation = "Shape", Tokens = new[] { "--design-system-component-button-radius", "--design-system-semantic-shape-boundary-width" }, Summary = "8px Container radius with a geometry-preserving 1px boundary." },
+        new { Foundation = "Icons", Tokens = new[] { "--design-system-semantic-icons-control-size-medium" }, Summary = "Optional 16px leading or trailing Icons." },
+        new { Foundation = "Motion", Tokens = new[] { "--design-system-semantic-motion-interaction-scale-press", "--design-system-semantic-motion-interaction-scale-press-compact" }, Summary = "Pressed feedback scales label-bearing and Icon-only compositions without changing layout." },
+        new { Foundation = "Timing", Tokens = new[] { "--design-system-semantic-timing-interaction-duration-press", "--design-system-semantic-timing-interaction-duration-release", "--design-system-semantic-timing-interaction-easing-press" }, Summary = "Shared press and release timing across every Variant and Style." },
+        new { Foundation = "Color", Tokens = Array.Empty<string>(), Summary = "Resolved separately by Variant and Style; Color does not change the anatomy." }
+    };
+
+    var anatomyStates = new[]
+    {
+        new { Slug = "normal", Name = "Normal", PreviewState = (string?)null, Disabled = false, Purpose = "Resting presentation; no behavioral delta is active.", Tokens = Array.Empty<string>() },
+        new { Slug = "hover", Name = "Hover", PreviewState = (string?)"hover", Disabled = false, Purpose = "Uses the interactive background while preserving the same size and part positions.", Tokens = new[] { "--design-system-component-button-background-filled-hover", "--design-system-semantic-timing-interaction-duration-release" } },
+        new { Slug = "pressed", Name = "Pressed", PreviewState = (string?)"active", Disabled = false, Purpose = "Adds the press scale and faster timing around the unchanged Container anatomy.", Tokens = new[] { "--design-system-semantic-motion-interaction-scale-press", "--design-system-semantic-timing-interaction-duration-press" } },
+        new { Slug = "focused", Name = "Focused", PreviewState = (string?)"focus", Disabled = false, Purpose = "Adds an external focus ring without changing the Button dimensions.", Tokens = new[] { "--design-system-semantic-shape-focus-width", "--design-system-semantic-color-focus-ring" } },
+        new { Slug = "disabled", Name = "Disabled", PreviewState = (string?)null, Disabled = true, Purpose = "Disables interaction and remaps boundary, background, and foreground while retaining the same anatomy.", Tokens = new[] { "--design-system-semantic-color-surface-background-disabled", "--design-system-semantic-color-text-foreground-disabled" } }
+    };
+
+    var variantComparisons = new[]
+    {
+        new { Slug = "filled", Name = "Filled", Variant = ButtonVariant.Filled, Purpose = "Persistent high-emphasis Container fill.", Resting = "Filled background", Interactive = "Stronger Filled background", Tokens = new[] { "--design-system-component-button-background-filled", "--design-system-component-button-background-filled-hover", "--design-system-component-button-foreground-filled" } },
+        new { Slug = "tonal", Name = "Tonal", Variant = ButtonVariant.Tonal, Purpose = "Persistent low-emphasis Container fill.", Resting = "Tonal background", Interactive = "Stronger Tonal background", Tokens = new[] { "--design-system-component-button-background-tonal-accent", "--design-system-component-button-background-tonal-accent-hover", "--design-system-component-button-foreground-tonal-accent" } },
+        new { Slug = "text", Name = "Text", Variant = ButtonVariant.Text, Purpose = "Transparent at rest; a Tonal background appears during interaction.", Resting = "Transparent background", Interactive = "Tonal interaction background", Tokens = new[] { "--design-system-component-button-background-tonal-accent", "--design-system-component-button-foreground-tonal-accent" } }
+    };
+
+    var styleComparisons = new[]
+    {
+        new { Slug = "tint", Name = "Tint", Tone = SemanticTone.Accent, Purpose = "Identifies an emphasized or brand-aligned Action.", Availability = "Filled · Tonal · Text", Tokens = new[] { "--design-system-component-button-background-tonal-accent", "--design-system-component-button-background-tonal-accent-hover", "--design-system-component-button-foreground-tonal-accent" } },
+        new { Slug = "neutral", Name = "Neutral", Tone = SemanticTone.Neutral, Purpose = "Keeps supporting Actions visible without status or urgency.", Availability = "Tonal · Text", Tokens = new[] { "--design-system-component-button-background-tonal-neutral", "--design-system-component-button-background-tonal-neutral-hover", "--design-system-component-button-foreground-tonal-neutral" } },
+        new { Slug = "negative", Name = "Negative", Tone = SemanticTone.Danger, Purpose = "Communicates a destructive or irreversible Action.", Availability = "Filled · Tonal · Text", Tokens = new[] { "--design-system-component-button-background-tonal-danger", "--design-system-component-button-background-tonal-danger-hover", "--design-system-component-button-foreground-tonal-danger" } }
+    };
+
+    var componentTokenGroups = new[]
+    {
+        new
+        {
+            Slug = "geometry",
+            Name = "Geometry",
+            Purpose = "The Button-owned geometry decision shared by every Variant and Style.",
+            Tokens = new[]
+            {
+                new { Role = "Container radius", Token = "--design-system-component-button-radius", Resolution = "--design-system-semantic-shape-control-radius" }
+            }
+        },
+        new
+        {
+            Slug = "filled",
+            Name = "Filled",
+            Purpose = "Opaque Container colors for the highest-emphasis Tint and Negative Actions.",
+            Tokens = new[]
+            {
+                new { Role = "Tint background", Token = "--design-system-component-button-background-filled", Resolution = "--design-system-semantic-color-action-background" },
+                new { Role = "Tint hover background", Token = "--design-system-component-button-background-filled-hover", Resolution = "--design-system-semantic-color-action-background-hover" },
+                new { Role = "Tint foreground", Token = "--design-system-component-button-foreground-filled", Resolution = "--design-system-semantic-color-text-foreground-inverse" },
+                new { Role = "Negative background", Token = "--design-system-component-button-background-filled-danger", Resolution = "--design-system-semantic-color-action-background-danger" },
+                new { Role = "Negative hover background", Token = "--design-system-component-button-background-filled-danger-hover", Resolution = "--design-system-semantic-color-action-background-danger-hover" },
+                new { Role = "Negative foreground", Token = "--design-system-component-button-foreground-filled-danger", Resolution = "--design-system-semantic-color-text-foreground-inverse" }
+            }
+        },
+        new
+        {
+            Slug = "tonal-text",
+            Name = "Tonal and Text",
+            Purpose = "Shared low-emphasis colors; Text remains transparent at rest and reuses these backgrounds during interaction.",
+            Tokens = new[]
+            {
+                new { Role = "Neutral background", Token = "--design-system-component-button-background-tonal-neutral", Resolution = "--design-system-semantic-color-action-background-neutral" },
+                new { Role = "Neutral hover background", Token = "--design-system-component-button-background-tonal-neutral-hover", Resolution = "--design-system-semantic-color-action-background-neutral-hover" },
+                new { Role = "Neutral foreground", Token = "--design-system-component-button-foreground-tonal-neutral", Resolution = "--design-system-semantic-color-action-foreground-neutral" },
+                new { Role = "Tint background", Token = "--design-system-component-button-background-tonal-accent", Resolution = "--design-system-semantic-color-status-background-info" },
+                new { Role = "Tint hover background", Token = "--design-system-component-button-background-tonal-accent-hover", Resolution = "Info background mixed with Action background at 12%" },
+                new { Role = "Tint foreground", Token = "--design-system-component-button-foreground-tonal-accent", Resolution = "--design-system-semantic-color-status-foreground-info" },
+                new { Role = "Negative background", Token = "--design-system-component-button-background-tonal-danger", Resolution = "--design-system-semantic-color-status-background-danger" },
+                new { Role = "Negative hover background", Token = "--design-system-component-button-background-tonal-danger-hover", Resolution = "Danger background mixed with Danger foreground at 10%" },
+                new { Role = "Negative foreground", Token = "--design-system-component-button-foreground-tonal-danger", Resolution = "--design-system-semantic-color-status-foreground-danger" }
+            }
+        }
+    };
+
+    var inheritedTokenGroups = new[]
+    {
+        new
+        {
+            Slug = "structure",
+            Name = "Structure",
+            Purpose = "Foundation inputs that establish the Button’s measurable anatomy.",
+            Tokens = new[]
+            {
+                new { Role = "Normal height", Token = "--design-system-semantic-sizing-control-height-normal", Resolution = "34px" },
+                new { Role = "Inline padding", Token = "--design-system-semantic-spacing-control-padding-inline", Resolution = "14px on each side" },
+                new { Role = "Content gap", Token = "--design-system-primitive-spacing-8", Resolution = "8px between adjacent parts" },
+                new { Role = "Action Type Style", Token = "--design-system-semantic-typography-action", Resolution = "13px · 500 · solid Line Height" },
+                new { Role = "Control Icon", Token = "--design-system-semantic-icons-control-size-medium", Resolution = "16px" },
+                new { Role = "Boundary width", Token = "--design-system-semantic-shape-boundary-width", Resolution = "1px" }
+            }
+        },
+        new
+        {
+            Slug = "interaction",
+            Name = "Interaction",
+            Purpose = "Shared state feedback inherited without changing Button geometry.",
+            Tokens = new[]
+            {
+                new { Role = "Pressed scale", Token = "--design-system-semantic-motion-interaction-scale-press", Resolution = "0.97 for label-bearing Buttons" },
+                new { Role = "Compact pressed scale", Token = "--design-system-semantic-motion-interaction-scale-press-compact", Resolution = "0.95 for Icon-only Buttons" },
+                new { Role = "Press duration", Token = "--design-system-semantic-timing-interaction-duration-press", Resolution = "80ms" },
+                new { Role = "Release duration", Token = "--design-system-semantic-timing-interaction-duration-release", Resolution = "120ms" },
+                new { Role = "Press easing", Token = "--design-system-semantic-timing-interaction-easing-press", Resolution = "cubic-bezier(0, 0, 0.2, 1)" },
+                new { Role = "Focus width", Token = "--design-system-semantic-shape-focus-width", Resolution = "2px external ring" },
+                new { Role = "Focus Color", Token = "--design-system-semantic-color-focus-ring", Resolution = "Theme-resolved focus foreground" },
+                new { Role = "Disabled background", Token = "--design-system-semantic-color-surface-background-disabled", Resolution = "Theme-resolved disabled Surface" },
+                new { Role = "Disabled foreground", Token = "--design-system-semantic-color-text-foreground-disabled", Resolution = "Theme-resolved disabled text" }
+            }
+        }
+    };
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/button-reference.css" asp-append-version="true" />
+}
+@section Scripts {
+    <script type="module" src="~/js/button-reference.js" asp-append-version="true"></script>
+}
+<article class="documentation-page documentation-component-page documentation-tabbed-component-page documentation-button-page button-reference" aria-labelledby="documentation-page-title" data-button-reference>
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Components · Actions</span>
+            <h1 id="documentation-page-title">Button</h1>
+            <p class="documentation-lead">One action, clearly expressed. Build from a shared anatomy, choose its emphasis and intent, then test the result.</p>
+        </div>
+    </header>
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="button-page-tabs">
+        <span class="documentation-page-context-sentinel" aria-hidden="true" data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true"><span class="documentation-page-compact-title-text">Button</span><span class="documentation-page-compact-section" data-documentation-page-compact-section></span></span>
+            <div class="documentation-page-compact-controls" data-documentation-page-compact-controls></div>
+            <div class="design-system-tab-list" role="tablist" aria-label="Button documentation sections">
+                @foreach (var tab in new[] { "Anatomy", "Variants", "Style", "Preview", "Tokens" })
+                {
+                    var key = tab.ToLowerInvariant();
+                    <button class="design-system-tab" id="button-page-tab-@key" type="button" role="tab" aria-selected="@(key == "anatomy" ? "true" : "false")" aria-controls="button-page-panel-@key" tabindex="@(key == "anatomy" ? "0" : "-1")" data-design-system-tab data-design-system-value="@key">@tab</button>
+                }
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel" id="button-page-panel-anatomy" role="tabpanel" aria-labelledby="button-page-tab-anatomy" data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" id="anatomy" aria-labelledby="button-anatomy-title">
+                <h2 class="design-system-visually-hidden" id="button-anatomy-title">Anatomy</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-shared-anatomy-title" aria-current="location">Construction</a>
+                            <ol class="documentation-reference-toc-sublist"><li><a class="design-system-tab documentation-reference-toc-child" href="#button-spacing-title">Spacing</a></li><li><a class="design-system-tab documentation-reference-toc-child" href="#button-foundation-recipe-title">Foundation recipe</a></li></ol>
+                        </li>
+                        <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-compositions-title">Compositions</a></li>
+                        <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-sizing-title">Sizing</a></li>
+                    </ol>
+                </nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-shared-anatomy-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-shared-anatomy-title">Construction</h3><p>Start with a Filled, Tint Button. The same structure carries every supported Variant and Style.</p></div>
+                        <figure class="button-reference-blueprint" data-button-blueprint data-diagram-mode="spacing">
+                            <div class="button-reference-frame-toolbar">
+                                <span class="button-reference-caption">Filled · Tint · Normal</span>
+                                <partial name="_ButtonReferenceControl" model='@(new ButtonReferenceControl("diagram", "Anatomy view", "spacing", [new("parts", "Parts"), new("spacing", "Spacing"), new("type", "Type & shape")]))' />
+                            </div>
+                            <div class="button-reference-drawing" data-button-drawing>
+                                <div class="button-reference-magnified" data-button-magnified><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen())" /></div>
+                                <svg class="button-reference-guides" data-button-guides aria-hidden="true"></svg>
+                            </div>
+                            <figcaption><span data-button-diagram-caption>14px inside each boundary. 8px between adjacent content parts. The container owns all spacing.</span><span data-button-zoom-label>Enlarged view</span></figcaption>
+                        </figure>
+                        <dl class="button-reference-metrics" aria-label="Default Button measurements">
+                            <div><dt>Height</dt><dd>34<span>px</span></dd></div>
+                            <div><dt>Inline padding</dt><dd>14<span>px</span></dd></div>
+                            <div><dt>Content gap</dt><dd>8<span>px</span></dd></div>
+                            <div><dt>Icon</dt><dd>16<span>px</span></dd></div>
+                            <div><dt>Radius</dt><dd>8<span>px</span></dd></div>
+                            <div><dt>Boundary</dt><dd>1<span>px</span></dd></div>
+                        </dl>
+                        <section class="documentation-subsection button-reference-subsection" aria-labelledby="button-spacing-title">
+                            <div class="documentation-subsection-heading"><h4 id="button-spacing-title">Where the space comes from</h4><p>The Label and Icons have no individual padding. The Container sets the inset, centers the content, and separates adjacent parts.</p></div>
+                            <div class="button-reference-spacing-recipe">
+                                <div><strong>Edges</strong><p>1px boundary + 14px padding on each side. Padding is measured from the inside of the boundary.</p></div>
+                                <div><strong>Between parts</strong><p>8px from leading Icon to Label, and 8px from Label to trailing Icon. Missing parts leave no extra gap.</p></div>
+                                <div><strong>Above and below</strong><p>Vertical space comes from centering within the fixed height. At 34px, a 16px Icon has 8px clearance inside each boundary; the 13px Label line box has 9.5px.</p></div>
+                            </div>
+                        </section>
+                        <section class="documentation-subsection button-reference-subsection" aria-labelledby="button-foundation-recipe-title">
+                            <div class="documentation-subsection-heading"><h4 id="button-foundation-recipe-title">Foundation recipe</h4><p>The exact decisions behind the specimen. Expand a foundation to inspect its source Tokens.</p></div>
+                            <div class="button-reference-recipe">
+                                @foreach (var row in sharedFoundationRows)
+                                {
+                                    <details>
+                                        <summary><span>@row.Foundation</span><span>@row.Summary</span><design-system-icon name="@IconName.ChevronDown" size="@ComponentSize.Small" decorative="true"></design-system-icon></summary>
+                                        <div class="button-reference-recipe-content">
+                                            @if (row.Tokens.Length == 0) { <p>Inspect the Style tab for the Color matrix and the Tokens tab for exact mappings.</p> }
+                                            @foreach (var token in row.Tokens) { <code>@token</code> }
+                                        </div>
+                                    </details>
+                                }
+                            </div>
+                        </section>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-compositions-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-compositions-title">Compositions</h3><p>Five content arrangements. Add or remove parts; keep their order and spacing.</p></div>
+                        <div class="button-reference-compositions">
+                            @foreach (var composition in new[] { ("label", "Label only", "The action is fully expressed by its text."), ("leading", "Leading Icon", "An Icon reinforces the action before the Label."), ("trailing", "Trailing Icon", "An Icon follows the Label, often suggesting direction."), ("both", "Both Icons", "Each Icon has one 8px gap to the Label."), ("icon", "Icon only", "A square Container; an accessible name is required.") })
+                            {
+                                <div class="button-reference-composition">
+                                    <div><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Composition: composition.Item1))" /></div>
+                                    <div><h4>@composition.Item2</h4><p>@composition.Item3</p></div>
+                                </div>
+                            }
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-sizing-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-sizing-title">Sizing</h3><p>Size changes the Container height and Label type. The 14px inline padding, 8px content gap, and illustrated 16px Icons remain stable.</p></div>
+                        <div class="button-reference-comparison-grid">
+                            @foreach (var size in new[] { (ComponentSize.Small, "Small", "30px", "12px / 500"), (ComponentSize.Medium, "Normal", "34px", "13px / 500"), (ComponentSize.Large, "Large", "44px", "14px / 500") })
+                            {
+                                <figure><figcaption><strong>@size.Item2</strong><span>@size.Item3 height · @size.Item4 type</span></figcaption><div class="button-reference-sample"><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Size: size.Item1, Composition: "leading"))" /></div></figure>
+                            }
+                        </div>
+                        <p class="button-reference-note">Normal size follows the surrounding Density. Explicit Small and Large sizes override it. Coarse pointers receive at least 44px height.</p>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="button-page-panel-variants" role="tabpanel" aria-labelledby="button-page-tab-variants" data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" aria-labelledby="button-variants-title">
+                <h2 class="design-system-visually-hidden" id="button-variants-title">Variants</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc><ol class="documentation-reference-toc-list">
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-variant-model-title" aria-current="location">Emphasis</a><ol class="documentation-reference-toc-sublist">@foreach(var variant in variantComparisons){<li><a class="design-system-tab documentation-reference-toc-child" href="#button-variant-@variant.Slug-title">@variant.Name</a></li>}</ol></li>
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-action-hierarchy-title">Actions together</a></li>
+                </ol></nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-variant-model-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-variant-model-title">Choose the emphasis</h3><p>Variant answers how strongly an action should stand out. Compare the same Label, Icon, and Tint at three levels.</p></div>
+                        <div class="button-reference-comparison-grid">
+                            @foreach(var variant in variantComparisons) {
+                                <figure><figcaption><strong>@variant.Name</strong><span>@(variant.Slug == "filled" ? "High emphasis" : variant.Slug == "tonal" ? "Medium emphasis" : "Low emphasis")</span></figcaption><div class="button-reference-sample"><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Variant: variant.Variant, Composition: "leading"))" /></div></figure>
+                            }
+                        </div>
+                        <div class="documentation-button-subsection-list">
+                            @foreach(var variant in variantComparisons) {
+                                <section class="documentation-subsection button-reference-subsection" aria-labelledby="button-variant-@variant.Slug-title">
+                                    <div class="documentation-subsection-heading"><h4 id="button-variant-@variant.Slug-title">@variant.Name</h4><p>@(variant.Slug == "filled" ? "Use for the strongest action in a related group. Its persistent solid fill gives it priority." : variant.Slug == "tonal" ? "Use for supporting actions that still need a visible Container. Its softer fill separates it from the strongest action." : "Use for the quietest actions. Its transparent resting surface reduces visual weight while preserving the same hit area.")</p></div>
+                                    <div class="button-reference-variant-detail"><div><span>At rest</span><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Variant: variant.Variant, Composition: "label"))" /></div><div><span>On Hover</span><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Variant: variant.Variant, Composition: "label", State: "hover"))" /></div><p>@variant.Purpose<br />@variant.Interactive on Hover.</p></div>
+                                </section>
+                            }
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-action-hierarchy-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-action-hierarchy-title">Actions together</h3><p>Establish priority within the group. Keep supporting and dismissive actions quieter than the primary action.</p></div>
+                        <div class="button-reference-context-example"><div><strong>Customer record</strong><p>Review the changes before saving.</p></div><div class="design-system-button-group"><design-system-button variant="@ButtonVariant.Text">Cancel</design-system-button><design-system-button variant="@ButtonVariant.Tonal">Save draft</design-system-button><design-system-button variant="@ButtonVariant.Filled" tone="@SemanticTone.Accent">Save changes</design-system-button></div></div>
+                        <p class="button-reference-note">Variant sets emphasis. Style sets intent. A Negative action can be Filled, Tonal, or Text depending on its priority in context.</p>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="button-page-panel-style" role="tabpanel" aria-labelledby="button-page-tab-style" data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" aria-labelledby="button-style-title">
+                <h2 class="design-system-visually-hidden" id="button-style-title">Style</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc><ol class="documentation-reference-toc-list">
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-style-model-title" aria-current="location">Intent & availability</a></li>
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-states-title">Interaction states</a></li>
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-loading-title">Loading</a></li>
+                </ol></nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-style-model-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-style-model-title">Intent & availability</h3><p>Read across to compare emphasis; read down to compare meaning. The geometry is shared by every supported combination.</p></div>
+                        <div class="design-system-table-wrap button-reference-matrix-wrap" role="region" aria-label="Button Variant and Style combinations" tabindex="0">
+                            <table class="design-system-table button-reference-matrix"><thead><tr><th scope="col">Style</th>@foreach(var variant in variantComparisons){<th scope="col">@variant.Name</th>}</tr></thead><tbody>
+                                @foreach(var style in styleComparisons) {
+                                    <tr><th scope="row"><strong>@style.Name</strong><span>@(style.Slug == "tint" ? "Emphasized action" : style.Slug == "neutral" ? "Supporting action" : "Destructive action")</span></th>
+                                        @foreach(var variant in variantComparisons) {
+                                            <td>@if(variant.Variant == ButtonVariant.Filled && style.Tone == SemanticTone.Neutral){<span class="button-reference-unavailable">Not supported</span>}else{<partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Variant: variant.Variant, Tone: style.Tone, Composition: "label", Label: style.Slug == "negative" ? "Delete record" : "Save changes"))" />}</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody></table>
+                        </div>
+                        <p class="button-reference-note">Filled supports Tint and Negative. Neutral is available in Tonal and Text. Use a clear destructive Label as well as the Negative Color.</p>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-states-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-states-title">Interaction states</h3><p>One Filled Tint Button through its interaction states. These previews use the same state styling as the live component.</p></div>
+                        <div class="button-reference-state-list">
+                            @foreach(var state in anatomyStates) {
+                                <section id="button-state-@state.Slug-title"><div><h4>@state.Name</h4><p>@state.Purpose</p></div><div><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Composition: "leading", State: state.Slug))" /></div></section>
+                            }
+                        </div>
+                        <dl class="button-reference-interaction-facts"><div><dt>Press</dt><dd>80ms · scale 0.97</dd></div><div><dt>Release</dt><dd>120ms · return to rest</dd></div><div><dt>Focus</dt><dd>2px external ring</dd></div></dl>
+                        <p class="button-reference-note">Icon-only press scale is 0.95. Reduced motion suppresses transform animation and retains visible state feedback. Disabled Text Buttons stay transparent.</p>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-loading-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-loading-title">Loading is an outcome state</h3><p>Keep the action’s Label, add a Spinner and announce progress. The loading contract disables repeated activation until the application finishes.</p></div>
+                        <div class="button-reference-variant-detail"><div><span>Ready</span><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen(Composition: "label"))" /></div><div><span>Saving</span><partial name="_ButtonSpecimen" model='@(new ButtonSpecimen(Composition: "label", State: "loading"))' /></div><p>The consuming application owns the request, completion, and error handling.</p></div>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="button-page-panel-preview" role="tabpanel" aria-labelledby="button-page-tab-preview" data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" aria-labelledby="button-preview-title">
+                <h2 class="design-system-visually-hidden" id="button-preview-title">Preview</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc><ol class="documentation-reference-toc-list">
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-playground-title" aria-current="location">Playground</a></li>
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-implementation-title">Implementation</a></li>
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-accessibility-title">Behavior & access</a></li>
+                </ol></nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-playground-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-playground-title">Playground</h3><p>Change one decision at a time, then interact with the result. Measurements and markup follow the current configuration.</p></div>
+                        <div data-button-playground>
+                            <div class="button-reference-lab">
+                                <div class="button-reference-lab-stage" data-button-lab-stage>
+                                    <div class="button-reference-frame-toolbar"><span class="button-reference-caption">Live component · actual size</span>
+                                        <partial name="_ButtonReferenceControl" model='@(new ButtonReferenceControl("theme", "Page theme", "light", [new("light", "Light"), new("dark", "Dark")]))' />
+                                    </div>
+                                    <div class="button-reference-live-area" data-button-live-area><partial name="_ButtonSpecimen" model="@(new ButtonSpecimen())" /></div>
+                                    <div class="button-reference-live-meta"><span data-button-live-measure>34px high · 14px padding · 8px gap</span><span data-button-live-status role="status">Click to test the action.</span></div>
+                                </div>
+                                <div class="button-reference-lab-controls">
+                                    <div class="button-reference-control-heading"><strong>Configuration</strong><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" data-button-reset>Reset</design-system-button></div>
+                                    @{
+                                        var controls = new[] {
+                                            new ButtonReferenceControl("variant", "Variant", "filled", [new("filled", "Filled"), new("tonal", "Tonal"), new("text", "Text")]),
+                                            new ButtonReferenceControl("tone", "Style", "accent", [new("accent", "Tint"), new("neutral", "Neutral"), new("danger", "Negative")]),
+                                            new ButtonReferenceControl("size", "Size", "medium", [new("small", "Small"), new("medium", "Normal"), new("large", "Large")]),
+                                            new ButtonReferenceControl("composition", "Composition", "both", [new("label", "Label"), new("leading", "Leading"), new("trailing", "Trailing"), new("both", "Both"), new("icon", "Icon only")]),
+                                            new ButtonReferenceControl("state", "State", "normal", [new("normal", "Normal"), new("hover", "Hover"), new("pressed", "Pressed"), new("focused", "Focused"), new("disabled", "Disabled"), new("loading", "Loading")]),
+                                            new ButtonReferenceControl("width", "Width", "content", [new("content", "Content"), new("block", "Full width")])
+                                        };
+                                    }
+                                    @foreach(var control in controls){<div class="button-reference-control-row"><span>@control.Label</span><partial name="_ButtonReferenceControl" model="@control" /></div>}
+                                    <div class="design-system-field-group"><label class="design-system-field-label" for="button-playground-label">Label / accessible name</label><input class="design-system-field" id="button-playground-label" value="Save changes" maxlength="100" data-button-label /></div>
+                                    <label class="design-system-switch"><input type="checkbox" role="switch" data-button-wrap /><span class="design-system-switch-track"><span class="design-system-switch-thumb"></span></span><span>Allow Label wrapping</span></label>
+                                    <p class="button-reference-note" data-button-adjustment role="status">Filled supports Tint and Negative.</p>
+                                </div>
+                            </div>
+                            <noscript><p>Enable JavaScript to change this preview. The default Button and all reference content remain available.</p></noscript>
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-implementation-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-implementation-title">Use this configuration</h3><p>Public HTML for the current preview. Simulated Hover, Pressed, and Focused states are inspection aids and are excluded from the markup.</p></div>
+                        <div class="button-reference-code"><div><span>HTML</span><design-system-button variant="@ButtonVariant.Text" size="@ComponentSize.Small" data-button-copy>Copy markup</design-system-button></div><pre tabindex="0" aria-label="Button implementation"><code data-button-code>&lt;button type="button" class="design-system-button"
+        data-design-system-variant="filled"
+        data-design-system-tone="accent"&gt;
+    Save changes
+&lt;/button&gt;</code></pre><span class="design-system-visually-hidden" data-button-copy-status role="status"></span></div>
+                        <p class="button-reference-note">Tint maps to <code>accent</code> and Negative maps to <code>danger</code> in the public contract. The Razor helper is <code>&lt;design-system-button&gt;</code>.</p>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-accessibility-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-accessibility-title">Behavior & access</h3><p>The control keeps native Button semantics. Applications supply the action and its result.</p></div>
+                        <dl class="button-reference-behavior"><div><dt>Keyboard</dt><dd>Tab focuses an enabled Button. Enter or Space activates it. Focus stays visible.</dd></div><div><dt>Names</dt><dd>Use a concise verb in the Label. Icon-only Buttons need an accessible name that describes the action.</dd></div><div><dt>Forms & navigation</dt><dd>Use <code>type="submit"</code> to submit a form. Use an anchor with a real <code>href</code> when the result is navigation. Set ordinary actions to <code>type="button"</code>.</dd></div><div><dt>Long content</dt><dd>Width follows the Label by default. Choose full width for its parent’s available space and enable wrapping when the complete Label must fit a narrow area.</dd></div><div><dt>Without JavaScript</dt><dd>Native Buttons, links, and form submission still work. The interactive documentation controls need enhancement.</dd></div><div><dt>Loading & disabled</dt><dd>Prevent repeated activation during loading and provide a status message. Native disabled Buttons leave the Tab order.</dd></div></dl>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="button-page-panel-tokens" role="tabpanel" aria-labelledby="button-page-tab-tokens" data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" aria-labelledby="button-tokens-title">
+                <h2 class="design-system-visually-hidden" id="button-tokens-title">Tokens</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc><ol class="documentation-reference-toc-list">
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-component-tokens-title" aria-current="location">Component Tokens</a><ol class="documentation-reference-toc-sublist">@foreach(var group in componentTokenGroups){<li><a class="design-system-tab documentation-reference-toc-child" href="#button-token-@group.Slug-title">@group.Name</a></li>}</ol></li>
+                    <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#button-foundation-tokens-title">Foundation inputs</a><ol class="documentation-reference-toc-sublist">@foreach(var group in inheritedTokenGroups){<li><a class="design-system-tab documentation-reference-toc-child" href="#button-token-@group.Slug-title">@group.Name</a></li>}</ol></li>
+                </ol></nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-component-tokens-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-component-tokens-title">Component Tokens</h3><p>Button-owned decisions resolve through shared foundations. Follow the mapping from responsibility to Token to source.</p></div>
+                        <div class="button-reference-token-tools"><label class="design-system-visually-hidden" for="button-token-search">Find a Button token</label><div class="design-system-search" data-design-system-search><design-system-icon name="@IconName.Search" size="@ComponentSize.Small" decorative="true"></design-system-icon><input id="button-token-search" type="search" placeholder="Find a token, role, or value…" data-button-token-search /><button class="design-system-search-clear" type="button" aria-label="Clear token search" data-design-system-search-clear><design-system-icon name="@IconName.Close" size="@ComponentSize.Small" decorative="true"></design-system-icon></button></div><span data-button-token-count role="status"></span></div>
+                        <div class="documentation-button-subsection-list">
+                            @foreach(var group in componentTokenGroups) {
+                                <section class="documentation-subsection button-reference-subsection" aria-labelledby="button-token-@group.Slug-title" data-button-token-group><div class="documentation-subsection-heading"><h4 id="button-token-@group.Slug-title">@group.Name</h4><p>@group.Purpose</p></div>
+                                    <div class="design-system-table-wrap button-reference-token-wrap" role="region" aria-label="@group.Name Tokens" tabindex="0"><table class="design-system-table button-reference-token-table"><colgroup><col class="button-reference-role-col" /><col class="button-reference-name-col" /><col class="button-reference-source-col" /></colgroup><thead><tr><th scope="col">Role</th><th scope="col">Token</th><th scope="col">Source</th></tr></thead><tbody>@foreach(var token in group.Tokens){<tr data-button-token-row><th scope="row">@token.Role</th><td><code>@token.Token</code></td><td><code>@token.Resolution</code></td></tr>}</tbody></table></div>
+                                    <p class="button-reference-note" data-button-group-empty hidden>No matching Tokens in this group.</p>
+                                </section>
+                            }
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="button-foundation-tokens-title">
+                        <div class="documentation-subsection-heading"><h3 id="button-foundation-tokens-title">Foundation inputs</h3><p>Shared structural and interaction decisions consumed directly by the Button.</p></div>
+                        <div class="documentation-button-subsection-list">
+                            @foreach(var group in inheritedTokenGroups) {
+                                <section class="documentation-subsection button-reference-subsection" aria-labelledby="button-token-@group.Slug-title" data-button-token-group><div class="documentation-subsection-heading"><h4 id="button-token-@group.Slug-title">@group.Name</h4><p>@group.Purpose</p></div>
+                                    <div class="design-system-table-wrap button-reference-token-wrap" role="region" aria-label="@group.Name Tokens" tabindex="0"><table class="design-system-table button-reference-token-table"><colgroup><col class="button-reference-role-col" /><col class="button-reference-name-col" /><col class="button-reference-source-col" /></colgroup><thead><tr><th scope="col">Role</th><th scope="col">Token</th><th scope="col">Value / behavior</th></tr></thead><tbody>@foreach(var token in group.Tokens){<tr data-button-token-row><th scope="row">@token.Role</th><td><code>@token.Token</code></td><td>@token.Resolution</td></tr>}</tbody></table></div>
+                                    <p class="button-reference-note" data-button-group-empty hidden>No matching Tokens in this group.</p>
+                                </section>
+                            }
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</article>

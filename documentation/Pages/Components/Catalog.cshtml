@@ -1,0 +1,173 @@
+@page "/components/{group}/{slug}"
+@model DesignSystem.Documentation.Pages.Components.CatalogModel
+@{
+    var component = Model.Definition;
+    var prefix = $"component-{component.Slug}";
+}
+
+<article class="documentation-page documentation-component-page documentation-tabbed-component-page documentation-button-page documentation-catalog-component-page" aria-labelledby="documentation-page-title">
+    <header class="documentation-page-header">
+        <div class="documentation-page-heading">
+            <span class="documentation-eyebrow">Components · @component.Group</span>
+            <h1 id="documentation-page-title">@component.Name</h1>
+            <p class="documentation-lead">@component.Purpose</p>
+        </div>
+    </header>
+
+    <div class="design-system-tabs documentation-page-tabs" data-design-system-tabs id="@prefix-page-tabs">
+        <span class="documentation-page-context-sentinel" aria-hidden="true" data-documentation-page-context-sentinel></span>
+        <div class="documentation-page-tabs-context" data-documentation-page-context>
+            <span class="documentation-page-compact-title" aria-hidden="true">
+                <span class="documentation-page-compact-title-text">@component.Name</span>
+                <span class="documentation-page-compact-section" data-documentation-page-compact-section></span>
+            </span>
+            <div class="documentation-page-compact-controls" data-documentation-page-compact-controls></div>
+            <div class="design-system-tab-list" role="tablist" aria-label="@component.Name documentation sections">
+                <button class="design-system-tab" id="@prefix-page-tab-anatomy" type="button" role="tab" aria-selected="true" aria-controls="@prefix-page-panel-anatomy" data-design-system-tab data-design-system-value="anatomy">Anatomy</button>
+                <button class="design-system-tab" id="@prefix-page-tab-variants" type="button" role="tab" aria-selected="false" aria-controls="@prefix-page-panel-variants" tabindex="-1" data-design-system-tab data-design-system-value="variants">Variants</button>
+                <button class="design-system-tab" id="@prefix-page-tab-style" type="button" role="tab" aria-selected="false" aria-controls="@prefix-page-panel-style" tabindex="-1" data-design-system-tab data-design-system-value="style">Style</button>
+                <button class="design-system-tab" id="@prefix-page-tab-preview" type="button" role="tab" aria-selected="false" aria-controls="@prefix-page-panel-preview" tabindex="-1" data-design-system-tab data-design-system-value="preview">Preview</button>
+                <button class="design-system-tab" id="@prefix-page-tab-tokens" type="button" role="tab" aria-selected="false" aria-controls="@prefix-page-panel-tokens" tabindex="-1" data-design-system-tab data-design-system-value="tokens">Tokens</button>
+            </div>
+        </div>
+
+        <div class="design-system-tab-panel" id="@prefix-page-panel-anatomy" role="tabpanel" aria-labelledby="@prefix-page-tab-anatomy" data-design-system-tab-panel>
+            <section class="documentation-page-tab-section" id="@prefix-anatomy" aria-labelledby="@prefix-anatomy-title">
+                <h2 class="design-system-visually-hidden" id="@prefix-anatomy-title">Anatomy</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list">
+                        <li data-documentation-reference-toc-group>
+                            <a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-composition-title" aria-current="location">Composition</a>
+                            <ol class="documentation-reference-toc-sublist">
+                                <li><a class="design-system-tab documentation-reference-toc-child" href="#@prefix-parts-title">Parts</a></li>
+                            </ol>
+                        </li>
+                        <li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-behavior-title">Behavior</a></li>
+                    </ol>
+                </nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-composition-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-composition-title">Composition</h3><p>@component.Name is assembled from the smallest public parts below; optional parts may be omitted without creating a different component.</p></div>
+                        <div class="documentation-button-subsection-list">
+                            <section class="documentation-subsection documentation-button-comparison-subsection" aria-labelledby="@prefix-parts-title">
+                                <div class="documentation-subsection-heading documentation-button-comparison-heading"><h4 id="@prefix-parts-title">Parts</h4><p>Each part owns one responsibility so the component can be rebuilt without hidden geometry.</p></div>
+                                <div class="design-system-table-wrap documentation-button-token-wrap" role="region" aria-label="@component.Name anatomy parts" tabindex="0">
+                                    <table class="design-system-table documentation-catalog-parts-table">
+                                        <thead><tr><th scope="col">Part</th><th scope="col">Responsibility</th></tr></thead>
+                                        <tbody>
+                                            @foreach (var part in component.Parts)
+                                            {
+                                                <tr><th scope="row">@part</th><td>@Model.DescribePart(part)</td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-behavior-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-behavior-title">Behavior</h3><p>@Model.EnhancementModel.</p></div>
+                        <dl class="documentation-catalog-contract-list">
+                            <div><dt>Keyboard</dt><dd>@Model.KeyboardContract</dd></div>
+                            <div><dt>Responsive</dt><dd>@Model.ResponsiveContract</dd></div>
+                            <div><dt>No JavaScript</dt><dd>@Model.NoJavaScriptContract</dd></div>
+                        </dl>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="@prefix-page-panel-variants" role="tabpanel" aria-labelledby="@prefix-page-tab-variants" data-design-system-tab-panel hidden>
+            <section class="documentation-page-tab-section" id="@prefix-variants" aria-labelledby="@prefix-variants-title">
+                <h2 class="design-system-visually-hidden" id="@prefix-variants-title">Variants</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list"><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-variant-model-title" aria-current="location">Variants</a><ol class="documentation-reference-toc-sublist">@foreach (var variant in component.Variants){<li><a class="design-system-tab documentation-reference-toc-child" href="#@prefix-variant-@variant.ToLowerInvariant().Replace(" ", "-")-title">@variant</a></li>}</ol></li></ol>
+                </nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-variant-model-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-variant-model-title">Variants</h3><p>Variants change composition or behavior while preserving the component’s core identity.</p></div>
+                        <div class="documentation-button-subsection-list">
+                            @foreach (var variant in component.Variants)
+                            {
+                                var variantSlug = variant.ToLowerInvariant().Replace(" ", "-");
+                                <section class="documentation-subsection documentation-button-comparison-subsection" aria-labelledby="@prefix-variant-@variantSlug-title">
+                                    <div class="documentation-subsection-heading documentation-button-comparison-heading"><h4 id="@prefix-variant-@variantSlug-title">@variant</h4><p>@variant is an explicit @component.Name contract; choose it because its structure or behavior matches the content, not as decoration.</p></div>
+                                </section>
+                            }
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="@prefix-page-panel-style" role="tabpanel" aria-labelledby="@prefix-page-tab-style" data-design-system-tab-panel hidden>
+            <section class="documentation-page-tab-section" id="@prefix-style" aria-labelledby="@prefix-style-title">
+                <h2 class="design-system-visually-hidden" id="@prefix-style-title">Style</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc>
+                    <ol class="documentation-reference-toc-list"><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-style-model-title" aria-current="location">Styles</a><ol class="documentation-reference-toc-sublist">@foreach (var style in component.Styles){<li><a class="design-system-tab documentation-reference-toc-child" href="#@prefix-style-@style.ToLowerInvariant().Replace(" ", "-")-title">@style</a></li>}</ol></li><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-states-title">States</a></li></ol>
+                </nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-style-model-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-style-model-title">Styles</h3><p>Styles alter visual emphasis or semantic tone without changing the component anatomy.</p></div>
+                        <div class="documentation-button-subsection-list">
+                            @foreach (var style in component.Styles)
+                            {
+                                var styleSlug = style.ToLowerInvariant().Replace(" ", "-");
+                                <section class="documentation-subsection documentation-button-comparison-subsection" aria-labelledby="@prefix-style-@styleSlug-title"><div class="documentation-subsection-heading documentation-button-comparison-heading"><h4 id="@prefix-style-@styleSlug-title">@style</h4><p>@style preserves the same @component.Name parts and interaction contract.</p></div></section>
+                            }
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-states-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-states-title">States</h3><p>State changes communicate interaction or system status without moving the component’s parts.</p></div>
+                        <ul class="documentation-catalog-state-list">
+                            @foreach (var state in component.States) { <li>@state</li> }
+                        </ul>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="@prefix-page-panel-preview" role="tabpanel" aria-labelledby="@prefix-page-tab-preview" data-design-system-tab-panel hidden>
+            <section class="documentation-page-tab-section" id="@prefix-preview" aria-labelledby="@prefix-preview-title">
+                <h2 class="design-system-visually-hidden" id="@prefix-preview-title">Preview</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc><ol class="documentation-reference-toc-list"><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-live-example-title" aria-current="location">Live Example</a></li><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-preview-contract-title">Contract</a></li></ol></nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-live-example-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-live-example-title">Live Example</h3><p>This is the reusable production component, not a documentation-only imitation.</p></div>
+                        <div class="documentation-catalog-preview-stage">
+                            <partial name="_ComponentSpecimen" model="Model" />
+                        </div>
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-preview-contract-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-preview-contract-title">Contract</h3><p>The specimen keeps its real semantic and interaction responsibilities.</p></div>
+                        <dl class="documentation-catalog-contract-list"><div><dt>Rendering</dt><dd>@Model.EnhancementModel</dd></div><div><dt>Keyboard</dt><dd>@Model.KeyboardContract</dd></div><div><dt>Small viewport</dt><dd>@Model.ResponsiveContract</dd></div></dl>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <div class="design-system-tab-panel" id="@prefix-page-panel-tokens" role="tabpanel" aria-labelledby="@prefix-page-tab-tokens" data-design-system-tab-panel hidden>
+            <section class="documentation-page-tab-section" id="@prefix-tokens" aria-labelledby="@prefix-tokens-title">
+                <h2 class="design-system-visually-hidden" id="@prefix-tokens-title">Tokens</h2>
+                <nav class="documentation-reference-toc design-system-tab-list" aria-label="On this page" data-documentation-reference-toc><ol class="documentation-reference-toc-list"><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-component-tokens-title" aria-current="location">Component Tokens</a></li><li data-documentation-reference-toc-group><a class="design-system-tab documentation-reference-toc-parent" href="#@prefix-foundation-tokens-title">Foundation Inputs</a></li></ol></nav>
+                <div class="documentation-button-section-list">
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-component-tokens-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-component-tokens-title">Component Tokens</h3><p>Independent override points used by this component or one of its composed public dependencies.</p></div>
+                        @if (Model.ComponentTokens.Count == 0)
+                        {
+                            <p class="documentation-catalog-empty-token-note">@component.Name does not create a component-specific alias when a shared foundation Token already expresses the decision.</p>
+                        }
+                        else
+                        {
+                            <div class="design-system-table-wrap documentation-button-token-wrap" role="region" aria-label="@component.Name component Tokens" tabindex="0"><table class="design-system-table documentation-button-token-table"><thead><tr><th scope="col">Role</th><th scope="col">Component Token</th><th scope="col">Source</th></tr></thead><tbody>@foreach (var token in Model.ComponentTokens){<tr><th scope="row">@token.Role</th><td><code>@token.Name</code></td><td><code>@token.Resolution</code></td></tr>}</tbody></table></div>
+                        }
+                    </section>
+                    <section class="documentation-subsection documentation-button-section" aria-labelledby="@prefix-foundation-tokens-title">
+                        <div class="documentation-subsection-heading"><h3 id="@prefix-foundation-tokens-title">Foundation Inputs</h3><p>Shared Semantic roles and deliberate Primitive values consumed directly by the component implementation.</p></div>
+                        <div class="design-system-table-wrap documentation-button-token-wrap" role="region" aria-label="@component.Name foundation Tokens" tabindex="0"><table class="design-system-table documentation-button-token-table"><thead><tr><th scope="col">Role</th><th scope="col">Foundation Token</th><th scope="col">Ownership</th></tr></thead><tbody>@foreach (var token in Model.FoundationTokens){<tr><th scope="row">@token.Role</th><td><code>@token.Name</code></td><td>@token.Resolution</td></tr>}</tbody></table></div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+</article>

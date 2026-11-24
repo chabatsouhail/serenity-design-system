@@ -1,0 +1,29 @@
+@model DesignSystem.Razor.Models.ThemeToggleModel
+@using DesignSystem.Razor.Contracts
+@{
+    var toggle = Model ?? new DesignSystem.Razor.Models.ThemeToggleModel();
+    if (string.IsNullOrWhiteSpace(toggle.Label))
+    {
+        throw new InvalidOperationException("The theme toggle requires a label.");
+    }
+
+}
+<design-system-button class="design-system-theme-toggle"
+        variant="@ButtonVariant.Tonal"
+        tone="@SemanticTone.Neutral"
+        size="@toggle.Size"
+        alignment="@toggle.Alignment"
+        block="@toggle.Block"
+        icon-only="@(!toggle.ShowLabel)"
+        accessible-label="@toggle.Label"
+        data-design-system-theme-toggle
+        data-design-system-js-only
+        role="switch"
+        aria-checked="false">
+    <design-system-icon name="@IconName.Moon" size="@toggle.Size" decorative="true" data-design-system-theme-icon="moon"></design-system-icon>
+    <design-system-icon name="@IconName.Sun" size="@toggle.Size" decorative="true" data-design-system-theme-icon="sun" hidden></design-system-icon>
+    @if (toggle.ShowLabel)
+    {
+        <span class="design-system-theme-toggle__label" data-design-system-theme-label>@toggle.Label</span>
+    }
+</design-system-button>

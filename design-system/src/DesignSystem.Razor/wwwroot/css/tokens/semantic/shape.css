@@ -1,0 +1,11 @@
+@layer design-system.semantic {
+    :root {
+        --design-system-semantic-shape-control-radius: var(--design-system-primitive-shape-radius-8);
+        --design-system-semantic-shape-container-radius: var(--design-system-primitive-shape-radius-10);
+        --design-system-semantic-shape-overlay-radius: var(--design-system-primitive-shape-radius-10);
+        --design-system-semantic-shape-focus-width: var(--design-system-primitive-shape-border-width-2);
+        --design-system-semantic-shape-boundary-width: var(--design-system-primitive-shape-border-width-1);
+        --design-system-semantic-shape-boundary-width-subtle: var(--design-system-primitive-shape-border-width-0-5);
+    }
+}
+

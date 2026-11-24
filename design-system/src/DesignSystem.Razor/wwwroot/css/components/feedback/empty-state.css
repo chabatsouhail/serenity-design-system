@@ -1,0 +1,54 @@
+@layer design-system.component {
+    .design-system-empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        min-height: var(--design-system-component-empty-state-minimum-height);
+        padding: var(--design-system-primitive-spacing-24);
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        text-align: center;
+    }
+
+    .design-system-empty-state__icon {
+        display: grid;
+        place-items: center;
+        color: var(--design-system-semantic-color-text-foreground-muted);
+    }
+
+    .design-system-empty-state__icon .design-system-icon {
+        width: var(--design-system-semantic-icons-control-size-large);
+        height: var(--design-system-semantic-icons-control-size-large);
+    }
+
+    .design-system-empty-state__content {
+        display: grid;
+        justify-items: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+    }
+
+    .design-system-empty-state__title {
+        margin: 0;
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-empty-state__description {
+        max-width: var(--design-system-component-empty-state-content-measure);
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+
+    @media (forced-colors: active) {
+        .design-system-empty-state,
+        .design-system-empty-state__icon,
+        .design-system-empty-state__title {
+            color: CanvasText;
+        }
+    }
+}

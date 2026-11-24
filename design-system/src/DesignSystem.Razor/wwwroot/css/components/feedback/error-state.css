@@ -1,0 +1,52 @@
+@layer design-system.component {
+    .design-system-error-state {
+        display: grid;
+        justify-items: start;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        padding: var(--design-system-primitive-spacing-16);
+        border: var(--design-system-semantic-shape-boundary-width) solid color-mix(in srgb, var(--design-system-semantic-color-status-foreground-danger), transparent 55%);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        background: var(--design-system-semantic-color-status-background-danger);
+        color: var(--design-system-semantic-color-status-foreground-danger);
+    }
+
+    .design-system-error-state__icon {
+        flex: 0 0 auto;
+    }
+
+    .design-system-error-state__content {
+        display: grid;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+    }
+
+    .design-system-error-state__title,
+    .design-system-error-state :is(h2, h3) {
+        margin: 0;
+        color: inherit;
+        font: var(--design-system-semantic-typography-heading-3);
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-error-state__description,
+    .design-system-error-state p {
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .design-system-error-state__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--design-system-primitive-spacing-8);
+    }
+
+    @media (forced-colors: active) {
+        .design-system-error-state {
+            border-color: CanvasText;
+            background: Canvas;
+            color: CanvasText;
+            forced-color-adjust: none;
+        }
+    }
+}

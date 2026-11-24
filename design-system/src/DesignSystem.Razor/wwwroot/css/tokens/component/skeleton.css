@@ -1,0 +1,7 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-skeleton-line-height: 10px;
+        --design-system-component-skeleton-block-height: 120px;
+        --design-system-component-skeleton-duration: 1350ms;
+    }
+}

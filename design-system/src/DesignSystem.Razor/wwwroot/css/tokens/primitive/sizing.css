@@ -1,0 +1,9 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-sizing-24: 24px;
+        --design-system-primitive-sizing-30: 30px;
+        --design-system-primitive-sizing-34: 34px;
+        --design-system-primitive-sizing-44: 44px;
+        --design-system-primitive-sizing-56: 56px;
+    }
+}

@@ -1,0 +1,17 @@
+@model DesignSystem.Razor.Models.ToastHostModel
+@using DesignSystem.Razor.Contracts
+@{
+    var host = Model ?? new DesignSystem.Razor.Models.ToastHostModel();
+    if (string.IsNullOrWhiteSpace(host.Label))
+    {
+        throw new InvalidOperationException("The toast host requires an accessible label.");
+    }
+
+    var liveMode = host.LiveMode.ToContractValue();
+}
+<section class="design-system-toast-host"
+         aria-label="@host.Label"
+         aria-live="@liveMode"
+         aria-relevant="additions text"
+         aria-atomic="false"
+         data-design-system-toast-host></section>

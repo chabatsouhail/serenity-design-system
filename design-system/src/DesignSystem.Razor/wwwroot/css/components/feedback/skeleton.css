@@ -1,0 +1,60 @@
+@layer design-system.component {
+    .design-system-skeleton {
+        --_design-system-skeleton-height: var(--design-system-component-skeleton-line-height);
+        --_design-system-skeleton-shimmer: linear-gradient(90deg, transparent, color-mix(in srgb, var(--design-system-semantic-color-text-foreground-muted), transparent 82%), transparent);
+
+        position: relative;
+        display: block;
+        width: 100%;
+        height: var(--_design-system-skeleton-height);
+        overflow: hidden;
+        border-radius: var(--design-system-primitive-shape-radius-6);
+        background: var(--design-system-semantic-color-surface-background-control);
+        color: transparent;
+        cursor: wait;
+        user-select: none;
+    }
+
+    .design-system-skeleton::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--_design-system-skeleton-shimmer);
+        transform: translateX(-100%);
+        animation: design-system-skeleton-shimmer var(--design-system-component-skeleton-duration) linear infinite;
+    }
+
+    .design-system-skeleton:is([data-design-system-shape="block"], .design-system-skeleton--block) {
+        --_design-system-skeleton-height: var(--design-system-component-skeleton-block-height);
+    }
+
+    .design-system-skeleton:is([data-design-system-shape="circle"], .design-system-skeleton--circle) {
+        width: var(--design-system-semantic-sizing-control-height-relaxed);
+        height: var(--design-system-semantic-sizing-control-height-relaxed);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+    }
+
+    @keyframes design-system-skeleton-shimmer {
+        to {
+            transform: translateX(100%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .design-system-skeleton::after {
+            display: none;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-skeleton {
+            border: var(--design-system-semantic-shape-boundary-width) solid CanvasText;
+            background: Canvas;
+            forced-color-adjust: none;
+        }
+
+        .design-system-skeleton::after {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+@layer design-system.component {
+    .design-system-badge {
+        --_design-system-badge-foreground: var(--design-system-semantic-color-text-foreground-secondary);
+        --_design-system-badge-background: var(--design-system-semantic-color-surface-background-control);
+        --_design-system-badge-boundary: var(--design-system-semantic-color-boundary-border);
+        --_design-system-badge-height: var(--design-system-component-badge-height);
+        --_design-system-badge-padding-inline: var(--design-system-primitive-spacing-8);
+        --_design-system-badge-font: var(--design-system-semantic-typography-caption-compact);
+
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-4);
+        min-width: 0;
+        min-height: var(--_design-system-badge-height);
+        max-width: 100%;
+        padding-inline: var(--_design-system-badge-padding-inline);
+        overflow: hidden;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--_design-system-badge-boundary);
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        background: var(--_design-system-badge-background);
+        color: var(--_design-system-badge-foreground);
+        font: var(--_design-system-badge-font);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .design-system-badge:is([data-design-system-size="small"], .design-system-badge--small) {
+        --_design-system-badge-height: calc(var(--design-system-component-badge-height) - var(--design-system-primitive-spacing-4));
+        --_design-system-badge-padding-inline: var(--design-system-primitive-spacing-6);
+    }
+
+    .design-system-badge:is([data-design-system-size="large"], .design-system-badge--large) {
+        --_design-system-badge-height: calc(var(--design-system-component-badge-height) + var(--design-system-primitive-spacing-4));
+        --_design-system-badge-padding-inline: var(--design-system-primitive-spacing-10);
+        --_design-system-badge-font: var(--design-system-semantic-typography-label-compact);
+    }
+
+    .design-system-badge:is([data-design-system-tone="accent"], [data-design-system-tone="info"], .design-system-badge--accent, .design-system-badge--info) {
+        --_design-system-badge-foreground: var(--design-system-semantic-color-status-foreground-info);
+        --_design-system-badge-background: var(--design-system-semantic-color-status-background-info);
+        --_design-system-badge-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-info), transparent 50%);
+    }
+
+    .design-system-badge:is([data-design-system-tone="success"], .design-system-badge--success) {
+        --_design-system-badge-foreground: var(--design-system-semantic-color-status-foreground-success);
+        --_design-system-badge-background: var(--design-system-semantic-color-status-background-success);
+        --_design-system-badge-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-success), transparent 50%);
+    }
+
+    .design-system-badge:is([data-design-system-tone="warning"], .design-system-badge--warning) {
+        --_design-system-badge-foreground: var(--design-system-semantic-color-status-foreground-warning);
+        --_design-system-badge-background: var(--design-system-semantic-color-status-background-warning);
+        --_design-system-badge-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-warning), transparent 50%);
+    }
+
+    .design-system-badge:is([data-design-system-tone="danger"], .design-system-badge--danger) {
+        --_design-system-badge-foreground: var(--design-system-semantic-color-status-foreground-danger);
+        --_design-system-badge-background: var(--design-system-semantic-color-status-background-danger);
+        --_design-system-badge-boundary: color-mix(in srgb, var(--design-system-semantic-color-status-foreground-danger), transparent 50%);
+    }
+
+    .design-system-badge:is([data-design-system-appearance="solid"], .design-system-badge--solid) {
+        border-color: var(--_design-system-badge-foreground);
+        background: var(--_design-system-badge-foreground);
+        color: var(--design-system-semantic-color-status-foreground-solid);
+    }
+
+    .design-system-badge:is([data-design-system-appearance="outline"], .design-system-badge--outline) {
+        background: transparent;
+    }
+
+    @media (forced-colors: active) {
+        .design-system-badge {
+            border-color: CanvasText;
+            background: Canvas;
+            color: CanvasText;
+            forced-color-adjust: none;
+        }
+
+        .design-system-badge:is([data-design-system-appearance="solid"], .design-system-badge--solid) {
+            border-color: Highlight;
+            background: Highlight;
+            color: HighlightText;
+        }
+    }
+}

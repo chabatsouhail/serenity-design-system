@@ -1,0 +1,20 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-button-radius: var(--design-system-semantic-shape-control-radius);
+        --design-system-component-button-background-filled: var(--design-system-semantic-color-action-background);
+        --design-system-component-button-background-filled-hover: var(--design-system-semantic-color-action-background-hover);
+        --design-system-component-button-foreground-filled: var(--design-system-semantic-color-text-foreground-inverse);
+        --design-system-component-button-background-filled-danger: var(--design-system-semantic-color-action-background-danger);
+        --design-system-component-button-background-filled-danger-hover: var(--design-system-semantic-color-action-background-danger-hover);
+        --design-system-component-button-foreground-filled-danger: var(--design-system-semantic-color-text-foreground-inverse);
+        --design-system-component-button-background-tonal-neutral: var(--design-system-semantic-color-action-background-neutral);
+        --design-system-component-button-background-tonal-neutral-hover: var(--design-system-semantic-color-action-background-neutral-hover);
+        --design-system-component-button-foreground-tonal-neutral: var(--design-system-semantic-color-action-foreground-neutral);
+        --design-system-component-button-background-tonal-accent: var(--design-system-semantic-color-status-background-info);
+        --design-system-component-button-background-tonal-accent-hover: color-mix(in srgb, var(--design-system-semantic-color-status-background-info), var(--design-system-semantic-color-action-background) 12%);
+        --design-system-component-button-foreground-tonal-accent: var(--design-system-semantic-color-status-foreground-info);
+        --design-system-component-button-background-tonal-danger: var(--design-system-semantic-color-status-background-danger);
+        --design-system-component-button-background-tonal-danger-hover: color-mix(in srgb, var(--design-system-semantic-color-status-background-danger), var(--design-system-semantic-color-status-foreground-danger) 10%);
+        --design-system-component-button-foreground-tonal-danger: var(--design-system-semantic-color-status-foreground-danger);
+    }
+}

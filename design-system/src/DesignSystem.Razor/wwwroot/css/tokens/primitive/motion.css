@@ -1,0 +1,7 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-motion-scale-0-97: .97;
+        --design-system-primitive-motion-scale-0-95: .95;
+        --design-system-primitive-motion-scale-0-5: .5;
+    }
+}

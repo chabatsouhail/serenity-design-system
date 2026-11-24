@@ -1,0 +1,24 @@
+@layer design-system.component {
+    .design-system-icon-button,
+    .design-system-button[data-design-system-icon-only] {
+        --_design-system-button-press-scale: var(--design-system-semantic-motion-interaction-scale-press-compact);
+
+        flex: 0 0 auto;
+        width: var(--_design-system-density-control-height);
+        padding: 0;
+    }
+
+    :is(.design-system-icon-button, .design-system-button[data-design-system-icon-only])[data-design-system-size="small"] {
+        width: var(--design-system-semantic-sizing-control-height-compact);
+    }
+
+    :is(.design-system-icon-button, .design-system-button[data-design-system-icon-only])[data-design-system-size="large"] {
+        width: var(--design-system-semantic-sizing-control-height-relaxed);
+    }
+
+    @media (any-pointer: coarse) {
+        :is(.design-system-icon-button, .design-system-button[data-design-system-icon-only]):not([data-design-system-size="large"]) {
+            width: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+}

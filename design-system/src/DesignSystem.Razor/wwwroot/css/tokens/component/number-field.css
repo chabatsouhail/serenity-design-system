@@ -1,0 +1,5 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-number-field-icon-size: 10px;
+    }
+}

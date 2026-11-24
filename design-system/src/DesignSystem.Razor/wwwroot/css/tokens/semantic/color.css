@@ -1,0 +1,41 @@
+@layer design-system.semantic {
+    :root,
+    :root[data-design-system-theme="light"] {
+        color-scheme: light;
+        --design-system-semantic-color-page-background: var(--design-system-primitive-color-gray-100);
+        --design-system-semantic-color-surface-background: var(--design-system-primitive-color-white);
+        --design-system-semantic-color-surface-background-subtle: var(--design-system-primitive-color-gray-50);
+        --design-system-semantic-color-surface-background-elevated: var(--design-system-primitive-color-white);
+        --design-system-semantic-color-surface-background-inverse: var(--design-system-primitive-color-gray-800);
+        --design-system-semantic-color-surface-background-control: var(--design-system-primitive-color-gray-100);
+        --design-system-semantic-color-surface-background-hover: var(--design-system-primitive-color-gray-25);
+        --design-system-semantic-color-surface-background-selected: var(--design-system-primitive-color-blue-50);
+        --design-system-semantic-color-text-foreground-primary: var(--design-system-primitive-color-black);
+        --design-system-semantic-color-text-foreground-secondary: var(--design-system-primitive-color-gray-700);
+        --design-system-semantic-color-text-foreground-muted: var(--design-system-primitive-color-gray-500);
+        --design-system-semantic-color-text-foreground-disabled: var(--design-system-primitive-color-gray-400);
+        --design-system-semantic-color-text-foreground-accent: var(--design-system-primitive-color-blue-700);
+        --design-system-semantic-color-text-foreground-inverse: var(--design-system-primitive-color-white);
+        --design-system-semantic-color-boundary-border: var(--design-system-primitive-color-gray-200);
+        --design-system-semantic-color-boundary-border-strong: var(--design-system-primitive-color-gray-400);
+        --design-system-semantic-color-boundary-border-selected: var(--design-system-primitive-color-blue-500);
+        --design-system-semantic-color-focus-ring: var(--design-system-primitive-color-blue-600);
+        --design-system-semantic-color-action-background: var(--design-system-primitive-color-blue-600);
+        --design-system-semantic-color-action-background-hover: var(--design-system-primitive-color-blue-700);
+        --design-system-semantic-color-action-background-danger: var(--design-system-primitive-color-red-700);
+        --design-system-semantic-color-action-background-danger-hover: var(--design-system-primitive-color-red-900);
+        --design-system-semantic-color-action-background-neutral: var(--design-system-primitive-color-gray-100);
+        --design-system-semantic-color-action-background-neutral-hover: var(--design-system-primitive-color-gray-150);
+        --design-system-semantic-color-action-foreground-neutral: var(--design-system-primitive-color-gray-700);
+        --design-system-semantic-color-status-foreground-success: var(--design-system-primitive-color-green-700);
+        --design-system-semantic-color-status-background-success: var(--design-system-primitive-color-green-50);
+        --design-system-semantic-color-status-foreground-warning: var(--design-system-primitive-color-orange-700);
+        --design-system-semantic-color-status-background-warning: var(--design-system-primitive-color-orange-50);
+        --design-system-semantic-color-status-foreground-danger: var(--design-system-primitive-color-red-700);
+        --design-system-semantic-color-status-background-danger: var(--design-system-primitive-color-red-50);
+        --design-system-semantic-color-status-foreground-info: var(--design-system-primitive-color-blue-700);
+        --design-system-semantic-color-status-background-info: var(--design-system-primitive-color-blue-50);
+        --design-system-semantic-color-status-foreground-solid: var(--design-system-primitive-color-white);
+        --design-system-semantic-color-surface-background-disabled: var(--design-system-primitive-color-gray-150);
+    }
+}

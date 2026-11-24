@@ -1,0 +1,11 @@
+@layer design-system.primitive {
+    :root {
+        --design-system-primitive-elevation-shadow-0-12-30: 0 12px 30px;
+        --design-system-primitive-elevation-shadow-0-20-60: 0 20px 60px;
+        --design-system-primitive-elevation-layer-20: 20;
+        --design-system-primitive-elevation-layer-40: 40;
+        --design-system-primitive-elevation-layer-50: 50;
+        --design-system-primitive-elevation-layer-70: 70;
+        --design-system-primitive-elevation-layer-90: 90;
+    }
+}

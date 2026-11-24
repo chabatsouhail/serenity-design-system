@@ -1,0 +1,62 @@
+@layer design-system.component {
+    .design-system-spinner {
+        --_design-system-spinner-size: var(--design-system-semantic-icons-control-size-medium);
+        --_design-system-spinner-border-width: var(--design-system-component-spinner-border-width);
+        --_design-system-spinner-track-color: color-mix(in srgb, currentColor, transparent 70%);
+
+        display: inline-grid;
+        flex: 0 0 auto;
+        width: var(--_design-system-spinner-size);
+        height: var(--_design-system-spinner-size);
+        place-items: center;
+        color: currentColor;
+        vertical-align: -.125em;
+    }
+
+    .design-system-spinner:is([data-design-system-size="small"], .design-system-spinner--small) {
+        --_design-system-spinner-size: var(--design-system-semantic-icons-control-size-small);
+    }
+
+    .design-system-spinner:is([data-design-system-size="large"], .design-system-spinner--large) {
+        --_design-system-spinner-size: var(--design-system-semantic-icons-control-size-large);
+        --_design-system-spinner-border-width: var(--design-system-component-spinner-border-width-large);
+    }
+
+    .design-system-spinner__track,
+    .design-system-spinner:empty::before {
+        width: 100%;
+        height: 100%;
+        border: var(--_design-system-spinner-border-width) solid var(--_design-system-spinner-track-color);
+        border-block-start-color: currentColor;
+        border-radius: var(--design-system-primitive-shape-radius-999);
+        animation: design-system-spinner-rotate var(--design-system-component-spinner-duration) linear infinite;
+    }
+
+    .design-system-spinner:empty::before {
+        content: "";
+    }
+
+    @keyframes design-system-spinner-rotate {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .design-system-spinner__track,
+        .design-system-spinner:empty::before {
+            border-color: currentColor;
+            border-inline-end-color: transparent;
+            animation: none;
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-spinner__track,
+        .design-system-spinner:empty::before {
+            border-color: GrayText;
+            border-block-start-color: CanvasText;
+            forced-color-adjust: none;
+        }
+    }
+}

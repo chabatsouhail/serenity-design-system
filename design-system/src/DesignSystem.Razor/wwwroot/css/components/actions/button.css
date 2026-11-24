@@ -1,0 +1,161 @@
+@layer design-system.component {
+    .design-system-button,
+    .design-system-icon-button {
+        --_design-system-button-press-scale: var(--design-system-semantic-motion-interaction-scale-press);
+        --_design-system-button-background: var(--design-system-component-button-background-tonal-neutral);
+        --_design-system-button-background-hover: var(--design-system-component-button-background-tonal-neutral-hover);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-tonal-neutral);
+        --_design-system-button-loading-label-opacity: .75;
+        --_design-system-button-pressed-filter: brightness(.92);
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--design-system-primitive-spacing-8);
+        min-width: 0;
+        height: var(--_design-system-density-control-height);
+        margin: 0;
+        padding-inline: var(--design-system-semantic-spacing-control-padding-inline);
+        border: var(--design-system-semantic-shape-boundary-width) solid transparent;
+        border-radius: var(--design-system-component-button-radius);
+        background: var(--_design-system-button-background);
+        color: var(--_design-system-button-foreground);
+        font: var(--design-system-semantic-typography-action);
+        text-align: center;
+        text-decoration: none;
+        white-space: nowrap;
+        cursor: pointer;
+        transform-origin: center;
+        transition-property: background-color, border-color, color, box-shadow, filter, opacity, transform;
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-release);
+        transition-timing-function: var(--design-system-semantic-timing-interaction-easing-press);
+    }
+
+    :is(.design-system-button, .design-system-icon-button):is(:hover, [data-design-system-preview-state="hover"]):not(:disabled):not([aria-disabled="true"]) {
+        background: var(--_design-system-button-background-hover);
+    }
+
+    :is(.design-system-button, .design-system-icon-button):is(:active, [data-design-system-preview-state="active"]):not(:disabled):not([aria-disabled="true"]):not([aria-pressed]) {
+        background: var(--_design-system-button-background-hover);
+        transform: scale(var(--_design-system-button-press-scale));
+        transition-duration: var(--design-system-semantic-timing-interaction-duration-press);
+    }
+
+    :is(.design-system-button, .design-system-icon-button):is(:focus-visible, [data-design-system-preview-state="focus"]) {
+        outline: none;
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    :is(.design-system-button, .design-system-icon-button):is(:disabled, [aria-disabled="true"]) {
+        border-color: var(--design-system-semantic-color-boundary-border);
+        background: var(--design-system-semantic-color-surface-background-disabled);
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+        cursor: not-allowed;
+        filter: none;
+        transform: none;
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-variant="text"]:is(:disabled, [aria-disabled="true"]) {
+        border-color: transparent;
+        background: transparent;
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-tone="accent"] {
+        --_design-system-button-background: var(--design-system-component-button-background-tonal-accent);
+        --_design-system-button-background-hover: var(--design-system-component-button-background-tonal-accent-hover);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-tonal-accent);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-tone="danger"] {
+        --_design-system-button-background: var(--design-system-component-button-background-tonal-danger);
+        --_design-system-button-background-hover: var(--design-system-component-button-background-tonal-danger-hover);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-tonal-danger);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-variant="filled"][data-design-system-tone="accent"] {
+        --_design-system-button-background: var(--design-system-component-button-background-filled);
+        --_design-system-button-background-hover: var(--design-system-component-button-background-filled-hover);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-filled);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-variant="filled"][data-design-system-tone="danger"] {
+        --_design-system-button-background: var(--design-system-component-button-background-filled-danger);
+        --_design-system-button-background-hover: var(--design-system-component-button-background-filled-danger-hover);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-filled-danger);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-variant="text"] {
+        --_design-system-button-background: transparent;
+        --_design-system-button-background-hover: var(--design-system-component-button-background-tonal-neutral);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-tonal-neutral);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-variant="text"][data-design-system-tone="accent"] {
+        --_design-system-button-background-hover: var(--design-system-component-button-background-tonal-accent);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-tonal-accent);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-variant="text"][data-design-system-tone="danger"] {
+        --_design-system-button-background-hover: var(--design-system-component-button-background-tonal-danger);
+        --_design-system-button-foreground: var(--design-system-component-button-foreground-tonal-danger);
+    }
+
+    :is(.design-system-button, .design-system-icon-button):is([aria-pressed="true"], [aria-expanded="true"], [aria-current="page"]) {
+        --_design-system-button-background: var(--design-system-semantic-color-surface-background-selected);
+        --_design-system-button-background-hover: var(--design-system-semantic-color-surface-background-selected);
+        --_design-system-button-foreground: var(--design-system-semantic-color-text-foreground-accent);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-size="small"] {
+        height: var(--design-system-semantic-sizing-control-height-compact);
+        font: var(--design-system-semantic-typography-action-small);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-size="large"] {
+        height: var(--design-system-semantic-sizing-control-height-relaxed);
+        font: var(--design-system-semantic-typography-action-large);
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-block] {
+        width: 100%;
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-align="start"] {
+        justify-content: flex-start;
+        text-align: start;
+    }
+
+    :is(.design-system-button, .design-system-icon-button)[data-design-system-wrap] {
+        height: auto;
+        min-height: var(--_design-system-density-control-height);
+        padding-block: var(--design-system-semantic-spacing-item-padding-block);
+        white-space: normal;
+    }
+
+    :is(.design-system-button, .design-system-icon-button):is([data-design-system-loading], [aria-busy="true"]) .design-system-button-label {
+        opacity: var(--_design-system-button-loading-label-opacity);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        :is(.design-system-button, .design-system-icon-button):is(:active, [data-design-system-preview-state="active"]):not(:disabled):not([aria-disabled="true"]):not([aria-pressed]) {
+            filter: var(--_design-system-button-pressed-filter);
+        }
+    }
+
+    @media (any-pointer: coarse) {
+        :is(.design-system-button, .design-system-icon-button):not([data-design-system-size="large"]) {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (forced-colors: active) {
+        :is(.design-system-button, .design-system-icon-button):not([data-design-system-variant="text"]) {
+            border-color: ButtonText;
+        }
+
+        :is(.design-system-button, .design-system-icon-button):is(:disabled, [aria-disabled="true"]) {
+            border-color: GrayText;
+            color: GrayText;
+        }
+    }
+}

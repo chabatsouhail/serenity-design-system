@@ -1,0 +1,6 @@
+@layer design-system.component-tokens {
+    :root {
+        --design-system-component-date-picker-calendar-width: 304px;
+        --design-system-component-date-picker-weekday-minimum-height: 28px;
+    }
+}

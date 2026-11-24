@@ -1,0 +1,267 @@
+@layer design-system.component {
+    .design-system-table-wrap {
+        max-width: 100%;
+        overflow-x: auto;
+        border: var(--design-system-semantic-shape-boundary-width) solid var(--design-system-semantic-color-boundary-border);
+        border-radius: var(--design-system-semantic-shape-container-radius);
+        overscroll-behavior-inline: contain;
+    }
+
+    .design-system-table-wrap:is(:focus-visible, [data-design-system-preview-state="focus"]) {
+        border-color: var(--design-system-semantic-color-focus-ring);
+        outline: none;
+        box-shadow: 0 0 0 var(--design-system-semantic-shape-focus-width) var(--design-system-semantic-color-focus-ring);
+    }
+
+    .design-system-table {
+        --_design-system-table-header-background: var(--design-system-component-table-background-header);
+        --_design-system-table-cell-padding-block: var(--design-system-semantic-spacing-item-padding-block);
+        --_design-system-table-cell-padding-inline: var(--design-system-semantic-spacing-item-padding-inline);
+        --_design-system-table-header-letter-spacing: .04em;
+
+        width: 100%;
+        min-width: var(--design-system-component-table-minimum-width);
+        border-collapse: collapse;
+        background: var(--design-system-component-table-background-content);
+        color: var(--design-system-semantic-color-text-foreground-secondary);
+        text-align: start;
+    }
+
+    .design-system-table:is([data-design-system-header="secondary"], .design-system-table--header-secondary) {
+        --_design-system-table-header-background: var(--design-system-component-table-background-header-secondary);
+    }
+
+    .design-system-table thead {
+        background: var(--_design-system-table-header-background);
+    }
+
+    .design-system-table :is(th, td) {
+        padding: var(--_design-system-table-cell-padding-block) var(--_design-system-table-cell-padding-inline);
+        border-bottom: var(--design-system-semantic-shape-boundary-width-subtle) solid var(--design-system-semantic-color-boundary-border);
+        vertical-align: middle;
+        text-align: start;
+    }
+
+    .design-system-table thead th {
+        background: var(--_design-system-table-header-background);
+        color: var(--design-system-component-table-foreground-header);
+        font: var(--design-system-semantic-typography-caption);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        letter-spacing: var(--_design-system-table-header-letter-spacing);
+        text-transform: uppercase;
+    }
+
+    .design-system-table tbody th {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+        font: var(--design-system-semantic-typography-body);
+        font-weight: var(--design-system-primitive-typography-weight-500);
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    .design-system-table:is([data-design-system-banding="rows"], [data-design-system-banding="both"]) tbody tr:nth-child(even) > :is(th, td),
+    .design-system-table:is([data-design-system-banding="columns"], [data-design-system-banding="both"]) tbody tr > :is(th, td):nth-child(even) {
+        background: var(--design-system-component-table-background-band);
+    }
+
+    .design-system-table tbody tr:is(:hover, [data-design-system-preview-state="hover"]):not([aria-disabled="true"]) > :is(th, td) {
+        background: var(--design-system-component-table-background-row-hover);
+    }
+
+    .design-system-table tbody tr:is([aria-selected="true"], [data-design-system-selected]) > :is(th, td) {
+        background: var(--design-system-component-table-background-row-selected);
+    }
+
+    .design-system-table tbody tr:is([aria-disabled="true"], [data-design-system-disabled]) > :is(th, td) {
+        color: var(--design-system-semantic-color-text-foreground-disabled);
+    }
+
+    .design-system-table tbody tr:last-child > :is(th, td),
+    .design-system-table tfoot tr:last-child > :is(th, td) {
+        border-bottom: 0;
+    }
+
+    .design-system-table[data-design-system-align="center"],
+    .design-system-table[data-design-system-align="center"] :is(th, td) {
+        text-align: center;
+    }
+
+    .design-system-table__sort {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-6);
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        letter-spacing: inherit;
+        text-align: inherit;
+        text-transform: inherit;
+        cursor: pointer;
+        transition: color var(--design-system-semantic-timing-interaction-duration-release) var(--design-system-semantic-timing-interaction-easing-standard);
+    }
+
+    .design-system-table__sort:is(:hover, [data-design-system-preview-state="hover"]) {
+        color: var(--design-system-semantic-color-text-foreground-primary);
+    }
+
+    .design-system-table__sort:is([aria-sort="ascending"], [data-design-system-sort="ascending"]) .design-system-icon,
+    th[aria-sort="ascending"] .design-system-table__sort .design-system-icon {
+        transform: rotate(180deg);
+    }
+
+    .design-system-table__column-header {
+        display: flex;
+        align-items: center;
+        gap: var(--design-system-primitive-spacing-6);
+        min-width: 0;
+    }
+
+    .design-system-table__column-header > .design-system-table__sort {
+        flex: 1 1 0;
+    }
+
+    .design-system-table__column-header > :not(.design-system-table__sort) {
+        flex: 0 0 auto;
+    }
+
+    .design-system-table__selection,
+    .design-system-table__action {
+        width: var(--design-system-semantic-sizing-control-height-relaxed);
+        text-align: center;
+    }
+
+    .design-system-table__selection:has(> .design-system-choice) {
+        position: relative;
+    }
+
+    .design-system-table__selection > .design-system-choice {
+        position: absolute;
+        inset: 0;
+        justify-content: center;
+        min-height: 0;
+    }
+
+    .design-system-table :is(th, td).design-system-table__action {
+        padding-block: 0;
+        vertical-align: middle;
+    }
+
+    .design-system-table__number {
+        text-align: end;
+        font-variant-numeric: tabular-nums lining-nums;
+    }
+
+    .design-system-table__number .design-system-table__sort {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .design-system-table__number .design-system-table__column-header {
+        justify-content: flex-end;
+    }
+
+    .design-system-table__empty {
+        padding: var(--design-system-primitive-spacing-32) !important;
+        color: var(--design-system-semantic-color-text-foreground-muted);
+        text-align: center;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > :is(th, td)[data-design-system-align="start"] {
+        text-align: start;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > :is(th, td)[data-design-system-align="center"] {
+        text-align: center;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > :is(th, td)[data-design-system-align="end"] {
+        text-align: end;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > :is(th, td)[data-design-system-valign="top"] {
+        vertical-align: top;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > :is(th, td)[data-design-system-valign="middle"] {
+        vertical-align: middle;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > :is(th, td)[data-design-system-valign="bottom"] {
+        vertical-align: bottom;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__number[data-design-system-align="start"] .design-system-table__sort {
+        justify-content: flex-start;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__number[data-design-system-align="center"] .design-system-table__sort {
+        justify-content: center;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__number[data-design-system-align="end"] .design-system-table__sort {
+        justify-content: flex-end;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-align] > .design-system-choice {
+        padding-inline: var(--_design-system-table-cell-padding-inline);
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-align="start"] > .design-system-choice {
+        justify-content: flex-start;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-align="center"] > .design-system-choice {
+        justify-content: center;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-align="end"] > .design-system-choice {
+        justify-content: flex-end;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-valign] > .design-system-choice {
+        padding-block: var(--_design-system-table-cell-padding-block);
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-valign="top"] > .design-system-choice {
+        align-items: flex-start;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-valign="middle"] > .design-system-choice {
+        align-items: center;
+    }
+
+    .design-system-table > :is(thead, tbody, tfoot) > tr > .design-system-table__selection[data-design-system-valign="bottom"] > .design-system-choice {
+        align-items: flex-end;
+    }
+
+    @media (any-pointer: coarse) {
+        .design-system-table[data-design-system-density="compact"] tr {
+            height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+
+        .design-system-table__sort {
+            min-height: var(--design-system-semantic-sizing-control-height-relaxed);
+        }
+    }
+
+    @media (forced-colors: active) {
+        .design-system-table-wrap,
+        .design-system-table :is(th, td) {
+            border-color: CanvasText;
+        }
+
+        .design-system-table-wrap:is(:focus-visible, [data-design-system-preview-state="focus"]) {
+            outline: var(--design-system-semantic-shape-focus-width) solid CanvasText;
+            outline-offset: var(--design-system-semantic-shape-focus-width);
+            box-shadow: none;
+        }
+
+        .design-system-table tbody tr:is([aria-selected="true"], [data-design-system-selected]) > :is(th, td) {
+            outline: var(--design-system-semantic-shape-boundary-width) solid Highlight;
+            outline-offset: calc(-1 * var(--design-system-semantic-shape-boundary-width));
+        }
+    }
+}
